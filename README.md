@@ -29,15 +29,15 @@ npm run dev
 
 La web es adaptable a ordenador, Android y iPhone. Incluye manifiesto instalable y caché local para poder volver a abrirla tras la primera carga.
 
-## Publicación en GitHub Pages
+## Publicación
 
-Con GitHub Pro o superior, el repositorio puede permanecer privado mientras la web compilada se publica en:
+El código fuente se mantiene en el repositorio privado de GitHub y la aplicación pública está disponible en:
 
-`https://acasalderrey.github.io/Entrena-AHP/`
+`https://entrena-ahp-aeat.casalderrey.chatgpt.site/`
 
-En cuentas personales GitHub Free, Pages solo está disponible desde repositorios públicos; el workflow conserva el repositorio privado y fallará de forma segura hasta que Pages pueda habilitarse.
+Cada cambio en `main` ejecuta `.github/workflows/ci.yml` y comprueba el banco, la puntuación y ambos formatos de compilación.
 
-Cada cambio en `main` ejecuta `.github/workflows/pages.yml`, valida el banco y ambos formatos de compilación, y despliega únicamente el contenido estático de `dist-pages`. Para probar esa misma versión localmente:
+El proyecto también conserva una compilación estática preparada para GitHub Pages. GitHub Pages desde un repositorio privado requiere GitHub Pro o superior; para probar esa versión localmente:
 
 ```text
 npm run build:pages
