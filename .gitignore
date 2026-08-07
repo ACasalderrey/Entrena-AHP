@@ -41,4 +41,4 @@ next-env.d.ts
 /outputs/
 /work/
 /pnpm-lock.yaml
-/tmp-dev-*
+/tmp-dev*
