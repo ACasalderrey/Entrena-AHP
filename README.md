@@ -23,8 +23,23 @@ Las respuestas en blanco valen cero. No se presenta una calificación oficial so
 ## Uso local
 
 ```text
-pnpm install
-pnpm dev
+npm ci
+npm run dev
 ```
 
 La web es adaptable a ordenador, Android y iPhone. Incluye manifiesto instalable y caché local para poder volver a abrirla tras la primera carga.
+
+## Publicación en GitHub Pages
+
+Con GitHub Pro o superior, el repositorio puede permanecer privado mientras la web compilada se publica en:
+
+`https://acasalderrey.github.io/Entrena-AHP/`
+
+En cuentas personales GitHub Free, Pages solo está disponible desde repositorios públicos; el workflow conserva el repositorio privado y fallará de forma segura hasta que Pages pueda habilitarse.
+
+Cada cambio en `main` ejecuta `.github/workflows/pages.yml`, valida el banco y ambos formatos de compilación, y despliega únicamente el contenido estático de `dist-pages`. Para probar esa misma versión localmente:
+
+```text
+npm run build:pages
+npm run preview:pages
+```

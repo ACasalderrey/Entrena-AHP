@@ -81,7 +81,8 @@ export default function Home() {
 
   useEffect(() => {
     if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
-      navigator.serviceWorker.register("/sw.js").catch(() => undefined);
+      const workerUrl = new URL("sw.js", document.baseURI);
+      navigator.serviceWorker.register(workerUrl).catch(() => undefined);
     }
   }, []);
 
