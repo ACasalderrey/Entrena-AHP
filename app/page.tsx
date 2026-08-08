@@ -3,6 +3,7 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import bankMetadata from "./data/bank-metadata.json";
 import explanationData from "./data/explanations.json";
+import legalVerificationData from "./data/legal-verification.json";
 import questionData from "./data/questions.json";
 import { evaluateTest } from "./lib/scoring";
 
@@ -96,10 +97,15 @@ type PendingAttempt = {
 const QUESTIONS = questionData as Question[];
 const QUESTIONS_BY_ID = new Map(QUESTIONS.map((question) => [question.id, question]));
 const EXPLANATIONS = explanationData as Record<string, QuestionExplanation>;
+const HISTORICAL_ONLY = legalVerificationData.historicalOnly as Record<string, string>;
+const SOURCE_PENDING = legalVerificationData.sourcePending as Record<string, string>;
+const TRACEABLE_EXPLANATIONS = legalVerificationData.coveredByLibrary + legalVerificationData.checkedWithExternalOfficialSources;
 const OPTION_KEYS: OptionKey[] = ["A", "B", "C", "D"];
 const PRESETS = [10, 20, 40, 80];
 const PROFILE_STORAGE_KEY = "entrena-ahp-progress-key";
 const PENDING_STORAGE_PREFIX = "entrena-ahp-pending-attempt:";
+const PROGRESS_API_META_NAME = "entrena-ahp-progress-api";
+const DEFAULT_PROGRESS_API_ENDPOINT = "/api/progress";
 const PROFILE_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
 const EMPTY_PROGRESS: ProgressData = {
@@ -275,8 +281,16 @@ function getOrCreateProfileKey(): string {
   }
 }
 
+function progressApiEndpoint(): string {
+  if (typeof document === "undefined") return DEFAULT_PROGRESS_API_ENDPOINT;
+  const configured = document
+    .querySelector<HTMLMetaElement>(`meta[name="${PROGRESS_API_META_NAME}"]`)
+    ?.content.trim();
+  return configured || DEFAULT_PROGRESS_API_ENDPOINT;
+}
+
 async function postAttempt(profileKey: string, attempt: AttemptSubmission) {
-  const response = await fetch("/api/progress", {
+  const response = await fetch(progressApiEndpoint(), {
     method: "POST",
     headers: { "content-type": "application/json", "x-progress-key": profileKey },
     body: JSON.stringify({ attempt }),
@@ -393,7 +407,7 @@ export default function Home() {
   );
 
   async function requestProgress(key: string): Promise<ProgressData> {
-    const response = await fetch("/api/progress", { headers: { "x-progress-key": key } });
+    const response = await fetch(progressApiEndpoint(), { headers: { "x-progress-key": key } });
     if (!response.ok) throw new Error("No se pudo cargar el progreso");
     return normalizeProgress(await response.json());
   }
@@ -705,6 +719,8 @@ export default function Home() {
                   const { question, selectedOption, status } = item;
                   const correctOption = question.correctOptions[0];
                   const explanation = EXPLANATIONS[question.id];
+                  const historicalNote = HISTORICAL_ONLY[question.id];
+                  const pendingSourceNote = SOURCE_PENDING[question.id];
                   const fallback = `La regla aplicable conduce a la opción ${correctOption}: ${question.options[correctOption]}`;
                   return (
                     <article className="review-card" key={question.id}>
@@ -724,6 +740,8 @@ export default function Home() {
                         </div>
                       </div>
                       <div className="error-explanation">
+                        {historicalNote && <p className="legal-status-note historical-status"><strong>Vigencia:</strong> {historicalNote}</p>}
+                        {pendingSourceNote && <p className="legal-status-note pending-status"><strong>Trazabilidad pendiente:</strong> {pendingSourceNote}</p>}
                         <strong>Por qué:</strong> {explanation?.explanation || fallback}
                         {selectedOption && (
                           <p className="answer-contrast">Tu opción afirmaba «{question.options[selectedOption]}»; el elemento decisivo es la regla anterior.</p>
@@ -860,7 +878,7 @@ export default function Home() {
 
         <section className="details-section">
           <article className="detail-card scoring-card"><span className="detail-index">01</span><div><span className="eyebrow">Corrección oficial</span><h2>Una fórmula clara, sin notas inventadas.</h2><div className="formula-visual" aria-label="Acierto más uno, error menos cero coma veinticinco, blanco cero"><span className="formula-good">+1 <small>acierto</small></span><span className="formula-bad">−0,25 <small>error</small></span><span className="formula-neutral">0 <small>en blanco</small></span></div><p>La aplicación muestra la puntuación directa. No declara aprobados ni convierte el resultado a una calificación oficial sobre 10.</p></div></article>
-          <article className="detail-card source-card"><span className="detail-index">02</span><div><span className="eyebrow">Trazabilidad</span><h2>Sabes de dónde sale cada pregunta.</h2><div className="year-grid">{yearSummary.map(([year, count]) => <div key={year}><strong>{year}</strong><span>{count} válidas</span></div>)}</div><p>La revisión muestra convocatoria, número original y una explicación razonada. Todas las plantillas utilizadas tienen carácter definitivo, incluida la correspondiente a 2022.</p></div></article>
+          <article className="detail-card source-card"><span className="detail-index">02</span><div><span className="eyebrow">Trazabilidad</span><h2>Sabes de dónde sale cada pregunta.</h2><div className="year-grid">{yearSummary.map(([year, count]) => <div key={year}><strong>{year}</strong><span>{count} válidas</span></div>)}</div><p>La revisión muestra convocatoria, número original y una explicación razonada. Todas las plantillas utilizadas tienen carácter definitivo, incluida la de 2022. Auditoría normativa a {legalVerificationData.verifiedAt.split("-").reverse().join("/")}: fuente trazable en {TRACEABLE_EXPLANATIONS} de {legalVerificationData.questionsReviewed} explicaciones; la excepción pendiente y las reglas históricas se advierten expresamente.</p></div></article>
         </section>
       </main>
 

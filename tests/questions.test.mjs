@@ -13,6 +13,9 @@ const metadata = JSON.parse(
 const explanations = JSON.parse(
   await readFile(new URL("../app/data/explanations.json", import.meta.url), "utf8"),
 );
+const legalVerification = JSON.parse(
+  await readFile(new URL("../app/data/legal-verification.json", import.meta.url), "utf8"),
+);
 
 const excluded = {
   2022: [43, 82],
@@ -74,6 +77,20 @@ test("provides a substantive explanation for every valid question", () => {
     assert.ok(typeof item.reference === "string" && item.reference.trim().length >= 3, `${id} necesita fundamento`);
     assert.doesNotMatch(item.explanation, /no coincide con (?:la )?(?:clave|plantilla)|la plantilla .*señala/i);
   }
+});
+
+
+test("documents current-law coverage and its explicit exceptions", () => {
+  assert.equal(legalVerification.verifiedAt, "2026-08-08");
+  assert.equal(legalVerification.questionsReviewed, questions.length);
+  assert.equal(legalVerification.coveredByLibrary, 303);
+  assert.equal(legalVerification.externalSourcesRequired, 69);
+  assert.equal(legalVerification.checkedWithExternalOfficialSources, 68);
+  assert.deepEqual(Object.keys(legalVerification.historicalOnly), ["aeat-2022-a-094"]);
+  assert.deepEqual(Object.keys(legalVerification.sourcePending), ["aeat-2022-a-055"]);
+  assert.match(explanations["aeat-2022-a-094"].explanation, /cuatro opciones tributan al 4 %/i);
+  assert.match(explanations["aeat-2024-a-079"].explanation, /2\.500 euros/i);
+  assert.match(explanations["aeat-2022-a-055"].reference, /pendiente de identificar/i);
 });
 
 

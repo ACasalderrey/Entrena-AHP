@@ -1,0 +1,16 @@
+{
+  "verifiedAt": "2026-08-08",
+  "questionsReviewed": 372,
+  "coveredByLibrary": 303,
+  "externalSourcesRequired": 69,
+  "checkedWithExternalOfficialSources": 68,
+  "historicalOnly": {
+    "aeat-2022-a-094": "La opción C es la respuesta de la plantilla definitiva y se conserva para reproducir el examen. Con la LIVA vigente, las cuatro opciones tributan al 4 %, por lo que hoy la pregunta no tendría una única respuesta válida."
+  },
+  "currentRuleUpdated": {
+    "aeat-2024-a-079": "La respuesta C sigue siendo correcta; la explicación se ha actualizado al límite vigente de 2.500 euros para el segundo y restantes pagadores."
+  },
+  "sourcePending": {
+    "aeat-2022-a-055": "Se conserva la respuesta B de la plantilla definitiva. La pauta sobre tratamiento de ficheros es coherente con el contexto normativo citado, pero su fuente operativa específica no se ha localizado en una disposición pública ni en la biblioteca."
+  }
+}

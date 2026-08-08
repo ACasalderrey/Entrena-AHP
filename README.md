@@ -40,13 +40,19 @@ La web es adaptable a ordenador, Android y iPhone. Incluye manifiesto instalable
 
 ## Publicación
 
-El código fuente se mantiene en el repositorio privado de GitHub y la aplicación pública está disponible en:
+El frontend está preparado para publicarse en GitHub Pages en:
+
+`https://acasalderrey.github.io/Entrena-AHP/`
+
+Cada cambio en `main` ejecuta las pruebas y, mediante `.github/workflows/pages.yml`, construye y publica `dist-pages`. Para activar la publicación por primera vez hay que seleccionar **GitHub Actions** como origen en **Settings > Pages**. GitHub Pages está disponible gratuitamente si el repositorio es público.
+
+GitHub Pages sirve contenido estático, por lo que el historial y la recuperación entre dispositivos siguen utilizando el endpoint D1 de la publicación de Sites. La API solo permite peticiones de navegador procedentes de `https://acasalderrey.github.io`; la aplicación no solicita nombre, correo ni cuenta de usuario.
+
+La versión de Sites puede mantenerse durante la transición en:
 
 `https://entrena-ahp-aeat.casalderrey.chatgpt.site/`
 
-Cada cambio en `main` ejecuta `.github/workflows/ci.yml` y comprueba el banco, la puntuación y ambos formatos de compilación.
-
-El proyecto también conserva una compilación estática preparada para GitHub Pages. GitHub Pages desde un repositorio privado requiere GitHub Pro o superior; para probar esa versión localmente:
+Para probar la compilación estática localmente:
 
 ```text
 npm run build:pages

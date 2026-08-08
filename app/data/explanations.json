@@ -212,8 +212,8 @@
     "reference": "Ley 58/2003, artículo 146.2"
   },
   "aeat-2022-a-055": {
-    "explanation": "Es incorrecto afirmar que los ficheros de la Agencia Tributaria solo pueden entregarse en mano. La entrega puede realizarse por medios electrónicos que permitan acreditar el contenido, la recepción y las necesarias garantías de integridad y confidencialidad.",
-    "reference": "Normativa tributaria sobre documentación electrónica en las actuaciones de aplicación de los tributos"
+    "explanation": "Es incorrecto afirmar que los ficheros de la Agencia Tributaria solo pueden entregarse en mano: la propia pauta examinada admite otros mecanismos de entrega y exige documentar la recepción y preservar la integridad de la información. Se conserva la respuesta B de la plantilla definitiva, aunque la fuente operativa concreta de esta pauta no se ha localizado en una disposición pública ni en la biblioteca.",
+    "reference": "Fuente operativa específica pendiente de identificar. Contexto normativo parcial: Ley 58/2003, artículos 99.7, 142 y 146; Real Decreto 1065/2007, artículos 171, 172 y 181"
   },
   "aeat-2022-a-056": {
     "explanation": "La entrega de ficheros informáticos al obligado tributario es una actuación relevante del procedimiento y debe documentarse en una diligencia. La diligencia deja constancia de los hechos y circunstancias producidos durante la actuación.",
@@ -364,8 +364,8 @@
     "reference": "Ley 37/1992, artículo 75.Uno.1.º y 75.Dos"
   },
   "aeat-2022-a-094": {
-    "explanation": "Los medicamentos de uso humano, fórmulas magistrales y preparados oficinales tributan al 4 %. En la fecha relevante del examen, pan común, quesos y huevos estaban temporalmente gravados al 0 %, por lo que no eran la respuesta al tipo del 4 %.",
-    "reference": "Ley 37/1992, artículo 91.Dos.1.3.º; Real Decreto-ley 20/2022, artículo 72"
+    "explanation": "La plantilla definitiva marca C conforme al régimen temporal vigente en la fecha del examen: pan común, quesos y huevos tributaban entonces al 0 %, mientras que los medicamentos de uso humano seguían al 4 %. Esta pregunta ha quedado desactualizada: con la normativa vigente a 8 de agosto de 2026, las cuatro opciones tributan al 4 %, por lo que hoy no sería válida como pregunta de respuesta única.",
+    "reference": "Respuesta histórica: Real Decreto-ley 20/2022, artículo 72. Situación vigente: Ley 37/1992, artículo 91.Dos.1.1.º y 3.º"
   },
   "aeat-2022-a-095": {
     "explanation": "El derecho a repercutir el IVA se pierde cuando transcurre un año desde el devengo de la operación. Por tanto, no queda perdido automáticamente al expedir una factura sin cuota, pero tampoco se mantiene durante todo el plazo general de prescripción.",
@@ -417,7 +417,7 @@
   },
   "aeat-2023-a-007": {
     "explanation": "La entrada inspectora en un domicilio constitucionalmente protegido exige consentimiento del titular o autorización judicial. Una autorización administrativa interna no sustituye esa garantía constitucional.",
-    "reference": "Constitución Española, artículo 18.2; Real Decreto 1065/2007, normativa sobre entrada y reconocimiento de fincas"
+    "reference": "Constitución Española, artículo 18.2; Real Decreto 1065/2007, artículo 172"
   },
   "aeat-2023-a-008": {
     "explanation": "Cada Cámara cuenta con una Diputación Permanente compuesta por un mínimo de veintiún miembros, que representan a los grupos parlamentarios proporcionalmente. Sus funciones continúan incluso disueltas las Cámaras y hasta la constitución de las nuevas Cortes.",
@@ -473,7 +473,7 @@
   },
   "aeat-2023-a-022": {
     "explanation": "Los Secretarios de Estado son órganos superiores de la Administración General del Estado encargados de ejecutar la acción del Gobierno en un sector específico. Actúan bajo la dirección del ministro correspondiente o, si están adscritos a la Presidencia, bajo la del Presidente.",
-    "reference": "Ley 50/1997, del Gobierno"
+    "reference": "Ley 50/1997, artículos 7.1 y 7.2"
   },
   "aeat-2023-a-023": {
     "explanation": "Si la representación no está acreditada o es insuficiente, el órgano tributario debe conceder un plazo de diez días para aportar el documento o subsanar el defecto. La actuación puede conservarse si la subsanación se realiza dentro de ese plazo.",
@@ -625,7 +625,7 @@
   },
   "aeat-2023-a-064": {
     "explanation": "El modelo 111 es una autoliquidación periódica de retenciones e ingresos a cuenta sobre rendimientos del trabajo y de actividades económicas, premios y determinadas ganancias e imputaciones de renta. No es una declaración anual informativa ni un modelo general de IVA.",
-    "reference": "Normativa reguladora del modelo 111"
+    "reference": "Orden EHA/586/2011, artículo 1 y anexo"
   },
   "aeat-2023-a-065": {
     "explanation": "El municipio se define jurídicamente por tres elementos: territorio, población y organización. La provincia, la hacienda o las competencias son instituciones o atributos relacionados, pero no forman parte de esa enumeración legal.",
@@ -737,7 +737,7 @@
   },
   "aeat-2023-a-092": {
     "explanation": "El IBI es objetivo porque grava el valor de determinados derechos sobre inmuebles atendiendo esencialmente al bien, sin adaptar la carga a las circunstancias personales del contribuyente. Los otros impuestos propuestos incorporan en mayor medida elementos subjetivos o personales.",
-    "reference": "Texto refundido de la Ley Reguladora de las Haciendas Locales, regulación del Impuesto sobre Bienes Inmuebles"
+    "reference": "Real Decreto Legislativo 2/2004, artículo 60"
   },
   "aeat-2023-a-093": {
     "explanation": "Los depósitos en efectivo y las operaciones financieras relacionadas están incluidos entre las exenciones del IVA. En cambio, las muestras sin valor y ciertos objetos publicitarios se califican como operaciones no sujetas, que es una categoría distinta de la exención.",
@@ -753,7 +753,7 @@
   },
   "aeat-2023-a-096": {
     "explanation": "El Consejo de Defensa del Contribuyente cuenta con dieciséis vocales y cuatro de ellos representan a la Agencia Estatal de Administración Tributaria. Los demás proceden de otros ámbitos administrativos, profesionales y sociales previstos en su norma reguladora.",
-    "reference": "Real Decreto 1676/2009, regulación del Consejo para la Defensa del Contribuyente"
+    "reference": "Real Decreto 1676/2009, artículo 4.1.b)"
   },
   "aeat-2023-a-097": {
     "explanation": "La tercería de dominio discute que los bienes embargados pertenezcan al deudor. Tras adoptar las medidas de aseguramiento oportunas, se suspende el apremio únicamente respecto de esos bienes o derechos controvertidos, no respecto de todo el procedimiento.",
@@ -829,7 +829,7 @@
   },
   "aeat-2024-a-015": {
     "explanation": "La competencia para resolver los expedientes de deducción sobre transferencias de la Administración General del Estado a entes territoriales y demás entidades públicas está atribuida al Departamento de Recaudación de la AEAT.",
-    "reference": "Orden PRE/3581/2007"
+    "reference": "Orden PRE/3581/2007, artículo 6.1.l)"
   },
   "aeat-2024-a-016": {
     "explanation": "Están exentas las prestaciones económicas públicas de dependencia vinculadas al servicio, a cuidados en el entorno familiar y a asistencia personalizada. La herencia tributa, en su caso, por Sucesiones y Donaciones, y la incapacidad permanente total no alcanza el grado exigido para la exención del IRPF.",
@@ -873,11 +873,11 @@
   },
   "aeat-2024-a-026": {
     "explanation": "La compra se produjo después de que el embargo estuviera anotado en el Registro, de modo que el adquirente recibió el inmueble sujeto a esa carga registral. No puede prosperar una tercería de dominio basada en una adquisición posterior al embargo anotado.",
-    "reference": "Real Decreto 939/2005, regulación de las tercerías"
+    "reference": "Real Decreto 939/2005, artículos 117 y 119; Ley 1/2000, artículo 595.1; Ley Hipotecaria, artículo 71"
   },
   "aeat-2024-a-027": {
     "explanation": "El nombramiento de los Delegados Especiales corresponde al Presidente de la Agencia Tributaria, a propuesta de su Director General. Las direcciones de departamento o de Función Pública no tienen atribuida esa designación.",
-    "reference": "Resolución de 13 de enero de 2021 de la Presidencia de la AEAT"
+    "reference": "Resolución de 13 de enero de 2021 de la Presidencia de la AEAT, apartado quinto.3"
   },
   "aeat-2024-a-028": {
     "explanation": "La falta de nombre o calificación jurídica del recurso no impide tramitarlo si de su contenido puede deducirse su verdadera naturaleza. Prima el contenido del escrito sobre la etiqueta utilizada por el recurrente.",
@@ -989,7 +989,7 @@
   },
   "aeat-2024-a-055": {
     "explanation": "La inadmisión hace que la solicitud de aplazamiento o fraccionamiento se tenga por no presentada a todos los efectos. Por tanto, no produce la protección frente al inicio del período ejecutivo que sí puede producir una solicitud admisible presentada en voluntaria.",
-    "reference": "Real Decreto 939/2005, regulación de la inadmisión de solicitudes de aplazamiento y fraccionamiento"
+    "reference": "Real Decreto 939/2005, artículo 47.3"
   },
   "aeat-2024-a-056": {
     "explanation": "Corresponde al Ministerio Fiscal promover la acción de la justicia en defensa de la legalidad, los derechos de los ciudadanos y el interés público, así como velar por la independencia judicial y procurar la satisfacción del interés social.",
@@ -1077,10 +1077,10 @@
   },
   "aeat-2024-a-078": {
     "explanation": "En las entidades en régimen de atribución de rentas, la entidad no satisface un pago fraccionado propio por esas rentas: lo realizan socios, herederos, comuneros o partícipes en proporción a su participación en el beneficio.",
-    "reference": "Real Decreto 439/2007, regulación de pagos fraccionados de entidades en atribución de rentas"
+    "reference": "Real Decreto 439/2007, artículo 112"
   },
   "aeat-2024-a-079": {
-    "explanation": "Aunque haya varios pagadores, se mantiene el límite de 22.000 euros cuando lo percibido del segundo y restantes pagadores no supera conjuntamente 1.500 euros. Aquí suman 1.000 euros y el total del trabajo es 18.000, por lo que no existe obligación de declarar por esos rendimientos.",
+    "explanation": "La respuesta oficial sigue siendo válida con la norma actual: se mantiene el límite general de 22.000 euros cuando lo percibido del segundo y restantes pagadores no supera conjuntamente 2.500 euros. Aquí suman 1.000 euros y el total del trabajo es 18.000, por lo que no existe obligación de declarar por esos rendimientos.",
     "reference": "Ley 35/2006, artículo 96"
   },
   "aeat-2024-a-080": {
@@ -1197,7 +1197,7 @@
   },
   "aeat-2025-a-008": {
     "explanation": "La adquisición intracomunitaria de un medio de transporte nuevo tributa en el Estado miembro de destino aunque el comprador sea particular y cualquiera que sea la condición del vendedor. Como el automóvil se destina a España, el IVA se ingresa en España.",
-    "reference": "Ley 37/1992, del IVA, regulación de las adquisiciones intracomunitarias de medios de transporte nuevos"
+    "reference": "Ley 37/1992, artículos 13.2.º y 71.Uno"
   },
   "aeat-2025-a-009": {
     "explanation": "La iniciativa legislativa popular está excluida en materias propias de ley orgánica, tributarias, internacionales y relativas a la prerrogativa de gracia. Por tanto, no puede utilizarse para promover una ley de contenido tributario.",
@@ -1337,7 +1337,7 @@
   },
   "aeat-2025-a-043": {
     "explanation": "La devolución del IRPF 2024 debía ordenarse dentro de los seis meses posteriores al fin del plazo de declaración, que venció el 30 de junio de 2025. Desde el 31 de diciembre se devengan intereses, sin petición, sobre los 200 euros finalmente reconocidos y hasta la orden de pago del 2 de marzo de 2026.",
-    "reference": "Ley 58/2003, General Tributaria, artículo 31.2; Ley 35/2006, regulación de devoluciones del IRPF"
+    "reference": "Ley 58/2003, artículo 31.2; Ley 35/2006, artículo 103.1"
   },
   "aeat-2025-a-044": {
     "explanation": "Una solicitud de aplazamiento o fraccionamiento presentada en período voluntario evita que comience el período ejecutivo mientras se tramita. Sin embargo, no paraliza el devengo del interés de demora asociado al pago posterior.",

@@ -1,5 +1,6 @@
 import { getD1 } from "../../../db";
 import questionData from "../../data/questions.json";
+import { corsHeaders, corsPreflightResponse } from "../../lib/cors";
 import { D1_ANSWER_CHUNK_SIZE } from "../../lib/progress";
 
 type AttemptItem = {
@@ -54,8 +55,18 @@ function profileKeyFrom(request: Request): string | null {
   return PROFILE_KEY.test(value) ? value : null;
 }
 
-function errorResponse(message: string, status: number) {
-  return Response.json({ error: message }, { status, headers: { "cache-control": "no-store" } });
+function responseHeaders(request: Request): Headers {
+  const headers = corsHeaders(request);
+  headers.set("cache-control", "no-store");
+  return headers;
+}
+
+function jsonResponse(request: Request, body: unknown, status = 200) {
+  return Response.json(body, { status, headers: responseHeaders(request) });
+}
+
+function errorResponse(request: Request, message: string, status: number) {
+  return jsonResponse(request, { error: message }, status);
 }
 
 function isCount(value: unknown): value is number {
@@ -152,9 +163,13 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
   };
 }
 
+export function OPTIONS(request: Request) {
+  return corsPreflightResponse(request);
+}
+
 export async function GET(request: Request) {
   const profileKey = profileKeyFrom(request);
-  if (!profileKey) return errorResponse("Código de progreso no válido.", 400);
+  if (!profileKey) return errorResponse(request, "Código de progreso no válido.", 400);
 
   try {
     const database = await getD1();
@@ -206,43 +221,43 @@ export async function GET(request: Request) {
         .all(),
     ]);
 
-    return Response.json(
+    return jsonResponse(
+      request,
       {
         attempts: attemptsResult.results,
         questionStats: statsResult.results,
         summary: summaryResult.results[0],
       },
-      { headers: { "cache-control": "no-store" } },
     );
   } catch (error) {
     const message = error instanceof Error ? error.message : "Error inesperado";
     if (message.includes("no such table")) {
-      return errorResponse("El historial se está preparando. Inténtalo de nuevo en unos instantes.", 503);
+      return errorResponse(request, "El historial se está preparando. Inténtalo de nuevo en unos instantes.", 503);
     }
-    return errorResponse("No se pudo recuperar el historial.", 500);
+    return errorResponse(request, "No se pudo recuperar el historial.", 500);
   }
 }
 
 export async function POST(request: Request) {
   const profileKey = profileKeyFrom(request);
-  if (!profileKey) return errorResponse("Código de progreso no válido.", 400);
+  if (!profileKey) return errorResponse(request, "Código de progreso no válido.", 400);
 
   let body: unknown;
   try {
     body = await request.json();
   } catch {
-    return errorResponse("El intento no contiene JSON válido.", 400);
+    return errorResponse(request, "El intento no contiene JSON válido.", 400);
   }
 
   const validated = validateAttempt((body as { attempt?: unknown })?.attempt);
-  if (!validated) return errorResponse("Los datos del intento no son válidos.", 400);
+  if (!validated) return errorResponse(request, "Los datos del intento no son válidos.", 400);
 
   const { attempt, items } = validated;
-  const database = await getD1();
 
   try {
+    const database = await getD1();
     const existing = await database.prepare("SELECT id FROM attempts WHERE id = ?").bind(attempt.id).first();
-    if (existing) return Response.json({ saved: true, duplicate: true }, { headers: { "cache-control": "no-store" } });
+    if (existing) return jsonResponse(request, { saved: true, duplicate: true });
 
     const statements: D1PreparedStatement[] = [
       database
@@ -288,8 +303,8 @@ export async function POST(request: Request) {
     }
 
     await database.batch(statements);
-    return Response.json({ saved: true }, { status: 201, headers: { "cache-control": "no-store" } });
+    return jsonResponse(request, { saved: true }, 201);
   } catch {
-    return errorResponse("No se pudo guardar el intento.", 500);
+    return errorResponse(request, "No se pudo guardar el intento.", 500);
   }
 }
