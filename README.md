@@ -26,8 +26,10 @@ Las respuestas en blanco valen cero. No se presenta una calificación oficial so
 - El panel guarda los resultados, resume aciertos, errores y preguntas en blanco, y muestra la evolución de los últimos tests.
 - Las preguntas falladas que todavía no se han corregido forman automáticamente un test de repaso.
 - El progreso se guarda bajo un identificador anónimo. El código de recuperación permite abrir el mismo historial en otro navegador o dispositivo; no se solicitan nombre, correo ni cuenta de usuario.
+- El navegador mantiene una copia completa por perfil para mostrar el panel aunque Sites no esté disponible.
+- El panel permite exportar e importar una copia JSON versionada con el historial, el código anónimo y los intentos aún pendientes de sincronización.
 
-La persistencia de la versión publicada utiliza una base D1. Si falta temporalmente la conexión, los intentos pendientes se conservan en el navegador y se sincronizan al recuperarla.
+La persistencia autoritativa de la versión publicada utiliza una base D1. Si falta temporalmente la conexión, el historial sigue disponible desde la copia local, los nuevos intentos se conservan en el navegador y se sincronizan al recuperarla. Una respuesta remota regresiva nunca sustituye una copia local con más tests.
 
 ## Uso local
 

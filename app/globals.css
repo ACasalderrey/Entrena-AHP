@@ -532,6 +532,7 @@ label:has(input:focus-visible) {
 .sync-chip.ready { background: var(--green-soft); color: var(--green); }
 .sync-chip.loading { background: var(--amber-soft); color: #8b641d; }
 .sync-chip.offline { background: #eef2f5; color: #536778; }
+.sync-chip.local { background: var(--teal-soft); color: var(--teal-dark); }
 
 .mode-chip {
   width: max-content;
@@ -790,6 +791,33 @@ label:has(input:focus-visible) {
   color: var(--muted);
   font-size: 0.7rem;
   font-weight: 800;
+}
+
+.profile-backup {
+  margin: 0.8rem 0 0;
+  border: 0;
+  border-top: 1px solid var(--line);
+  padding: 0.8rem 0 0;
+}
+
+.profile-backup legend {
+  padding: 0 0.35rem 0 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  font-weight: 800;
+}
+
+.profile-backup-actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.55rem;
+}
+
+.profile-backup > p {
+  margin: 0.5rem 0 0;
+  color: var(--muted);
+  font-size: 0.68rem;
+  line-height: 1.45;
 }
 
 .profile-message {
@@ -1610,6 +1638,10 @@ label:has(input:focus-visible) {
 
   .profile-code,
   .profile-import > div {
+    grid-template-columns: 1fr;
+  }
+
+  .profile-backup-actions {
     grid-template-columns: 1fr;
   }
 }
