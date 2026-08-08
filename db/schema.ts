@@ -12,6 +12,8 @@ export const attempts = sqliteTable(
     incorrect: integer("incorrect").notNull(),
     blank: integer("blank").notNull(),
     directScore: real("direct_score").notNull(),
+    durationMs: integer("duration_ms"),
+    timeLimitMs: integer("time_limit_ms"),
   },
   (table) => [index("idx_attempts_profile_completed").on(table.profileKey, table.completedAt)],
 );

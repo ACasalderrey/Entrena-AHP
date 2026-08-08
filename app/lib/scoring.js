@@ -4,6 +4,41 @@ export const OFFICIAL_SCORING = Object.freeze({
   blank: 0,
 });
 
+export const OFFICIAL_TEST_TIMING = Object.freeze({
+  questions: 80,
+  durationMinutes: 90,
+});
+
+const MILLISECONDS_PER_MINUTE = 60_000;
+
+export function proportionalScoreOutOfTen(directScore, total) {
+  if (!Number.isFinite(directScore) || !Number.isFinite(total) || total <= 0) return 0;
+  return Math.max(0, Math.min(10, (directScore / total) * 10));
+}
+
+export function timeLimitMillisecondsFor(questionCount) {
+  if (!Number.isFinite(questionCount) || questionCount <= 0) return 0;
+  return Math.round(
+    questionCount
+      * OFFICIAL_TEST_TIMING.durationMinutes
+      * MILLISECONDS_PER_MINUTE
+      / OFFICIAL_TEST_TIMING.questions,
+  );
+}
+
+export function timeLimitSecondsFor(questionCount) {
+  return timeLimitMillisecondsFor(questionCount) / 1_000;
+}
+
+export function formatDuration(seconds) {
+  const rounded = Number.isFinite(seconds) ? Math.max(0, Math.ceil(seconds)) : 0;
+  const hours = Math.floor(rounded / 3_600);
+  const minutes = Math.floor((rounded % 3_600) / 60);
+  const remainingSeconds = rounded % 60;
+  const clock = [minutes, remainingSeconds].map((part) => String(part).padStart(2, "0")).join(":");
+  return hours ? `${hours}:${clock}` : clock;
+}
+
 export function evaluateTest(questions, answers) {
   let correct = 0;
   let incorrect = 0;
@@ -33,6 +68,7 @@ export function evaluateTest(questions, answers) {
     incorrect,
     blank,
     directScore,
+    scoreOutOfTen: proportionalScoreOutOfTen(directScore, questions.length),
     items,
   };
 }

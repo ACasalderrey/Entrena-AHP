@@ -18,6 +18,8 @@ type AttemptPayload = {
   incorrect?: unknown;
   blank?: unknown;
   directScore?: unknown;
+  durationMs?: unknown;
+  timeLimitMs?: unknown;
   items?: unknown;
 };
 
@@ -36,6 +38,8 @@ type ValidatedAttempt = {
   incorrect: number;
   blank: number;
   directScore: number;
+  durationMs: number | null;
+  timeLimitMs: number | null;
 };
 
 const PROFILE_KEY = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -43,6 +47,7 @@ const ATTEMPT_ID = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9
 const QUESTION_ID = /^aeat-(2022|2023|2024|2025)-a-\d{3}$/;
 const OPTION = /^[ABCD]$/;
 const STATUSES = new Set(["correct", "incorrect", "blank"]);
+const MILLISECONDS_PER_QUESTION = 67_500;
 const QUESTION_ANSWERS = new Map(
   (questionData as Array<{ id: string; correctOptions: string[] }>).map((question) => [
     question.id,
@@ -94,6 +99,19 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
     !Array.isArray(attempt.items) ||
     attempt.items.length !== attempt.total ||
     attempt.items.length < 1
+  ) {
+    return null;
+  }
+
+  const durationMissing = attempt.durationMs === undefined || attempt.durationMs === null;
+  const limitMissing = attempt.timeLimitMs === undefined || attempt.timeLimitMs === null;
+  if (durationMissing !== limitMissing) return null;
+  if (
+    !durationMissing &&
+    (!Number.isSafeInteger(attempt.durationMs) ||
+      Number(attempt.durationMs) < 0 ||
+      !Number.isSafeInteger(attempt.timeLimitMs) ||
+      attempt.timeLimitMs !== attempt.total * MILLISECONDS_PER_QUESTION)
   ) {
     return null;
   }
@@ -158,6 +176,8 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
       incorrect,
       blank,
       directScore: attempt.directScore,
+      durationMs: durationMissing ? null : Number(attempt.durationMs),
+      timeLimitMs: limitMissing ? null : Number(attempt.timeLimitMs),
     },
     items,
   };
@@ -177,7 +197,7 @@ export async function GET(request: Request) {
       database
         .prepare(
           `SELECT id, completed_at AS completedAt, mode, total, correct, incorrect, blank,
-                  direct_score AS directScore
+                  direct_score AS directScore, duration_ms AS durationMs, time_limit_ms AS timeLimitMs
              FROM attempts
             WHERE profile_key = ?
             ORDER BY completed_at DESC
@@ -263,8 +283,9 @@ export async function POST(request: Request) {
       database
         .prepare(
           `INSERT INTO attempts
-             (id, profile_key, completed_at, mode, total, correct, incorrect, blank, direct_score)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+             (id, profile_key, completed_at, mode, total, correct, incorrect, blank, direct_score,
+              duration_ms, time_limit_ms)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         )
         .bind(
           attempt.id,
@@ -276,6 +297,8 @@ export async function POST(request: Request) {
           attempt.incorrect,
           attempt.blank,
           attempt.directScore,
+          attempt.durationMs,
+          attempt.timeLimitMs,
         ),
     ];
 

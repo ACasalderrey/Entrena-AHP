@@ -11,7 +11,12 @@ import {
   parseProgressBackup,
   parseProgressCache,
 } from "./lib/progress-backup";
-import { evaluateTest } from "./lib/scoring";
+import {
+  evaluateTest,
+  formatDuration,
+  proportionalScoreOutOfTen,
+  timeLimitMillisecondsFor,
+} from "./lib/scoring";
 
 type OptionKey = "A" | "B" | "C" | "D";
 type AnswerStatus = "correct" | "incorrect" | "blank";
@@ -50,6 +55,9 @@ type TestResult = {
   incorrect: number;
   blank: number;
   directScore: number;
+  scoreOutOfTen: number;
+  durationMs: number;
+  timeLimitMs: number;
   items: ReviewItem[];
 };
 
@@ -68,6 +76,8 @@ type Attempt = {
   incorrect: number;
   blank: number;
   directScore: number;
+  durationMs: number | null;
+  timeLimitMs: number | null;
 };
 
 type AttemptSubmission = Attempt & { items: AttemptItem[] };
@@ -152,6 +162,12 @@ function numberFrom(value: unknown): number {
   return Number.isFinite(parsed) ? parsed : 0;
 }
 
+function nullableMillisecondsFrom(value: unknown): number | null {
+  if (value === null || value === undefined) return null;
+  const parsed = Number(value);
+  return Number.isSafeInteger(parsed) && parsed >= 0 ? parsed : null;
+}
+
 function normalizeProgress(value: unknown): ProgressData {
   const raw = (value && typeof value === "object" ? value : {}) as Record<string, unknown>;
   const rawSummary = (raw.summary && typeof raw.summary === "object" ? raw.summary : {}) as Record<string, unknown>;
@@ -161,15 +177,21 @@ function normalizeProgress(value: unknown): ProgressData {
   return {
     attempts: rawAttempts.map((entry) => {
       const item = entry as Record<string, unknown>;
+      const total = numberFrom(item.total);
+      const durationMs = nullableMillisecondsFrom(item.durationMs);
+      const timeLimitMs = nullableMillisecondsFrom(item.timeLimitMs);
+      const hasValidTiming = durationMs !== null && timeLimitMs === timeLimitMillisecondsFor(total);
       return {
         id: String(item.id ?? ""),
         completedAt: numberFrom(item.completedAt),
         mode: item.mode === "review" ? "review" : "standard",
-        total: numberFrom(item.total),
+        total,
         correct: numberFrom(item.correct),
         incorrect: numberFrom(item.incorrect),
         blank: numberFrom(item.blank),
         directScore: numberFrom(item.directScore),
+        durationMs: hasValidTiming ? durationMs : null,
+        timeLimitMs: hasValidTiming ? timeLimitMs : null,
       };
     }),
     questionStats: rawStats.map((entry) => {
@@ -272,6 +294,21 @@ function applyAttempt(
   };
 }
 
+function preserveLocalTimings(remote: ProgressData, cached?: ProgressData): ProgressData {
+  if (!cached) return remote;
+  const cachedById = new Map(cached.attempts.map((attempt) => [attempt.id, attempt]));
+  return {
+    ...remote,
+    attempts: remote.attempts.map((attempt) => {
+      if (attempt.durationMs !== null && attempt.timeLimitMs !== null) return attempt;
+      const local = cachedById.get(attempt.id);
+      return local?.durationMs !== null && local?.durationMs !== undefined && local.timeLimitMs !== null
+        ? { ...attempt, durationMs: local.durationMs, timeLimitMs: local.timeLimitMs }
+        : attempt;
+    }),
+  };
+}
+
 function readPendingAttempts(): PendingAttempt[] {
   try {
     const pending: PendingAttempt[] = [];
@@ -295,6 +332,14 @@ function readPendingAttempts(): PendingAttempt[] {
         typeof attempt.incorrect === "number" &&
         typeof attempt.blank === "number" &&
         typeof attempt.directScore === "number" &&
+        ((attempt.durationMs === undefined && attempt.timeLimitMs === undefined) ||
+          (attempt.durationMs === null && attempt.timeLimitMs === null) ||
+          (typeof attempt.durationMs === "number" &&
+            Number.isSafeInteger(attempt.durationMs) &&
+            attempt.durationMs >= 0 &&
+            typeof attempt.timeLimitMs === "number" &&
+            Number.isSafeInteger(attempt.timeLimitMs) &&
+            attempt.timeLimitMs === attempt.total * 67_500)) &&
         Array.isArray(attempt.items) &&
         attempt.items.every((item) =>
           item &&
@@ -415,6 +460,8 @@ export default function Home() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, OptionKey>>({});
   const [finishPrompt, setFinishPrompt] = useState(false);
+  const [timingVisible, setTimingVisible] = useState(false);
+  const [elapsedMs, setElapsedMs] = useState(0);
   const [result, setResult] = useState<TestResult | null>(null);
   const [profileKey, setProfileKey] = useState(getOrCreateProfileKey);
   const [profileInput, setProfileInput] = useState("");
@@ -430,6 +477,8 @@ export default function Home() {
   const activeProgressKey = useRef(profileKey);
   const backupFileInput = useRef<HTMLInputElement>(null);
   const pageHeading = useRef<HTMLHeadingElement>(null);
+  const quizStartedAt = useRef<number | null>(null);
+  const isFinishing = useRef(false);
   const hasMounted = useRef(false);
 
   useEffect(() => {
@@ -463,6 +512,14 @@ export default function Home() {
     const frame = window.requestAnimationFrame(() => pageHeading.current?.focus({ preventScroll: true }));
     return () => window.cancelAnimationFrame(frame);
   }, [stage, currentIndex]);
+
+  useEffect(() => {
+    if (stage !== "quiz" || !timingVisible || quizStartedAt.current === null) return undefined;
+    const updateElapsed = () => setElapsedMs(Math.max(0, Date.now() - (quizStartedAt.current ?? Date.now())));
+    updateElapsed();
+    const timer = window.setInterval(updateElapsed, 1_000);
+    return () => window.clearInterval(timer);
+  }, [stage, timingVisible]);
 
   const answeredCount = Object.keys(answers).length;
   const unansweredCount = quizQuestions.length - answeredCount;
@@ -522,7 +579,7 @@ export default function Home() {
     volatilePending.current.unshift(...volatileRemaining);
 
     try {
-      const remote = await requestProgress(key);
+      const remote = preserveLocalTimings(await requestProgress(key), cached?.progress);
       if (syncRequest.current !== requestId) return;
       const remoteIds = new Set(cached?.appliedAttemptIds ?? []);
       remote.attempts.forEach((attempt) => remoteIds.add(attempt.id));
@@ -559,7 +616,11 @@ export default function Home() {
     setAnswers({});
     setCurrentIndex(0);
     setFinishPrompt(false);
+    setTimingVisible(false);
+    setElapsedMs(0);
     setResult(null);
+    quizStartedAt.current = Date.now();
+    isFinishing.current = false;
     setStage("quiz");
     scrollToTop();
   }
@@ -595,7 +656,13 @@ export default function Home() {
   }
 
   function finishTest() {
-    const evaluated = evaluateTest(quizQuestions, answers) as TestResult;
+    if (isFinishing.current) return;
+    isFinishing.current = true;
+    const completedAt = Date.now();
+    const durationMs = Math.max(0, completedAt - (quizStartedAt.current ?? completedAt));
+    const timeLimitMs = timeLimitMillisecondsFor(quizQuestions.length);
+    const evaluated = evaluateTest(quizQuestions, answers) as Omit<TestResult, "durationMs" | "timeLimitMs">;
+    const timedResult: TestResult = { ...evaluated, durationMs, timeLimitMs };
     const key = profileKey || crypto.randomUUID();
     if (!profileKey) {
       try {
@@ -607,13 +674,15 @@ export default function Home() {
     }
     const attempt: AttemptSubmission = {
       id: crypto.randomUUID(),
-      completedAt: Date.now(),
+      completedAt,
       mode: quizMode,
       total: evaluated.total,
       correct: evaluated.correct,
       incorrect: evaluated.incorrect,
       blank: evaluated.blank,
       directScore: evaluated.directScore,
+      durationMs,
+      timeLimitMs,
       items: evaluated.items.map((item) => ({
         questionId: item.question.id,
         selectedOption: item.selectedOption,
@@ -621,7 +690,8 @@ export default function Home() {
       })),
     };
 
-    setResult(evaluated);
+    setResult(timedResult);
+    quizStartedAt.current = null;
     activeProgressKey.current = key;
     setProgressData((current) => applyAttempt(current, attempt, appliedAttemptIds.current));
     if (!queueAttempt(key, attempt)) {
@@ -639,6 +709,10 @@ export default function Home() {
     setAnswers({});
     setResult(null);
     setFinishPrompt(false);
+    setTimingVisible(false);
+    setElapsedMs(0);
+    quizStartedAt.current = null;
+    isFinishing.current = false;
     scrollToTop();
   }
 
@@ -667,7 +741,7 @@ export default function Home() {
     const requestId = ++syncRequest.current;
     setProfileMessage("Comprobando el código…");
     try {
-      const remote = await requestProgress(key);
+      let remote = await requestProgress(key);
       if (syncRequest.current !== requestId) return;
       if (remote.summary.totalTests === 0) {
         setProfileMessage("No se encontró historial para ese código. Se conserva tu progreso actual.");
@@ -684,6 +758,7 @@ export default function Home() {
       setProfileKey(key);
       setProfileInput("");
       const cached = readCachedProgress(key);
+      remote = preserveLocalTimings(remote, cached?.progress);
       const remoteIds = new Set(cached?.appliedAttemptIds ?? []);
       remote.attempts.forEach((attempt) => remoteIds.add(attempt.id));
       const remoteBundle = mergePending(key, remote, remoteIds);
@@ -812,10 +887,25 @@ export default function Home() {
             <div className="progress-copy">
               <span>Pregunta {currentIndex + 1} de {quizQuestions.length}</span>
               <span>{answeredCount} respondidas</span>
+              <button
+                className="quiz-timing-toggle"
+                type="button"
+                aria-expanded={timingVisible}
+                aria-controls="quiz-timing-readout"
+                onClick={() => setTimingVisible((visible) => !visible)}
+              >
+                {timingVisible ? "Ocultar tiempo" : "Consultar tiempo"}
+              </button>
             </div>
             <div className="progress-track" aria-hidden="true">
               <span style={{ width: `${progress}%` }} />
             </div>
+            {timingVisible && (
+              <div className="quiz-timing-readout" id="quiz-timing-readout">
+                <span>Transcurrido <strong>{formatDuration(elapsedMs / 1_000)}</strong></span>
+                <span>Tiempo máximo proporcional <strong>{formatDuration(timeLimitMillisecondsFor(quizQuestions.length) / 1_000)}</strong></span>
+              </div>
+            )}
           </div>
           <button className="button button-quiet header-finish" type="button" onClick={requestFinish}>
             Finalizar
@@ -897,11 +987,12 @@ export default function Home() {
             <div className="result-heading-row">
               <div>
                 <h1 className="focus-heading" ref={pageHeading} tabIndex={-1}>{result.correct} de {result.total} correctas</h1>
-                <p>Corrección con la fórmula oficial de puntuación directa.</p>
+                <p>Penalización oficial y conversión proporcional al tamaño del test.</p>
               </div>
-              <div className="score-block" aria-label={`Puntuación directa ${formatScore(result.directScore)} de ${result.total}`}>
-                <span className="score-number">{formatScore(result.directScore)}</span>
-                <span className="score-maximum">de {result.total} puntos</span>
+              <div className="score-block" aria-label={`Nota proporcional ${formatScore(result.scoreOutOfTen)} sobre 10`}>
+                <span className="score-number">{formatScore(result.scoreOutOfTen)}</span>
+                <span className="score-maximum">sobre 10</span>
+                <span className="score-direct">Puntuación directa: {formatScore(result.directScore)} / {result.total}</span>
               </div>
             </div>
 
@@ -913,8 +1004,13 @@ export default function Home() {
 
             <div className="score-formula">
               <span>Fórmula aplicada</span>
-              <strong>{result.correct} − ({result.incorrect} ÷ 4) = {formatScore(result.directScore)}</strong>
-              <p>No se muestra una nota oficial sobre 10: esa transformación depende del baremo de cada tribunal.</p>
+              <strong>{result.correct} − ({result.incorrect} ÷ 4) = {formatScore(result.directScore)}; × 10 ÷ {result.total} = {formatScore(result.scoreOutOfTen)}</strong>
+              <p>Nota proporcional de práctica sobre 10 con penalización oficial. El Tribunal fija la transformación definitiva y la nota de corte.</p>
+            </div>
+
+            <div className="time-summary" aria-label="Resumen de tiempo del test">
+              <div><span>Tiempo empleado</span><strong>{formatDuration(result.durationMs / 1_000)}</strong></div>
+              <div><span>Tiempo máximo proporcional</span><strong>{formatDuration(result.timeLimitMs / 1_000)}</strong></div>
             </div>
           </section>
 
@@ -956,9 +1052,6 @@ export default function Home() {
                         {historicalNote && <p className="legal-status-note historical-status"><strong>Vigencia:</strong> {historicalNote}</p>}
                         {pendingSourceNote && <p className="legal-status-note pending-status"><strong>Trazabilidad pendiente:</strong> {pendingSourceNote}</p>}
                         <strong>Por qué:</strong> {explanation?.explanation || fallback}
-                        {selectedOption && (
-                          <p className="answer-contrast">Tu opción afirmaba «{question.options[selectedOption]}»; el elemento decisivo es la regla anterior.</p>
-                        )}
                         {explanation?.reference && <p className="explanation-reference"><strong>Fundamento:</strong> {explanation.reference}</p>}
                       </div>
                       <p className="source-line">Fuente: cuestionario oficial {question.year} · plantilla definitiva.</p>
@@ -1036,8 +1129,17 @@ export default function Home() {
                 <div className="history-list">
                   {progressData.attempts.slice(0, 8).map((attempt) => (
                     <article className="history-item" key={attempt.id}>
-                      <div><strong>{attempt.mode === "review" ? "Repaso" : "Test aleatorio"}</strong><span>{formatDate(attempt.completedAt)} · {attempt.total} preguntas</span></div>
-                      <div className="history-score"><strong>{formatScore(attempt.directScore)} / {attempt.total}</strong><span>puntuación directa</span></div>
+                      <div>
+                        <strong>{attempt.mode === "review" ? "Repaso" : "Test aleatorio"}</strong>
+                        <span>{formatDate(attempt.completedAt)} · {attempt.total} preguntas</span>
+                        <span>{attempt.durationMs !== null && attempt.timeLimitMs !== null
+                          ? `${formatDuration(attempt.durationMs / 1_000)} empleados · máximo ${formatDuration(attempt.timeLimitMs / 1_000)}`
+                          : "Tiempo no registrado"}</span>
+                      </div>
+                      <div className="history-score">
+                        <strong>{formatScore(proportionalScoreOutOfTen(attempt.directScore, attempt.total))} / 10</strong>
+                        <span>directa {formatScore(attempt.directScore)} / {attempt.total}</span>
+                      </div>
                     </article>
                   ))}
                 </div>
@@ -1094,12 +1196,12 @@ export default function Home() {
             <input className="count-range" type="range" min="1" max={QUESTIONS.length} value={questionCount} aria-label="Número de preguntas" onChange={(event) => setQuestionCount(Number(event.target.value))} />
             <div className="range-labels" aria-hidden="true"><span>1</span><span>{QUESTIONS.length}</span></div>
             <button className="button button-primary button-large start-button" type="button" onClick={startTest}>Comenzar test de {questionCount} preguntas</button>
-            <p className="setup-note">Selección aleatoria, sin repetir preguntas dentro del mismo test.</p>
+            <p className="setup-note">Tiempo máximo proporcional: {formatDuration(timeLimitMillisecondsFor(questionCount) / 1_000)}. Podrás consultarlo durante el test; no habrá avisos ni cierre automático.</p>
           </section>
         </section>
 
         <section className="details-section">
-          <article className="detail-card scoring-card"><span className="detail-index">01</span><div><span className="eyebrow">Corrección oficial</span><h2>Una fórmula clara, sin notas inventadas.</h2><div className="formula-visual" aria-label="Acierto más uno, error menos cero coma veinticinco, blanco cero"><span className="formula-good">+1 <small>acierto</small></span><span className="formula-bad">−0,25 <small>error</small></span><span className="formula-neutral">0 <small>en blanco</small></span></div><p>La aplicación muestra la puntuación directa. No declara aprobados ni convierte el resultado a una calificación oficial sobre 10.</p></div></article>
+          <article className="detail-card scoring-card"><span className="detail-index">01</span><div><span className="eyebrow">Corrección oficial</span><h2>Penalización oficial y nota proporcional.</h2><div className="formula-visual" aria-label="Acierto más uno, error menos cero coma veinticinco, blanco cero"><span className="formula-good">+1 <small>acierto</small></span><span className="formula-bad">−0,25 <small>error</small></span><span className="formula-neutral">0 <small>en blanco</small></span></div><p>La puntuación directa se convierte linealmente a una nota sobre 10 según el tamaño del test. Es una referencia de práctica; el Tribunal fija su transformación y la nota de corte.</p></div></article>
           <article className="detail-card source-card"><span className="detail-index">02</span><div><span className="eyebrow">Trazabilidad</span><h2>Sabes de dónde sale cada pregunta.</h2><div className="year-grid">{yearSummary.map(([year, count]) => <div key={year}><strong>{year}</strong><span>{count} válidas</span></div>)}</div><p>La revisión muestra convocatoria, número original y una explicación razonada. Todas las plantillas utilizadas tienen carácter definitivo, incluida la de 2022. Auditoría normativa a {legalVerificationData.verifiedAt.split("-").reverse().join("/")}: fuente trazable en {TRACEABLE_EXPLANATIONS} de {legalVerificationData.questionsReviewed} explicaciones; la excepción pendiente y las reglas históricas se advierten expresamente.</p></div></article>
         </section>
       </main>

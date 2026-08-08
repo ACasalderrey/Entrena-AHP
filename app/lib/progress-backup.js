@@ -10,6 +10,7 @@ const MODES = new Set(["standard", "review"]);
 const MAX_DATE_OFFSET = 300_000;
 const MIN_ATTEMPT_DATE = 1_600_000_000_000;
 const MAX_APPLIED_IDS = 100_000;
+const MILLISECONDS_PER_QUESTION = 67_500;
 
 function isRecord(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -35,6 +36,20 @@ function closeEnough(left, right) {
   return Math.abs(left - right) < 1e-7;
 }
 
+function validateTiming(value, total, path) {
+  const durationMissing = value.durationMs === undefined || value.durationMs === null;
+  const limitMissing = value.timeLimitMs === undefined || value.timeLimitMs === null;
+  if (durationMissing && limitMissing) return { durationMs: null, timeLimitMs: null };
+  if (durationMissing || limitMissing) fail(`${path} contiene un registro de tiempo incompleto.`);
+  if (!Number.isSafeInteger(value.durationMs) || value.durationMs < 0) {
+    fail(`${path}.durationMs no es válido.`);
+  }
+  if (!Number.isSafeInteger(value.timeLimitMs) || value.timeLimitMs !== total * MILLISECONDS_PER_QUESTION) {
+    fail(`${path}.timeLimitMs no coincide con la duración proporcional oficial.`);
+  }
+  return { durationMs: value.durationMs, timeLimitMs: value.timeLimitMs };
+}
+
 function knownAnswer(answerByQuestion, questionId) {
   if (answerByQuestion instanceof Map) return answerByQuestion.get(questionId);
   if (isRecord(answerByQuestion)) return answerByQuestion[questionId];
@@ -57,6 +72,8 @@ function validateAttemptSummary(value, now, path) {
     fail(`${path}.directScore no coincide con la fórmula oficial.`);
   }
 
+  const timing = validateTiming(value, value.total, path);
+
   return {
     id: value.id.toLowerCase(),
     completedAt: value.completedAt,
@@ -66,6 +83,7 @@ function validateAttemptSummary(value, now, path) {
     incorrect: value.incorrect,
     blank: value.blank,
     directScore: value.directScore,
+    ...timing,
   };
 }
 

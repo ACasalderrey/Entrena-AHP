@@ -854,6 +854,8 @@ label:has(input:focus-visible) {
 
 .progress-copy {
   display: flex;
+  gap: 0.8rem;
+  align-items: center;
   justify-content: space-between;
   margin-bottom: 0.45rem;
   color: var(--muted);
@@ -874,6 +876,40 @@ label:has(input:focus-visible) {
   border-radius: inherit;
   background: var(--teal);
   transition: width 200ms ease;
+}
+
+.quiz-timing-toggle {
+  min-height: 1.5rem;
+  border: 0;
+  background: transparent;
+  color: var(--teal-dark);
+  padding: 0.2rem 0;
+  font: inherit;
+  font-size: 0.72rem;
+  font-weight: 800;
+  text-decoration: underline;
+  text-underline-offset: 0.18rem;
+  cursor: pointer;
+}
+
+.quiz-timing-readout {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+  color: var(--muted);
+  font-size: 0.66rem;
+  text-align: right;
+}
+
+.quiz-timing-readout span,
+.quiz-timing-readout strong {
+  display: block;
+}
+
+.quiz-timing-readout strong {
+  color: var(--ink);
+  font-size: 0.78rem;
 }
 
 .header-finish {
@@ -1094,6 +1130,13 @@ label:has(input:focus-visible) {
   font-size: 0.8rem;
 }
 
+.score-direct {
+  display: block;
+  margin-top: 0.3rem;
+  color: var(--muted);
+  font-size: 0.72rem;
+}
+
 .result-stats {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -1157,6 +1200,30 @@ label:has(input:focus-visible) {
   margin: 0;
   color: var(--muted);
   font-size: 0.76rem;
+}
+
+.time-summary {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+.time-summary > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 0.8rem;
+  background: #eef2f5;
+  padding: 0.8rem 0.9rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+
+.time-summary strong {
+  color: var(--ink);
+  font-size: 1rem;
 }
 
 .review-section {
@@ -1280,14 +1347,9 @@ label:has(input:focus-visible) {
   color: #823a34;
 }
 
-.answer-contrast,
 .explanation-reference {
   margin: 0.45rem 0 0;
   font-size: 0.78rem;
-}
-
-.answer-contrast {
-  color: #7e493f;
 }
 
 .explanation-reference {
@@ -1533,6 +1595,12 @@ label:has(input:focus-visible) {
     grid-column: 1 / -1;
   }
 
+  .quiz-timing-readout {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 0.3rem;
+    text-align: left;
+  }
+
   .header-finish {
     justify-self: end;
   }
@@ -1596,6 +1664,10 @@ label:has(input:focus-visible) {
 
   .score-formula > span {
     grid-row: auto;
+  }
+
+  .time-summary {
+    grid-template-columns: 1fr;
   }
 
   .answer-comparison {

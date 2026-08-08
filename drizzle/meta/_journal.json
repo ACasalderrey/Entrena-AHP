@@ -8,6 +8,13 @@
       "when": 1786145836855,
       "tag": "0000_early_venom",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "6",
+      "when": 1786184785113,
+      "tag": "0001_calm_stopwatch",
+      "breakpoints": true
     }
   ]
 }

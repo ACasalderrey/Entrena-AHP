@@ -28,6 +28,8 @@ function fixture() {
     incorrect: 1,
     blank: 0,
     directScore: 0.75,
+    durationMs: 92_345,
+    timeLimitMs: 135_000,
   };
   return {
     profileKey: PROFILE_KEY,
@@ -102,6 +104,83 @@ test("la caché local es versionada y un valor corrupto no provoca errores", () 
   assert.equal(parsed.format, PROGRESS_CACHE_FORMAT);
   assert.deepEqual(parsed.progress, source.progress);
   assert.equal(parseProgressCache("{no-es-json", ANSWERS, NOW), null);
+});
+
+test("los tiempos se conservan en la copia y en la caché local", () => {
+  const source = fixture();
+  const backup = parseProgressBackup(createProgressBackup({
+    ...source,
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+  const cache = parseProgressCache(createProgressCache({
+    ...source,
+    savedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+
+  assert.deepEqual(
+    [backup.progress.attempts[0].durationMs, backup.progress.attempts[0].timeLimitMs],
+    [92_345, 135_000],
+  );
+  assert.deepEqual(
+    [backup.pendingAttempts[0].durationMs, backup.pendingAttempts[0].timeLimitMs],
+    [92_345, 135_000],
+  );
+  assert.deepEqual(
+    [cache.progress.attempts[0].durationMs, cache.progress.attempts[0].timeLimitMs],
+    [92_345, 135_000],
+  );
+});
+
+test("acepta copias históricas creadas antes de registrar el tiempo", () => {
+  const source = fixture();
+  delete source.progress.attempts[0].durationMs;
+  delete source.progress.attempts[0].timeLimitMs;
+  delete source.pendingAttempts[0].durationMs;
+  delete source.pendingAttempts[0].timeLimitMs;
+
+  const parsed = parseProgressBackup(createProgressBackup({
+    ...source,
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+
+  assert.equal(parsed.progress.attempts[0].durationMs ?? null, null);
+  assert.equal(parsed.progress.attempts[0].timeLimitMs ?? null, null);
+  assert.equal(parsed.pendingAttempts[0].durationMs ?? null, null);
+  assert.equal(parsed.pendingAttempts[0].timeLimitMs ?? null, null);
+});
+
+test("rechaza tiempos incompletos, negativos, fraccionarios o no proporcionales", () => {
+  const serialized = createProgressBackup({
+    ...fixture(),
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  });
+  const negativeDuration = JSON.parse(serialized);
+  negativeDuration.progress.attempts[0].durationMs = -1;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(negativeDuration), ANSWERS, NOW),
+    /durationMs|duración|tiempo empleado/i,
+  );
+
+  const fractionalDuration = JSON.parse(serialized);
+  fractionalDuration.progress.attempts[0].durationMs = 92_345.5;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(fractionalDuration), ANSWERS, NOW),
+    /durationMs|duración|tiempo empleado/i,
+  );
+
+  const inconsistentLimit = JSON.parse(serialized);
+  inconsistentLimit.pendingAttempts[0].timeLimitMs = 134_999;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(inconsistentLimit), ANSWERS, NOW),
+    /timeLimitMs|tiempo máximo|proporcional/i,
+  );
+
+  const incompleteTiming = JSON.parse(serialized);
+  delete incompleteTiming.progress.attempts[0].timeLimitMs;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(incompleteTiming), ANSWERS, NOW),
+    /durationMs|timeLimitMs|tiempo/i,
+  );
 });
 
 test("se rechazan formatos o versiones que la aplicación no conoce", () => {

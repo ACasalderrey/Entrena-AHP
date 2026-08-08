@@ -31,6 +31,9 @@ test("la compilación de Pages resuelve el endpoint remoto con fallback local", 
   assert.match(bundle, /Exportar historial/);
   assert.match(bundle, /Importar copia/);
   assert.match(bundle, /application\/json/);
+  assert.match(bundle, /Consultar tiempo/);
+  assert.match(bundle, /Tiempo máximo proporcional/);
+  assert.doesNotMatch(bundle, /Tu opción afirmaba/);
 });
 
 test("el manifiesto y el service worker funcionan desde una ruta base", async () => {
@@ -41,7 +44,7 @@ test("el manifiesto y el service worker funcionan desde una ruta base", async ()
 
   assert.equal(manifest.start_url, "./");
   assert.equal(manifest.scope, "./");
-  assert.match(serviceWorker, /entrena-ahp-v4/);
+  assert.match(serviceWorker, /entrena-ahp-v5/);
   assert.match(serviceWorker, /self\.registration\.scope/);
   assert.match(serviceWorker, /pathname\.startsWith\(new URL\("api\/"/);
 });

@@ -28,7 +28,8 @@ test("renders the finished simulator setup", async () => {
   assert.match(html, /372/);
   assert.match(html, /Comenzar test de/);
   assert.match(html, />20(?:<!-- -->)? preguntas<\/button>/);
-  assert.match(html, /aciertos menos errores divididos entre cuatro|Una fórmula clara/i);
+  assert.match(html, /Penalización oficial y nota proporcional/i);
+  assert.match(html, /Tiempo máximo proporcional/i);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/i);
 });
 

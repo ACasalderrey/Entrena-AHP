@@ -1,7 +1,12 @@
 import assert from "node:assert/strict";
 import { readFile } from "node:fs/promises";
 import test from "node:test";
-import { evaluateTest } from "../app/lib/scoring.js";
+import {
+  evaluateTest,
+  formatDuration,
+  proportionalScoreOutOfTen,
+  timeLimitSecondsFor,
+} from "../app/lib/scoring.js";
 
 
 const questions = JSON.parse(
@@ -107,4 +112,31 @@ test("applies the official direct-score formula", () => {
     { correct: result.correct, incorrect: result.incorrect, blank: result.blank, directScore: result.directScore },
     { correct: 1, incorrect: 2, blank: 1, directScore: 0.5 },
   );
+});
+
+
+test("convierte la puntuación directa en una nota proporcional de 0 a 10", () => {
+  assert.equal(proportionalScoreOutOfTen(0.5, 4), 1.25);
+  assert.equal(proportionalScoreOutOfTen(4, 4), 10);
+  assert.equal(proportionalScoreOutOfTen(-0.25, 4), 0);
+  assert.equal(proportionalScoreOutOfTen(5, 4), 10);
+  assert.equal(proportionalScoreOutOfTen(60, 80), proportionalScoreOutOfTen(30, 40));
+});
+
+
+test("calcula el tiempo máximo proporcional a 90 minutos para 80 preguntas", () => {
+  assert.equal(timeLimitSecondsFor(80), 5_400);
+  assert.equal(timeLimitSecondsFor(40), 2_700);
+  assert.equal(timeLimitSecondsFor(20), 1_350);
+  assert.equal(timeLimitSecondsFor(10), 675);
+});
+
+
+test("formatea duraciones cortas y superiores a una hora", () => {
+  assert.equal(formatDuration(0), "00:00");
+  assert.equal(formatDuration(59), "00:59");
+  assert.equal(formatDuration(60), "01:00");
+  assert.equal(formatDuration(3_599), "59:59");
+  assert.equal(formatDuration(3_600), "1:00:00");
+  assert.equal(formatDuration(5_400), "1:30:00");
 });

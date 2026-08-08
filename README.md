@@ -18,7 +18,11 @@ La aplicación calcula la puntuación directa oficial:
 
 `aciertos - errores / 4`
 
-Las respuestas en blanco valen cero. No se presenta una calificación oficial sobre 10, porque esa transformación depende del baremo de cada tribunal.
+Las respuestas en blanco valen cero.
+
+El resultado también se expresa como nota proporcional de práctica sobre 10: `máx(0, mín(10, 10 × puntuación directa / preguntas del test))`. Utiliza la penalización oficial, pero no sustituye la transformación ni la nota de corte que determine el Tribunal.
+
+Cada test registra el tiempo empleado y una referencia máxima proporcional a los 90 minutos oficiales para 80 preguntas. Durante el test el tiempo solo se muestra si el estudiante decide consultarlo; no hay cuenta atrás, alarmas ni cierre automático.
 
 ## Explicaciones y progreso
 
