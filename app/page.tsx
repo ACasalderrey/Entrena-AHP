@@ -451,12 +451,660 @@ export default function Home() {
   }, [profileKey]);
 
   useEffect(() => {
-    if (!profileKey || activeProgressKey.cuÎnµ∂âûÀk∫wµÁAïπëîÅëï∞ÅâÖ…ïµºÅëîÅçÖëÑÅ—…•â’πÖ∞∏Ω¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯((ÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µÕïç—•Ω∏àÅÖ…•Ñµ±Öâï±±ïëâ‰Ùâ…ïŸ•ï‹µ—•—±îà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÕïç—•Ω∏µ°ïÖë•πúà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘IïŸ•ÕßÕ∏Å…ÖÈΩπÖëÑΩÕ¡Ö∏¯Ò†»Å•êÙâ…ïŸ•ï‹µ—•—±îà˘……Ω…ïÃÅ‰Å¡…ïù’π—ÖÃÅï∏Åâ±ÖπçºΩ†»¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µçΩ’π–à˘Ì…ïŸ•ï›%—ïµÃπ±ïπù—°ÙΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯((ÄÄÄÄÄÄÄÄÄÄÄÅÌ…ïŸ•ï›%—ïµÃπ±ïπù—†ÄÙÙÙÄ¿Ä¸Ä†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡ï…ôïç–µçÖ…êà¯ÒÕ¡Ö∏ÅÖ…•Ñµ°•ëëï∏Ùâ—…’îà˚ärLΩÕ¡Ö∏¯Òë•ÿ¯Ò†Ã˘QïÕ–Å¡ï…ôïç—ºΩ†Ã¯Ò¿˘9ºÅ°Ö‰Åï……Ω…ïÃÅπ§Å¡…ïù’π—ÖÃÅÕ•∏Å…ïÕ¡Ωπëï»∏Ω¿¯Ωë•ÿ¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄ§ÄËÄ†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µ±•Õ–à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ…ïŸ•ï›%—ïµÃπµÖ¿†°•—ï¥∞Å•πëï‡§ÄÙ¯ÅÏ(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅçΩπÕ–ÅÏÅ≈’ïÕ—•Ω∏∞ÅÕï±ïç—ïë=¡—•Ω∏∞ÅÕ—Ö—’ÃÅÙÄÙÅ•—ï¥Ï(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅçΩπÕ–ÅçΩ……ïç—=¡—•Ω∏ÄÙÅ≈’ïÕ—•Ω∏πçΩ……ïç—=¡—•ΩπÕl¡tÏ(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅçΩπÕ–Åï·¡±ÖπÖ—•Ω∏ÄÙÅaA19Q%=9Mm≈’ïÕ—•Ω∏π•ëtÏ(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅçΩπÕ–Å°•Õ—Ω…•çÖ±9Ω—îÄÙÅ!%MQ=I%1}=91em≈’ïÕ—•Ω∏π•ëtÏ(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅçΩπÕ–Å¡ïπë•πùMΩ’…çï9Ω—îÄÙÅM=UI}A9%9m≈’ïÕ—•Ω∏π•ëtÏ(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅçΩπÕ–ÅôÖ±±âÖç¨ÄÙÅÅ1ÑÅ…ïù±ÑÅÖ¡±•çÖâ±îÅçΩπë’çîÅÑÅ±ÑÅΩ¡çßÕ∏ÄëÌçΩ……ïç—=¡—•ΩπÙËÄëÌ≈’ïÕ—•Ω∏πΩ¡—•ΩπÕmçΩ……ïç—=¡—•ΩπuıÄÏ(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅ…ï—’…∏Ä†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µçÖ…êàÅ≠ï‰ıÌ≈’ïÕ—•Ω∏π•ëÙ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µçÖ…êµ—Ω¡±•πîà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîıÌÅÕ—Ö—’Ãµç°•¿ÄëÌÕ—Ö—’ÕıÅÙ˘ÌÕ—Ö—’ÃÄÙÙÙÄââ±Öπ¨àÄ¸Äâ∏Åâ±ÖπçºàÄËÄâ……Ω»âÙΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏¯çÌ•πëï‡Ä¨Ä≈ÙÉ
-‹ÅÌ≈’ïÕ—•Ω∏πÂïÖ…ÙÉ
-‹Å¡…ïù’π—ÑÅÌ≈’ïÕ—•Ω∏πÕΩ’…çïE’ïÕ—•Ωπ9’µâï…ÙΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ†Ã˘Ì≈’ïÕ—•Ω∏π¡…Ωµ¡—ÙΩ†Ã¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÖπÕ›ï»µçΩµ¡Ö…•ÕΩ∏à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÖπÕ›ï»µ…Ω‹Å’Õï»µÖπÕ›ï»à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏˘Q‘Å…ïÕ¡’ïÕ—ÑΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ¿˘ÌÕï±ïç—ïë=¡—•Ω∏Ä¸Ä¯Òà˘ÌÕï±ïç—ïë=¡—•ΩπÙ∏Ωà¯ÅÌ≈’ïÕ—•Ω∏πΩ¡—•ΩπÕmÕï±ïç—ïë=¡—•ΩπuÙº¯ÄËÄâM•∏Å…ïÕ¡Ωπëï»âÙΩ¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÖπÕ›ï»µ…Ω‹ÅçΩ……ïç–µÖπÕ›ï»à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏˘IïÕ¡’ïÕ—ÑÅçΩ……ïç—ÑΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ¿¯Òà˘ÌçΩ……ïç—=¡—•ΩπÙ∏Ωà¯ÅÌ≈’ïÕ—•Ω∏πΩ¡—•ΩπÕmçΩ……ïç—=¡—•ΩπuÙΩ¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâï……Ω»µï·¡±ÖπÖ—•Ω∏à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ°•Õ—Ω…•çÖ±9Ω—îÄòòÄÒ¿Åç±ÖÕÕ9ÖµîÙâ±ïùÖ∞µÕ—Ö—’ÃµπΩ—îÅ°•Õ—Ω…•çÖ∞µÕ—Ö—’Ãà¯ÒÕ—…Ωπú˘Y•ùïπç•ÑËΩÕ—…Ωπú¯ÅÌ°•Õ—Ω…•çÖ±9Ω—ïÙΩ¿˘Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ¡ïπë•πùMΩ’…çï9Ω—îÄòòÄÒ¿Åç±ÖÕÕ9ÖµîÙâ±ïùÖ∞µÕ—Ö—’ÃµπΩ—îÅ¡ïπë•πúµÕ—Ö—’Ãà¯ÒÕ—…Ωπú˘Q…ÖÈÖâ•±•ëÖêÅ¡ïπë•ïπ—îËΩÕ—…Ωπú¯ÅÌ¡ïπë•πùMΩ’…çï9Ω—ïÙΩ¿˘Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ—…Ωπú˘AΩ»Å≈◊§ËΩÕ—…Ωπú¯ÅÌï·¡±ÖπÖ—•Ω∏¸πï·¡±ÖπÖ—•Ω∏ÅÒÅôÖ±±âÖç≠Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌÕï±ïç—ïë=¡—•Ω∏ÄòòÄ†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ¿Åç±ÖÕÕ9ÖµîÙâÖπÕ›ï»µçΩπ—…ÖÕ–à˘Q‘ÅΩ¡çßÕ∏ÅÖô•…µÖâÑÉ
-≠Ì≈’ïÕ—•Ω∏πΩ¡—•ΩπÕmÕï±ïç—ïë=¡—•Ωπu˜
-ÏÏÅï∞Åï±ïµïπ—ºÅëïç•Õ•ŸºÅïÃÅ±ÑÅ…ïù±ÑÅÖπ—ï…•Ω»∏Ω¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌï·¡±ÖπÖ—•Ω∏¸π…ïôï…ïπçîÄòòÄÒ¿Åç±ÖÕÕ9ÖµîÙâï·¡±ÖπÖ—•Ω∏µ…ïôï…ïπçîà¯ÒÕ—…Ωπú˘’πëÖµïπ—ºËΩÕ—…Ωπú¯ÅÌï·¡±ÖπÖ—•Ω∏π…ïôï…ïπçïÙΩ¿˘Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ¿Åç±ÖÕÕ9ÖµîÙâÕΩ’…çîµ±•πîà˘’ïπ—îËÅç’ïÕ—•ΩπÖ…•ºÅΩô•ç•Ö∞ÅÌ≈’ïÕ—•Ω∏πÂïÖ…ÙÉ
-‹Å¡±Öπ—•±±ÑÅëïô•π•—•ŸÑ∏Ω¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ§Ï(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÙ•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄ•Ù((ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ…ïÕ’±—Ãµç—Ñà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ¡…•µÖ…‰Åâ’——Ω∏µ±Ö…ùîàÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÌÕ°Ω›ÖÕ°âΩÖ…ëÙ˘Yï»Åµ§Å¡…Ωù…ïÕºΩâ’——Ω∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯(ÄÄÄÄÄÄÄÄΩµÖ•∏¯(ÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄ§Ï(ÄÅÙ((ÄÅ•òÄ°Õ—ÖùîÄÙÙÙÄâëÖÕ°âΩÖ…êà§ÅÏ(ÄÄÄÅçΩπÕ–ÅÖπÕ›ï…ïëΩ…çç’…Öç‰ÄÙÅ¡…Ωù…ïÕÕÖ—ÑπÕ’µµÖ…‰πçΩ……ïç–Ä¨Å¡…Ωù…ïÕÕÖ—ÑπÕ’µµÖ…‰π•πçΩ……ïç–Ï(ÄÄÄÅçΩπÕ–ÅÖçç’…Öç‰ÄÙÅÖπÕ›ï…ïëΩ…çç’…Öç‰Ä¸Ä°¡…Ωù…ïÕÕÖ—ÑπÕ’µµÖ…‰πçΩ……ïç–ÄºÅÖπÕ›ï…ïëΩ…çç’…Öç‰§Ä®Äƒ¿¿ÄËÄ¿Ï(ÄÄÄÅçΩπÕ–Å…ïŸ•ï›M•ÈîÄÙÅ›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—†Ä¸Å5Ö—†πµ•∏°…ïŸ•ï›Ω’π–∞Å›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—†§ÄËÄ¿Ï((ÄÄÄÅ…ï—’…∏Ä†(ÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÖ¡¿µÕ°ï±∞ÅëÖÕ°âΩÖ…êµÕ°ï±∞à¯(ÄÄÄÄÄÄÄÄÒ°ïÖëï»Åç±ÖÕÕ9ÖµîÙâÕ•µ¡±îµ°ïÖëï»à¯(ÄÄÄÄÄÄÄÄÄÄÒ	…ÖπêÄº¯(ÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ°ïÖëï»µÖç—•ΩπÃà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîıÌÅÕÂπåµç°•¿ÄëÌÕÂπçM—Ö—ïıÅÙÅ…Ω±îÙâÕ—Ö—’ÃàÅÖ…•Ñµ±•ŸîÙâ¡Ω±•—îà˘ÌÕÂπçM—Ö—îÄÙÙÙÄâ…ïÖë‰àÄ¸ÄâA…Ωù…ïÕºÅÕ•πç…Ωπ•ÈÖëºàÄËÅÕÂπçM—Ö—îÄÙÙÙÄâ±ΩÖë•πúàÄ¸ÄâM•πç…Ωπ•ÈÖπëøäòàÄËÅÕÂπçM—Ö—îÄÙÙÙÄâ±ΩçÖ∞àÄ¸ÄâΩ¡•ÑÅ±ΩçÖ∞Å¡…Ω—ïù•ëÑàÄËÄâ’Ö…ëÖëºÅ±ΩçÖ±µïπ—îâÙΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ¡…•µÖ…‰àÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÌ…ïÕï—QïÕ—Ù˘9’ïŸºÅ—ïÕ–Ωâ’——Ω∏¯(ÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄΩ°ïÖëï»¯((ÄÄÄÄÄÄÄÄÒµÖ•∏Åç±ÖÕÕ9ÖµîÙâëÖÕ°âΩÖ…êµµÖ•∏à¯(ÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâëÖÕ°âΩÖ…êµ°ï…ºà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘AÖπï∞ÅëîÅïÕ—’ë•ºΩÕ¡Ö∏¯Ò†ƒÅç±ÖÕÕ9ÖµîÙâôΩç’Ãµ°ïÖë•πúàÅ…ïòıÌ¡Öùï!ïÖë•πùÙÅ—Öâ%πëï‡ıÏ¥≈Ù˘Q‘Å¡…Ωù…ïÕº∞ÅëîÅ’∏ÅŸ•Õ—ÖÈº∏Ω†ƒ¯Ò¿˘∞Å°•Õ—Ω…•Ö∞Å•ëïπ—•ô•çÑÅ±ÖÃÅ¡…ïù’π—ÖÃÅ≈’îÅçΩπŸ•ïπîÅŸΩ±Ÿï»ÅÑÅ¡…Öç—•çÖ»∏Ω¿¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯((ÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâµï—…•çÃµù…•êàÅÖ…•Ñµ±Öâï∞ÙâIïÕ’µï∏ÅëîÅ¡…Ωù…ïÕºà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâµï—…•åµçÖ…êà¯ÒÕ¡Ö∏˘QïÕ—ÃÅçΩµ¡±ï—ÖëΩÃΩÕ¡Ö∏¯ÒÕ—…Ωπú˘Ì¡…Ωù…ïÕÕÖ—ÑπÕ’µµÖ…‰π—Ω—Ö±QïÕ—ÕÙΩÕ—…Ωπú¯ΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâµï—…•åµçÖ…êà¯ÒÕ¡Ö∏˘A…ïù’π—ÖÃÅ¡…Öç—•çÖëÖÃΩÕ¡Ö∏¯ÒÕ—…Ωπú˘Ì¡…Ωù…ïÕÕÖ—ÑπÕ’µµÖ…‰π—Ω—Ö±E’ïÕ—•ΩπÕÙΩÕ—…Ωπú¯ΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâµï—…•åµçÖ…êà¯ÒÕ¡Ö∏˘A…ïç•ÕßÕ∏ΩÕ¡Ö∏¯ÒÕ—…Ωπú˘ÌôΩ…µÖ—Aï…çïπ–°Öçç’…Öç‰•ÙîΩÕ—…Ωπú¯ÒÕµÖ±∞˘ÕΩâ…îÅ¡…ïù’π—ÖÃÅçΩπ—ïÕ—ÖëÖÃΩÕµÖ±∞¯ΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâµï—…•åµçÖ…êÅÖ——ïπ—•Ω∏à¯ÒÕ¡Ö∏˘AΩ»Å…ïôΩ…ÈÖ»ΩÕ¡Ö∏¯ÒÕ—…Ωπú˘Ì›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—°ÙΩÕ—…Ωπú¯ÒÕµÖ±∞˘ôÖ±±ΩÃÅáÈ∏ÅπºÅçΩ……ïù•ëΩÃΩÕµÖ±∞¯ΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯((ÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâëÖÕ°âΩÖ…êµù…•êà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâ¡Öπï∞µçÖ…êÅ…ïŸ•ï‹µ¡Öπï∞àÅÖ…•Ñµ±Öâï±±ïëâ‰Ùâ›ïÖ¨µ—•—±îà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡Öπï∞µ°ïÖë•πúà¯Òë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘Iï¡ÖÕºÅ•π—ï±•ùïπ—îΩÕ¡Ö∏¯Ò†»Å•êÙâ›ïÖ¨µ—•—±îà˘A…ïù’π—ÖÃÅôÖ±±ÖëÖÃΩ†»¯Ωë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µçΩ’π–à˘Ì›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—°ÙΩÕ¡Ö∏¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—†ÄÙÙÙÄ¿Ä¸Ä†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâïµ¡—‰µëÖÕ°âΩÖ…êà¯ÒÕ¡Ö∏ÅÖ…•Ñµ°•ëëï∏Ùâ—…’îà˚ärLΩÕ¡Ö∏¯Ò¿˘Ì¡…Ωù…ïÕÕÖ—ÑπÕ’µµÖ…‰π—Ω—Ö±QïÕ—ÃÄ¸Äâ9ºÅ—•ïπïÃÅôÖ±±ΩÃÅ¡ïπë•ïπ—ïÃÅëîÅçΩ……ïù•»∏àÄËÄâΩµ¡±ï—ÑÅ’∏Å—ïÕ–Å¡Ö…ÑÅç…ïÖ»Å—‘Å±•Õ—ÑÅëîÅ…ï¡ÖÕº∏âÙΩ¿¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ§ÄËÄ†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ…ïŸ•ï‹µ±Ö’πç†à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ±Öâï∞Å°—µ±Ω»Ùâ…ïŸ•ï‹µçΩ’π–à˘;Èµï…ºÅëîÅ¡…ïù’π—ÖÃΩ±Öâï∞¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ•π¡’–Å•êÙâ…ïŸ•ï‹µçΩ’π–àÅ—Â¡îÙâπ’µâï»àÅµ•∏ÙàƒàÅµÖ‡ıÌ›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—°ÙÅŸÖ±’îıÌ…ïŸ•ï›M•ÈïÙÅΩπ°ÖπùîıÏ°ïŸïπ–§ÄÙ¯ÅÕï—IïŸ•ï›Ω’π–°5Ö—†πµÖ‡†ƒ∞Å5Ö—†πµ•∏°›ïÖ≠E’ïÕ—•ΩπÃπ±ïπù—†∞Å9’µâï»°ïŸïπ–π—Ö…ùï–πŸÖ±’î§ÅÒÄƒ§§•ÙÄº¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ¡…•µÖ…‰àÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÌÕ—Ö…—IïŸ•ï›QïÕ—Ù˘A…Öç—•çÖ»ÅÌ…ïŸ•ï›M•ÈïÙÅôÖ±±ÖëÖÃΩâ’——Ω∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ›ïÖ¨µ±•Õ–à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ›ïÖ≠E’ïÕ—•ΩπÃπÕ±•çî†¿∞Ä‡§πµÖ¿†°ÏÅÕ—Ö–∞Å≈’ïÕ—•Ω∏ÅÙ§ÄÙ¯Ä†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâ›ïÖ¨µ•—ï¥àÅ≠ï‰ıÌ≈’ïÕ—•Ω∏π•ëÙ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿ¯ÒÕ¡Ö∏˘Ì≈’ïÕ—•Ω∏πÂïÖ…ÙÉ
-‹Å¡…ïù’π—ÑÅÌ≈’ïÕ—•Ω∏πÕΩ’…çïE’ïÕ—•Ωπ9’µâï…ÙΩÕ¡Ö∏¯Ò¿˘Ì≈’ïÕ—•Ω∏π¡…Ωµ¡—ÙΩ¿¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ—…Ωπú˘ÌÕ—Ö–π•πçΩ……ïç—Ω’π—ÙÅÌÕ—Ö–π•πçΩ……ïç—Ω’π–ÄÙÙÙÄƒÄ¸ÄâôÖ±±ºàÄËÄâôÖ±±ΩÃâÙΩÕ—…Ωπú¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ§•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄº¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯((ÄÄÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâ¡Öπï∞µçÖ…êÅ°•Õ—Ω…‰µ¡Öπï∞àÅÖ…•Ñµ±Öâï±±ïëâ‰Ùâ°•Õ—Ω…‰µ—•—±îà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡Öπï∞µ°ïÖë•πúà¯Òë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘ŸΩ±’çßÕ∏ΩÕ¡Ö∏¯Ò†»Å•êÙâ°•Õ—Ω…‰µ—•—±îà˚i±—•µΩÃÅ—ïÕ—ÃΩ†»¯Ωë•ÿ¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ¡…Ωù…ïÕÕÖ—ÑπÖ——ïµ¡—Ãπ±ïπù—†ÄÙÙÙÄ¿Ä¸Ä†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâïµ¡—‰µëÖÕ°âΩÖ…êà¯Ò¿˘≈◊¥ÅÖ¡Ö…ïçïÀÖ∏Å—’ÃÅ…ïÕ’±—ÖëΩÃÅç’ÖπëºÅ—ï…µ•πïÃÅï∞Å¡…•µï»Å—ïÕ–∏Ω¿¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ§ÄËÄ†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ°•Õ—Ω…‰µ±•Õ–à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ¡…Ωù…ïÕÕÖ—ÑπÖ——ïµ¡—ÃπÕ±•çî†¿∞Ä‡§πµÖ¿†°Ö——ïµ¡–§ÄÙ¯Ä†(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâ°•Õ—Ω…‰µ•—ï¥àÅ≠ï‰ıÌÖ——ïµ¡–π•ëÙ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿ¯ÒÕ—…Ωπú˘ÌÖ——ïµ¡–πµΩëîÄÙÙÙÄâ…ïŸ•ï‹àÄ¸ÄâIï¡ÖÕºàÄËÄâQïÕ–ÅÖ±ïÖ—Ω…•ºâÙΩÕ—…Ωπú¯ÒÕ¡Ö∏˘ÌôΩ…µÖ—Ö—î°Ö——ïµ¡–πçΩµ¡±ï—ïë–•ÙÉ
-‹ÅÌÖ——ïµ¡–π—Ω—Ö±ÙÅ¡…ïù’π—ÖÃΩÕ¡Ö∏¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ°•Õ—Ω…‰µÕçΩ…îà¯ÒÕ—…Ωπú˘ÌôΩ…µÖ—MçΩ…î°Ö——ïµ¡–πë•…ïç—MçΩ…î•ÙÄºÅÌÖ——ïµ¡–π—Ω—Ö±ÙΩÕ—…Ωπú¯ÒÕ¡Ö∏˘¡’π—’ÖçßÕ∏Åë•…ïç—ÑΩÕ¡Ö∏¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ§•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄ•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯(ÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯((ÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâ¡Öπï∞µçÖ…êÅ¡…Ωô•±îµ¡Öπï∞àÅÖ…•Ñµ±Öâï±±ïëâ‰Ùâ¡…Ωô•±îµ—•—±îà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘Iïç’¡ï…ÖçßÕ∏ΩÕ¡Ö∏¯Ò†»Å•êÙâ¡…Ωô•±îµ—•—±îà˘ΩπÕï…ŸÑÅ—‘ÅèÕë•ùºÅëîÅ¡…Ωù…ïÕºΩ†»¯Ò¿˘∞Å°•Õ—Ω…•Ö∞ÅÕîÅÕ•πç…Ωπ•ÈÑÅçΩ∏ÅM•—ïÃÅ‰Å—Öµâß•∏ÅÕîÅçΩπÕï…ŸÑÅçΩµ¡±ï—ºÅï∏ÅïÕ—îÅπÖŸïùÖëΩ»∏Å∞ÅèÕë•ùºÅ¡ï…µ•—îÅ…ïç’¡ï…Ö…±ºÅï∏ÅΩ—…ºÅë•Õ¡ΩÕ•—•Ÿº∏Ω¿¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡…Ωô•±îµçΩπ—…Ω±Ãà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡…Ωô•±îµçΩëîà¯ÒçΩëî˘Ì¡…Ωô•±ï-ï‰ÅÒÄâA…ï¡Ö…ÖπëøäòâÙΩçΩëî¯Òâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ≈’•ï–àÅ—Â¡îÙââ’——Ω∏àÅë•ÕÖâ±ïêıÏÖ¡…Ωô•±ï-ïÂÙÅΩπ±•ç¨ıÌçΩ¡ÂA…Ωô•±ï-ïÂÙ˘Ω¡•Ö»Ωâ’——Ω∏¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡…Ωô•±îµ•µ¡Ω…–à¯Ò±Öâï∞Å°—µ±Ω»Ùâ¡…Ωô•±îµ•π¡’–à˘Iïç’¡ï…Ö»ÅΩ—…ºÅèÕë•ùºΩ±Öâï∞¯Òë•ÿ¯Ò•π¡’–Å•êÙâ¡…Ωô•±îµ•π¡’–àÅŸÖ±’îıÌ¡…Ωô•±ï%π¡’—ÙÅΩπ°ÖπùîıÏ°ïŸïπ–§ÄÙ¯ÅÕï—A…Ωô•±ï%π¡’–°ïŸïπ–π—Ö…ùï–πŸÖ±’î•ÙÅ¡±Öçï°Ω±ëï»Ùâ·······‡µ···‡¥—··‡µ···‡µ···········‡àÄº¯Òâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ≈’•ï–àÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÏ†§ÄÙ¯ÅŸΩ•êÅ•µ¡Ω…—A…Ωô•±ï-ï‰†•Ù˘Iïç’¡ï…Ö»Ωâ’——Ω∏¯Ωë•ÿ¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒô•ï±ëÕï–Åç±ÖÕÕ9ÖµîÙâ¡…Ωô•±îµâÖç≠’¿àÅÖ…•ÑµëïÕç…•âïëâ‰Ùâ¡…Ωô•±îµâÖç≠’¿µ°ï±¿à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ±ïùïπê˘Ω¡•ÑÅëîÅÕïù’…•ëÖêΩ±ïùïπê¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡…Ωô•±îµâÖç≠’¿µÖç—•ΩπÃà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ≈’•ï–àÅ—Â¡îÙââ’——Ω∏àÅë•ÕÖâ±ïêıÏÖ¡…Ωô•±ï-ïÂÙÅΩπ±•ç¨ıÌï·¡Ω…—A…Ωù…ïÕÕ	Öç≠’¡Ù˘·¡Ω…—Ö»Å°•Õ—Ω…•Ö∞Ωâ’——Ω∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ≈’•ï–àÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÏ†§ÄÙ¯ÅâÖç≠’¡•±ï%π¡’–πç’……ïπ–¸πç±•ç¨†•Ù˘%µ¡Ω…—Ö»ÅçΩ¡•ÑΩâ’——Ω∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ•π¡’–Å…ïòıÌâÖç≠’¡•±ï%π¡’—ÙÅ•êÙââÖç≠’¿µô•±îµ•π¡’–àÅç±ÖÕÕ9ÖµîÙâÕ»µΩπ±‰àÅ—Â¡îÙâô•±îàÅÖççï¡–Ùàπ©ÕΩ∏±Ö¡¡±•çÖ—•Ω∏Ω©ÕΩ∏àÅ—Öâ%πëï‡ıÏ¥≈ÙÅΩπ°ÖπùîıÏ°ïŸïπ–§ÄÙ¯ÅŸΩ•êÅ•µ¡Ω…—A…Ωù…ïÕÕ	Öç≠’¡•±î°ïŸïπ–•ÙÄº¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒ¿Å•êÙâ¡…Ωô•±îµâÖç≠’¿µ°ï±¿à˘∞ÅÖ…ç°•ŸºÅ)M=8Å•πç±’ÂîÅï∞ÅèÕë•ùºÅÖªÕπ•µºÅ‰Åï∞Å°•Õ—Ω…•Ö∞ÅëîÅïÕ—îÅ¡ï…ô•∞∏Å◊Ö…ëÖ±ºÅçΩµºÅçΩπÕï…ŸÖÀµÖÃÅ—‘ÅèÕë•ùºÅëîÅ¡…Ωù…ïÕº∏Ω¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄΩô•ï±ëÕï–¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌ¡…Ωô•±ï5ïÕÕÖùîÄòòÄÒ¿Åç±ÖÕÕ9ÖµîÙâ¡…Ωô•±îµµïÕÕÖùîàÅ…Ω±îÙâÕ—Ö—’ÃàÅÖ…•Ñµ±•ŸîÙâ¡Ω±•—îàÅÖ…•ÑµÖ—Ωµ•åÙâ—…’îà˘Ì¡…Ωô•±ï5ïÕÕÖùïÙΩ¿˘Ù(ÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯(ÄÄÄÄÄÄÄÄΩµÖ•∏¯(ÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄ§Ï(ÄÅÙ((ÄÅ…ï—’…∏Ä†(ÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÖ¡¿µÕ°ï±∞Å±Öπë•πúµÕ°ï±∞à¯(ÄÄÄÄÄÄÒ°ïÖëï»Åç±ÖÕÕ9ÖµîÙâ±Öπë•πúµ°ïÖëï»à¯(ÄÄÄÄÄÄÄÄÒ	…ÖπêÄº¯(ÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ°ïÖëï»µÖç—•ΩπÃà¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâ°ïÖëï»µÕΩ’…çîà˘	ÖπçºÅ°•Õ”Õ…•çºÄ»¿»ÀäL»¿»‘ΩÕ¡Ö∏¯Òâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ≈’•ï–àÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÌÕ°Ω›ÖÕ°âΩÖ…ëÙ˘5§Å¡…Ωù…ïÕºΩâ’——Ω∏¯Ωë•ÿ¯(ÄÄÄÄÄÄΩ°ïÖëï»¯((ÄÄÄÄÄÄÒµÖ•∏¯(ÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâ°ï…ºµÕïç—•Ω∏à¯(ÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ°ï…ºµçΩ¡‰à¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘M•µ’±ÖëΩ»ÅëîÅùïπ—ïÃÅëîÅ!Öç•ïπëÑΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒ†ƒÅç±ÖÕÕ9ÖµîÙâôΩç’Ãµ°ïÖë•πúàÅ…ïòıÌ¡Öùï!ïÖë•πùÙÅ—Öâ%πëï‡ıÏ¥≈Ù˘π—…ïπÑÅçΩµºÅï∞ÅìµÑÅëï∞Åï·Öµï∏∏Ω†ƒ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒ¿Åç±ÖÕÕ9ÖµîÙâ°ï…ºµ±ïÖêà˘QïÕ—ÃÅÖ±ïÖ—Ω…•ΩÃÅçΩπÕ—…’•ëΩÃÉÈπ•çÖµïπ—îÅçΩ∏Å¡…ïù’π—ÖÃÅ‰Å…ïÕ¡’ïÕ—ÖÃÅëîÅçΩπŸΩçÖ—Ω…•ÖÃÅÖπ—ï…•Ω…ïÃ∏Å1ÖÃÅ¡…ïù’π—ÖÃÅÖπ’±ÖëÖÃÅïÕ”Ö∏Åï·ç±’•ëÖÃ∏Ω¿¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ—…’Õ–µ…Ω‹àÅÖ…•Ñµ±Öâï∞ÙâÖ…Öç—ïÀµÕ—•çÖÃÅëï∞ÅâÖπçºà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÒÕ¡Ö∏¯Òà˘ÌâÖπ≠5ï—ÖëÖ—Ñπ—Ω—Ö±E’ïÕ—•ΩπÕÙΩà¯Å¡…ïù’π—ÖÃÅ€Ö±•ëÖÃΩÕ¡Ö∏¯ÒÕ¡Ö∏¯Òà¯–Ωà¯ÅçΩπŸΩçÖ—Ω…•ÖÃΩÕ¡Ö∏¯ÒÕ¡Ö∏¯Òà¯¿Ωà¯ÅÖπ’±ÖëÖÃÅ•πç±’•ëÖÃΩÕ¡Ö∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯((ÄÄÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâÕï—’¿µçÖ…êàÅÖ…•Ñµ±Öâï±±ïëâ‰ÙâÕï—’¿µ—•—±îà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâÕï—’¿µçÖ…êµ°ïÖë•πúà¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâÕ—ï¿µ±Öâï∞à˘Ωπô•ù’…ÑÅ—‘Å—ïÕ–ΩÕ¡Ö∏¯Ò†»Å•êÙâÕï—’¿µ—•—±îà˚
-˝◊Öπ—ÖÃÅ¡…ïù’π—ÖÃÅ≈’•ï…ïÃÅ…ïÕ¡Ωπëï»¸Ω†»¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ¡…ïÕï–µù…•êàÅÖ…•Ñµ±Öâï∞ÙâÖπ—•ëÖëïÃÅÀÖ¡•ëÖÃà¯(ÄÄÄÄÄÄÄÄÄÄÄÄÄÅÌAIMQLπµÖ¿†°¡…ïÕï–§ÄÙ¯ÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîıÌÅ¡…ïÕï–µâ’——Ω∏ÄëÌ≈’ïÕ—•ΩπΩ’π–ÄÙÙÙÅ¡…ïÕï–Ä¸Äâ•ÃµÖç—•ŸîàÄËÄàâıÅÙÅ—Â¡îÙââ’——Ω∏àÅ≠ï‰ıÌ¡…ïÕï—ÙÅΩπ±•ç¨ıÏ†§ÄÙ¯ÅÕï—E’ïÕ—•ΩπΩ’π–°¡…ïÕï–•Ù˘Ì¡…ïÕï—ÙΩâ’——Ω∏¯•Ù(ÄÄÄÄÄÄÄÄÄÄÄÄΩë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒ±Öâï∞Åç±ÖÕÕ9ÖµîÙâçΩ’π–µçΩπ—…Ω∞àÅ°—µ±Ω»Ùâ≈’ïÕ—•Ω∏µçΩ’π–à¯ÒÕ¡Ö∏˘;Èµï…ºÅ¡ï…ÕΩπÖ±•ÈÖëºΩÕ¡Ö∏¯Ò•π¡’–Å•êÙâ≈’ïÕ—•Ω∏µçΩ’π–àÅ—Â¡îÙâπ’µâï»àÅµ•∏ÙàƒàÅµÖ‡ıÌEUMQ%=9Lπ±ïπù—°ÙÅŸÖ±’îıÌ≈’ïÕ—•ΩπΩ’π—ÙÅΩπ°ÖπùîıÏ°ïŸïπ–§ÄÙ¯ÅÕï—E’ïÕ—•ΩπΩ’π–°5Ö—†πµÖ‡†ƒ∞Å5Ö—†πµ•∏°EUMQ%=9Lπ±ïπù—†∞Å9’µâï»°ïŸïπ–π—Ö…ùï–πŸÖ±’î§ÅÒÄƒ§§•ÙÄº¯Ω±Öâï∞¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒ•π¡’–Åç±ÖÕÕ9ÖµîÙâçΩ’π–µ…ÖπùîàÅ—Â¡îÙâ…ÖπùîàÅµ•∏ÙàƒàÅµÖ‡ıÌEUMQ%=9Lπ±ïπù—°ÙÅŸÖ±’îıÌ≈’ïÕ—•ΩπΩ’π—ÙÅÖ…•Ñµ±Öâï∞Ùâ;Èµï…ºÅëîÅ¡…ïù’π—ÖÃàÅΩπ°ÖπùîıÏ°ïŸïπ–§ÄÙ¯ÅÕï—E’ïÕ—•ΩπΩ’π–°9’µâï»°ïŸïπ–π—Ö…ùï–πŸÖ±’î§•ÙÄº¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒë•ÿÅç±ÖÕÕ9ÖµîÙâ…Öπùîµ±Öâï±ÃàÅÖ…•Ñµ°•ëëï∏Ùâ—…’îà¯ÒÕ¡Ö∏¯ƒΩÕ¡Ö∏¯ÒÕ¡Ö∏˘ÌEUMQ%=9Lπ±ïπù—°ÙΩÕ¡Ö∏¯Ωë•ÿ¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒâ’——Ω∏Åç±ÖÕÕ9ÖµîÙââ’——Ω∏Åâ’——Ω∏µ¡…•µÖ…‰Åâ’——Ω∏µ±Ö…ùîÅÕ—Ö…–µâ’——Ω∏àÅ—Â¡îÙââ’——Ω∏àÅΩπ±•ç¨ıÌÕ—Ö…—QïÕ—Ù˘ΩµïπÈÖ»Å—ïÕ–ÅëîÅÌ≈’ïÕ—•ΩπΩ’π—ÙÅ¡…ïù’π—ÖÃΩâ’——Ω∏¯(ÄÄÄÄÄÄÄÄÄÄÄÄÒ¿Åç±ÖÕÕ9ÖµîÙâÕï—’¿µπΩ—îà˘Mï±ïççßÕ∏ÅÖ±ïÖ—Ω…•Ñ∞ÅÕ•∏Å…ï¡ï—•»Å¡…ïù’π—ÖÃÅëïπ—…ºÅëï∞Åµ•ÕµºÅ—ïÕ–∏Ω¿¯(ÄÄÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯(ÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯((ÄÄÄÄÄÄÄÄÒÕïç—•Ω∏Åç±ÖÕÕ9ÖµîÙâëï—Ö•±ÃµÕïç—•Ω∏à¯(ÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâëï—Ö•∞µçÖ…êÅÕçΩ…•πúµçÖ…êà¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâëï—Ö•∞µ•πëï‡à¯¿ƒΩÕ¡Ö∏¯Òë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘Ω……ïççßÕ∏ÅΩô•ç•Ö∞ΩÕ¡Ö∏¯Ò†»˘UπÑÅõÕ…µ’±ÑÅç±Ö…Ñ∞ÅÕ•∏ÅπΩ—ÖÃÅ•πŸïπ—ÖëÖÃ∏Ω†»¯Òë•ÿÅç±ÖÕÕ9ÖµîÙâôΩ…µ’±ÑµŸ•Õ’Ö∞àÅÖ…•Ñµ±Öâï∞Ùâç•ï…—ºÅ∑ÖÃÅ’πº∞Åï……Ω»ÅµïπΩÃÅçï…ºÅçΩµÑÅŸï•π—•ç•πçº∞Åâ±ÖπçºÅçï…ºà¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâôΩ…µ’±ÑµùΩΩêà¯¨ƒÄÒÕµÖ±∞˘Öç•ï…—ºΩÕµÖ±∞¯ΩÕ¡Ö∏¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâôΩ…µ’±ÑµâÖêà˚ä"H¿∞»‘ÄÒÕµÖ±∞˘ï……Ω»ΩÕµÖ±∞¯ΩÕ¡Ö∏¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâôΩ…µ’±Ñµπï’—…Ö∞à¯¿ÄÒÕµÖ±∞˘ï∏Åâ±ÖπçºΩÕµÖ±∞¯ΩÕ¡Ö∏¯Ωë•ÿ¯Ò¿˘1ÑÅÖ¡±•çÖçßÕ∏Åµ’ïÕ—…ÑÅ±ÑÅ¡’π—’ÖçßÕ∏Åë•…ïç—Ñ∏Å9ºÅëïç±Ö…ÑÅÖ¡…ΩâÖëΩÃÅπ§ÅçΩπŸ•ï…—îÅï∞Å…ïÕ’±—ÖëºÅÑÅ’πÑÅçÖ±•ô•çÖçßÕ∏ÅΩô•ç•Ö∞ÅÕΩâ…îÄƒ¿∏Ω¿¯Ωë•ÿ¯ΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄÄÄÒÖ…—•ç±îÅç±ÖÕÕ9ÖµîÙâëï—Ö•∞µçÖ…êÅÕΩ’…çîµçÖ…êà¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâëï—Ö•∞µ•πëï‡à¯¿»ΩÕ¡Ö∏¯Òë•ÿ¯ÒÕ¡Ö∏Åç±ÖÕÕ9ÖµîÙâïÂïâ…Ω‹à˘Q…ÖÈÖâ•±•ëÖêΩÕ¡Ö∏¯Ò†»˘MÖâïÃÅëîÅìÕπëîÅÕÖ±îÅçÖëÑÅ¡…ïù’π—Ñ∏Ω†»¯Òë•ÿÅç±ÖÕÕ9ÖµîÙâÂïÖ»µù…•êà˘ÌÂïÖ…M’µµÖ…‰πµÖ¿†°mÂïÖ»∞ÅçΩ’π—t§ÄÙ¯ÄÒë•ÿÅ≠ï‰ıÌÂïÖ…Ù¯ÒÕ—…Ωπú˘ÌÂïÖ…ÙΩÕ—…Ωπú¯ÒÕ¡Ö∏˘ÌçΩ’π—ÙÅ€Ö±•ëÖÃΩÕ¡Ö∏¯Ωë•ÿ¯•ÙΩë•ÿ¯Ò¿˘1ÑÅ…ïŸ•ÕßÕ∏Åµ’ïÕ—…ÑÅçΩπŸΩçÖ—Ω…•Ñ∞ÅªÈµï…ºÅΩ…•ù•πÖ∞Å‰Å’πÑÅï·¡±•çÖçßÕ∏Å…ÖÈΩπÖëÑ∏ÅQΩëÖÃÅ±ÖÃÅ¡±Öπ—•±±ÖÃÅ’—•±•ÈÖëÖÃÅ—•ïπï∏ÅçÖÀÖç—ï»Åëïô•π•—•Ÿº∞Å•πç±’•ëÑÅ±ÑÅëîÄ»¿»»∏Å’ë•—ΩÀµÑÅπΩ…µÖ—•ŸÑÅÑÅÌ±ïùÖ±Yï…•ô•çÖ—•ΩπÖ—ÑπŸï…•ô•ïë–πÕ¡±•–†à¥à§π…ïŸï…Õî†§π©Ω•∏†àºà•ÙËÅô’ïπ—îÅ—…ÖÈÖâ±îÅï∏ÅÌQI	1}aA19Q%=9MÙÅëîÅÌ±ïùÖ±Yï…•ô•çÖ—•ΩπÖ—Ñπ≈’ïÕ—•ΩπÕIïŸ•ï›ïëÙÅï·¡±•çÖç•ΩπïÃÏÅ±ÑÅï·çï¡çßÕ∏Å¡ïπë•ïπ—îÅ‰Å±ÖÃÅ…ïù±ÖÃÅ°•Õ”Õ…•çÖÃÅÕîÅÖëŸ•ï…—ï∏Åï·¡…ïÕÖµïπ—î∏Ω¿¯Ωë•ÿ¯ΩÖ…—•ç±î¯(ÄÄÄÄÄÄÄÄΩÕïç—•Ω∏¯(ÄÄÄÄÄÄΩµÖ•∏¯((ÄÄÄÄÄÄÒôΩΩ—ï»Åç±ÖÕÕ9ÖµîÙâ±Öπë•πúµôΩΩ—ï»à¯Ò	…ÖπêÄº¯Ò¿˘!ï……Öµ•ïπ—ÑÅëîÅ¡ÀÖç—•çÑÅπºÅΩô•ç•Ö∞∏Å	ÖπçºÅ±•µ•—ÖëºÅÑÅçΩπŸΩçÖ—Ω…•ÖÃÅëîÅÖççïÕºÅ±•â…î∏Ω¿¯ΩôΩΩ—ï»¯(ÄÄÄÄΩë•ÿ¯(ÄÄ§Ï)Ù(
+    if (!profileKey || activeProgressKey.current !== profileKey) return;
+    writeCachedProgress(profileKey, progressData, appliedAttemptIds.current);
+  }, [profileKey, progressData]);
+
+  useEffect(() => {
+    if (!hasMounted.current) {
+      hasMounted.current = true;
+      return undefined;
+    }
+    const frame = window.requestAnimationFrame(() => pageHeading.current?.focus({ preventScroll: true }));
+    return () => window.cancelAnimationFrame(frame);
+  }, [stage, currentIndex]);
+
+  const answeredCount = Object.keys(answers).length;
+  const unansweredCount = quizQuestions.length - answeredCount;
+  const currentQuestion = quizQuestions[currentIndex];
+  const progress = quizQuestions.length ? ((currentIndex + 1) / quizQuestions.length) * 100 : 0;
+  const yearSummary = useMemo(
+    () => Object.entries(bankMetadata.countsByYear) as [string, number][],
+    [],
+  );
+  const weakQuestions = useMemo(
+    () => progressData.questionStats
+      .filter((stat) => stat.incorrectCount > 0 && stat.latestStatus !== "correct")
+      .map((stat) => ({ stat, question: QUESTIONS_BY_ID.get(stat.questionId) }))
+      .filter((item): item is { stat: QuestionStat; question: Question } => Boolean(item.question)),
+    [progressData.questionStats],
+  );
+
+  async function requestProgress(key: string): Promise<ProgressData> {
+    const response = await fetch(progressApiEndpoint(), { headers: { "x-progress-key": key } });
+    if (!response.ok) throw new Error("No se pudo cargar el progreso");
+    return normalizeProgress(await response.json());
+  }
+
+  function mergePending(
+    key: string,
+    base: ProgressData,
+    knownAttemptIds: Iterable<string> = [],
+  ): ProgressBundle {
+    const ids = new Set(knownAttemptIds);
+    const progress = [...readPendingAttempts(), ...volatilePending.current]
+      .filter((item) => item.profileKey === key)
+      .reduce((current, item) => applyAttempt(current, item.attempt, ids), base);
+    return { progress, appliedAttemptIds: ids };
+  }
+
+  function activateProgress(key: string, bundle: ProgressBundle) {
+    activeProgressKey.current = key;
+    appliedAttemptIds.current = bundle.appliedAttemptIds;
+    setProgressData(bundle.progress);
+  }
+
+  async function synchronize(key: string) {
+    const requestId = ++syncRequest.current;
+    setSyncState("loading");
+    const cached = readCachedProgress(key);
+    const localFlushed = await flushPendingAttempts();
+
+    const volatileSnapshot = volatilePending.current.splice(0);
+    const volatileRemaining: PendingAttempt[] = [];
+    for (const item of volatileSnapshot) {
+      try {
+        await postAttempt(item.profileKey, item.attempt);
+      } catch {
+        volatileRemaining.push(item);
+      }
+    }
+    volatilePending.current.unshift(...volatileRemaining);
+
+    try {
+      const remote = await requestProgress(key);
+      if (syncRequest.current !== requestId) return;
+      const remoteIds = new Set(cached?.appliedAttemptIds ?? []);
+      remote.attempts.forEach((attempt) => remoteIds.add(attempt.id));
+      const remoteBundle = mergePending(key, remote, remoteIds);
+
+      if (cached && cached.progress.summary.totalTests > remoteBundle.progress.summary.totalTests) {
+        const protectedBundle = mergePending(key, cached.progress, cached.appliedAttemptIds);
+        activateProgress(key, protectedBundle);
+        setSyncState("local");
+        return;
+      }
+
+      activateProgress(key, remoteBundle);
+      setSyncState(localFlushed && volatileRemaining.length === 0 ? "ready" : "offline");
+    } catch {
+      if (syncRequest.current !== requestId) return;
+      setProgressData((current) => {
+        const currentBelongsToKey = activeProgressKey.current === key;
+        const base = cached?.progress ?? (currentBelongsToKey ? current : EMPTY_PROGRESS);
+        const knownIds = cached?.appliedAttemptIds ?? (currentBelongsToKey ? appliedAttemptIds.current : []);
+        const localBundle = mergePending(key, base, knownIds);
+        activeProgressKey.current = key;
+        appliedAttemptIds.current = localBundle.appliedAttemptIds;
+        return localBundle.progress;
+      });
+      setSyncState("offline");
+    }
+  }
+
+  function startQuiz(pool: Question[], count: number, mode: TestMode) {
+    const selectedCount = Math.max(1, Math.min(pool.length, Math.floor(count)));
+    setQuizMode(mode);
+    setQuizQuestions(shuffled(pool).slice(0, selectedCount));
+    setAnswers({});
+    setCurrentIndex(0);
+    setFinishPrompt(false);
+    setResult(null);
+    setStage("quiz");
+    scrollToTop();
+  }
+
+  function startTest() {
+    const selectedCount = Math.max(1, Math.min(QUESTIONS.length, Math.floor(questionCount)));
+    setQuestionCount(selectedCount);
+    startQuiz(QUESTIONS, selectedCount, "standard");
+  }
+
+  function startReviewTest() {
+    if (weakQuestions.length === 0) return;
+    startQuiz(weakQuestions.map((item) => item.question), Math.min(reviewCount, weakQuestions.length), "review");
+  }
+
+  function chooseAnswer(questionId: string, option: OptionKey) {
+    setAnswers((previous) => ({ ...previous, [questionId]: option }));
+    setFinishPrompt(false);
+  }
+
+  function moveTo(index: number) {
+    setCurrentIndex(Math.max(0, Math.min(quizQuestions.length - 1, index)));
+    setFinishPrompt(false);
+    scrollToTop();
+  }
+
+  function requestFinish() {
+    if (unansweredCount > 0) {
+      setFinishPrompt(true);
+      return;
+    }
+    finishTest();
+  }
+
+  function finishTest() {
+    const evaluated = evaluateTest(quizQuestions, answers) as TestResult;
+    const key = profileKey || crypto.randomUUID();
+    if (!profileKey) {
+      try {
+        localStorage.setItem(PROFILE_STORAGE_KEY, key);
+      } catch {
+        // El progreso sigue funcionando durante esta sesi√≥n aunque el navegador bloquee el almacenamiento local.
+      }
+      setProfileKey(key);
+    }
+    const attempt: AttemptSubmission = {
+      id: crypto.randomUUID(),
+      completedAt: Date.now(),
+      mode: quizMode,
+      total: evaluated.total,
+      correct: evaluated.correct,
+      incorrect: evaluated.incorrect,
+      blank: evaluated.blank,
+      directScore: evaluated.directScore,
+      items: evaluated.items.map((item) => ({
+        questionId: item.question.id,
+        selectedOption: item.selectedOption,
+        status: item.status,
+      })),
+    };
+
+    setResult(evaluated);
+    activeProgressKey.current = key;
+    setProgressData((current) => applyAttempt(current, attempt, appliedAttemptIds.current));
+    if (!queueAttempt(key, attempt)) {
+      volatilePending.current.push({ profileKey: key, attempt });
+    }
+    setFinishPrompt(false);
+    setStage("results");
+    scrollToTop();
+    void synchronize(key);
+  }
+
+  function resetTest() {
+    setStage("setup");
+    setQuizQuestions([]);
+    setAnswers({});
+    setResult(null);
+    setFinishPrompt(false);
+    scrollToTop();
+  }
+
+  function showDashboard() {
+    setStage("dashboard");
+    scrollToTop();
+    if (profileKey) void synchronize(profileKey);
+  }
+
+  async function copyProfileKey() {
+    try {
+      await navigator.clipboard.writeText(profileKey);
+      setProfileMessage("C√≥digo copiado.");
+    } catch {
+      setProfileMessage("No se pudo copiar autom√°ticamente; selecci√≥nalo y c√≥pialo.");
+    }
+  }
+
+  async function importProfileKey() {
+    const key = profileInput.trim().toLowerCase();
+    if (!PROFILE_PATTERN.test(key)) {
+      setProfileMessage("El c√≥digo no tiene un formato v√°lido.");
+      return;
+    }
+
+    const requestId = ++syncRequest.current;
+    setProfileMessage("Comprobando el c√≥digo‚Ä¶");
+    try {
+      const remote = await requestProgress(key);
+      if (syncRequest.current !== requestId) return;
+      if (remote.summary.totalTests === 0) {
+        setProfileMessage("No se encontr√≥ historial para ese c√≥digo. Se conserva tu progreso actual.");
+        if (profileKey) void synchronize(profileKey);
+        return;
+      }
+
+      let stored = true;
+      try {
+        localStorage.setItem(PROFILE_STORAGE_KEY, key);
+      } catch {
+        stored = false;
+      }
+      setProfileKey(key);
+      setProfileInput("");
+      const cached = readCachedProgress(key);
+      const remoteIds = new Set(cached?.appliedAttemptIds ?? []);
+      remote.attempts.forEach((attempt) => remoteIds.add(attempt.id));
+      const remoteBundle = mergePending(key, remote, remoteIds);
+      if (cached && cached.progress.summary.totalTests > remoteBundle.progress.summary.totalTests) {
+        activateProgress(key, mergePending(key, cached.progress, cached.appliedAttemptIds));
+        setSyncState("local");
+        setProfileMessage("C√≥digo recuperado. Se ha protegido una copia local con m√°s tests que el historial remoto.");
+      } else {
+        activateProgress(key, remoteBundle);
+        setSyncState("ready");
+        setProfileMessage(stored
+          ? "Progreso recuperado con el nuevo c√≥digo."
+          : "Progreso recuperado para esta sesi√≥n; el navegador impidi√≥ guardar el c√≥digo.");
+      }
+    } catch {
+      if (syncRequest.current !== requestId) return;
+      setProfileMessage("No se pudo comprobar el c√≥digo. Se conserva tu progreso actual; int√©ntalo con conexi√≥n.");
+      setSyncState("offline");
+    }
+  }
+
+  function exportProgressBackup() {
+    if (!profileKey) {
+      setProfileMessage("Todav√≠a no hay un perfil de progreso que exportar.");
+      return;
+    }
+
+    const knownIds = new Set(appliedAttemptIds.current);
+    progressData.attempts.forEach((attempt) => knownIds.add(attempt.id));
+    const snapshot = mergePending(profileKey, progressData, knownIds);
+    const pendingById = new Map<string, AttemptSubmission>();
+    [...readPendingAttempts(), ...volatilePending.current]
+      .filter((item) => item.profileKey === profileKey)
+      .forEach((item) => pendingById.set(item.attempt.id, item.attempt));
+
+    try {
+      const contents = createProgressBackup({
+        profileKey,
+        progress: snapshot.progress,
+        appliedAttemptIds: snapshot.appliedAttemptIds,
+        pendingAttempts: [...pendingById.values()],
+      });
+      const blob = new Blob([contents], { type: "application/json;charset=utf-8" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `entrena-ahp-progreso-${new Date().toISOString().slice(0, 10)}.json`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.setTimeout(() => URL.revokeObjectURL(url), 0);
+      setProfileMessage("Copia de seguridad descargada. Incluye el historial y el c√≥digo an√≥nimo de este perfil.");
+    } catch {
+      setProfileMessage("No se pudo crear la copia de seguridad en este navegador.");
+    }
+  }
+
+  async function importProgressBackupFile(event: React.ChangeEvent<HTMLInputElement>) {
+    const input = event.currentTarget;
+    const file = input.files?.[0];
+    input.value = "";
+    if (!file) return;
+    if (file.size > MAX_BACKUP_FILE_BYTES) {
+      setProfileMessage("La copia supera el l√≠mite de 5 MB y no se ha abierto.");
+      return;
+    }
+
+    try {
+      const parsed = parseProgressBackup(
+        await file.text(),
+        ANSWERS_BY_QUESTION,
+      ) as unknown as ProgressBackupData;
+      const key = parsed.profileKey;
+      const existing = readCachedProgress(key);
+      const keepExisting = Boolean(
+        existing && existing.progress.summary.totalTests > parsed.progress.summary.totalTests,
+      );
+      const base = keepExisting && existing ? existing.progress : parsed.progress;
+      const knownIds = new Set([
+        ...parsed.appliedAttemptIds,
+        ...(existing?.appliedAttemptIds ?? []),
+      ]);
+
+      syncRequest.current += 1;
+      for (const attempt of parsed.pendingAttempts) {
+        if (!queueAttempt(key, attempt)) {
+          volatilePending.current.push({ profileKey: key, attempt });
+        }
+      }
+      const restored = mergePending(key, base, knownIds);
+      const cacheStored = writeCachedProgress(key, restored.progress, restored.appliedAttemptIds);
+      let profileStored = true;
+      try {
+        localStorage.setItem(PROFILE_STORAGE_KEY, key);
+      } catch {
+        profileStored = false;
+      }
+
+      activateProgress(key, restored);
+      setProfileKey(key);
+      setProfileInput("");
+      setSyncState("local");
+      if (keepExisting) {
+        setProfileMessage("La copia era anterior al historial guardado en este dispositivo; se ha conservado la versi√≥n m√°s reciente.");
+      } else if (!cacheStored || !profileStored) {
+        setProfileMessage("Copia abierta para esta sesi√≥n; el navegador impidi√≥ conservarla localmente.");
+      } else {
+        setProfileMessage(`Copia restaurada: ${restored.progress.summary.totalTests} tests disponibles en este dispositivo.`);
+      }
+
+      if (key === profileKey) void synchronize(key);
+    } catch (error) {
+      const detail = error instanceof Error ? error.message : "El archivo no es una copia v√°lida.";
+      setProfileMessage(detail);
+    }
+  }
+
+  if (stage === "quiz" && currentQuestion) {
+    const selectedOption = answers[currentQuestion.id];
+
+    return (
+      <div className="app-shell quiz-shell">
+        <header className="quiz-header">
+          <Brand />
+          <div className="quiz-header-progress">
+            <div className="progress-copy">
+              <span>Pregunta {currentIndex + 1} de {quizQuestions.length}</span>
+              <span>{answeredCount} respondidas</span>
+            </div>
+            <div className="progress-track" aria-hidden="true">
+              <span style={{ width: `${progress}%` }} />
+            </div>
+          </div>
+          <button className="button button-quiet header-finish" type="button" onClick={requestFinish}>
+            Finalizar
+          </button>
+        </header>
+
+        <main className="quiz-main">
+          {quizMode === "review" && <div className="mode-chip">Repaso de preguntas falladas</div>}
+          <section className="question-card" aria-labelledby="question-title">
+            <div className="question-meta">
+              <span className="source-chip">Convocatoria {currentQuestion.year}</span>
+              <span>Pregunta {currentQuestion.sourceQuestionNumber}</span>
+            </div>
+            <h1 className="focus-heading" id="question-title" ref={pageHeading} tabIndex={-1}>{currentQuestion.prompt}</h1>
+
+            <fieldset className="options-list">
+              <legend className="sr-only">Elige una respuesta</legend>
+              {OPTION_KEYS.map((key) => (
+                <label className={`option-card ${selectedOption === key ? "is-selected" : ""}`} key={key}>
+                  <input
+                    type="radio"
+                    name={`answer-${currentQuestion.id}`}
+                    value={key}
+                    checked={selectedOption === key}
+                    onChange={() => chooseAnswer(currentQuestion.id, key)}
+                  />
+                  <span className="option-key" aria-hidden="true">{key}</span>
+                  <span className="option-text">{currentQuestion.options[key]}</span>
+                </label>
+              ))}
+            </fieldset>
+          </section>
+
+          {finishPrompt && (
+            <section className="finish-prompt" role="alert" aria-live="assertive">
+              <div>
+                <strong>Quedan {unansweredCount} sin responder.</strong>
+                <p>Las respuestas en blanco no penalizan. Puedes entregarlo ahora o continuar.</p>
+              </div>
+              <div className="finish-actions">
+                <button className="button button-quiet" type="button" onClick={() => setFinishPrompt(false)}>Continuar</button>
+                <button className="button button-primary" type="button" onClick={finishTest}>Entregar igualmente</button>
+              </div>
+            </section>
+          )}
+
+          <nav className="question-navigation" aria-label="Navegaci√≥n del test">
+            <button className="button button-quiet" type="button" disabled={currentIndex === 0} onClick={() => moveTo(currentIndex - 1)}>
+              ‚Üê Anterior
+            </button>
+            <span className="unanswered-copy">{unansweredCount} en blanco</span>
+            {currentIndex < quizQuestions.length - 1 ? (
+              <button className="button button-primary" type="button" onClick={() => moveTo(currentIndex + 1)}>Siguiente ‚Üí</button>
+            ) : (
+              <button className="button button-primary" type="button" onClick={requestFinish}>Corregir test</button>
+            )}
+          </nav>
+        </main>
+      </div>
+    );
+  }
+
+  if (stage === "results" && result) {
+    const reviewItems = result.items.filter((item) => item.status !== "correct");
+
+    return (
+      <div className="app-shell results-shell">
+        <header className="simple-header">
+          <Brand />
+          <div className="header-actions">
+            <button className="button button-quiet" type="button" onClick={showDashboard}>Mi progreso</button>
+            <button className="button button-quiet" type="button" onClick={resetTest}>Nuevo test</button>
+          </div>
+        </header>
+
+        <main className="results-main">
+          <section className="results-hero">
+            <div className="results-kicker">Resultado del test</div>
+            <div className="result-heading-row">
+              <div>
+                <h1 className="focus-heading" ref={pageHeading} tabIndex={-1}>{result.correct} de {result.total} correctas</h1>
+                <p>Correcci√≥n con la f√≥rmula oficial de puntuaci√≥n directa.</p>
+              </div>
+              <div className="score-block" aria-label={`Puntuaci√≥n directa ${formatScore(result.directScore)} de ${result.total}`}>
+                <span className="score-number">{formatScore(result.directScore)}</span>
+                <span className="score-maximum">de {result.total} puntos</span>
+              </div>
+            </div>
+
+            <div className="result-stats">
+              <article className="result-stat correct-stat"><span className="stat-label">Aciertos</span><strong>{result.correct}</strong><small>+{formatScore(result.correct)}</small></article>
+              <article className="result-stat incorrect-stat"><span className="stat-label">Errores</span><strong>{result.incorrect}</strong><small>‚àí{formatScore(result.incorrect / 4)}</small></article>
+              <article className="result-stat blank-stat"><span className="stat-label">En blanco</span><strong>{result.blank}</strong><small>0 puntos</small></article>
+            </div>
+
+            <div className="score-formula">
+              <span>F√≥rmula aplicada</span>
+              <strong>{result.correct} ‚àí ({result.incorrect} √∑ 4) = {formatScore(result.directScore)}</strong>
+              <p>No se muestra una nota oficial sobre 10: esa transformaci√≥n depende del baremo de cada tribunal.</p>
+            </div>
+          </section>
+
+          <section className="review-section" aria-labelledby="review-title">
+            <div className="section-heading">
+              <div><span className="eyebrow">Revisi√≥n razonada</span><h2 id="review-title">Errores y preguntas en blanco</h2></div>
+              <span className="review-count">{reviewItems.length}</span>
+            </div>
+
+            {reviewItems.length === 0 ? (
+              <div className="perfect-card"><span aria-hidden="true">‚úì</span><div><h3>Test perfecto</h3><p>No hay errores ni preguntas sin responder.</p></div></div>
+            ) : (
+              <div className="review-list">
+                {reviewItems.map((item, index) => {
+                  const { question, selectedOption, status } = item;
+                  const correctOption = question.correctOptions[0];
+                  const explanation = EXPLANATIONS[question.id];
+                  const historicalNote = HISTORICAL_ONLY[question.id];
+                  const pendingSourceNote = SOURCE_PENDING[question.id];
+                  const fallback = `La regla aplicable conduce a la opci√≥n ${correctOption}: ${question.options[correctOption]}`;
+                  return (
+                    <article className="review-card" key={question.id}>
+                      <div className="review-card-topline">
+                        <span className={`status-chip ${status}`}>{status === "blank" ? "En blanco" : "Error"}</span>
+                        <span>#{index + 1} ¬∑ {question.year} ¬∑ pregunta {question.sourceQuestionNumber}</span>
+                      </div>
+                      <h3>{question.prompt}</h3>
+                      <div className="answer-comparison">
+                        <div className="answer-row user-answer">
+                          <span>Tu respuesta</span>
+                          <p>{selectedOption ? <><b>{selectedOption}.</b> {question.options[selectedOption]}</> : "Sin responder"}</p>
+                        </div>
+                        <div className="answer-row correct-answer">
+                          <span>Respuesta correcta</span>
+                          <p><b>{correctOption}.</b> {question.options[correctOption]}</p>
+                        </div>
+                      </div>
+                      <div className="error-explanation">
+                        {historicalNote && <p className="legal-status-note historical-status"><strong>Vigencia:</strong> {historicalNote}</p>}
+                        {pendingSourceNote && <p className="legal-status-note pending-status"><strong>Trazabilidad pendiente:</strong> {pendingSourceNote}</p>}
+                        <strong>Por qu√©:</strong> {explanation?.explanation || fallback}
+                        {selectedOption && (
+                          <p className="answer-contrast">Tu opci√≥n afirmaba ¬´{question.options[selectedOption]}¬ª; el elemento decisivo es la regla anterior.</p>
+                        )}
+                        {explanation?.reference && <p className="explanation-reference"><strong>Fundamento:</strong> {explanation.reference}</p>}
+                      </div>
+                      <p className="source-line">Fuente: cuestionario oficial {question.year} ¬∑ plantilla definitiva.</p>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
+
+            <div className="results-cta">
+              <button className="button button-primary button-large" type="button" onClick={showDashboard}>Ver mi progreso</button>
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  if (stage === "dashboard") {
+    const answeredForAccuracy = progressData.summary.correct + progressData.summary.incorrect;
+    const accuracy = answeredForAccuracy ? (progressData.summary.correct / answeredForAccuracy) * 100 : 0;
+    const reviewSize = weakQuestions.length ? Math.min(reviewCount, weakQuestions.length) : 0;
+
+    return (
+      <div className="app-shell dashboard-shell">
+        <header className="simple-header">
+          <Brand />
+          <div className="header-actions">
+            <span className={`sync-chip ${syncState}`} role="status" aria-live="polite">{syncState === "ready" ? "Progreso sincronizado" : syncState === "loading" ? "Sincronizando‚Ä¶" : syncState === "local" ? "Copia local protegida" : "Guardado localmente"}</span>
+            <button className="button button-primary" type="button" onClick={resetTest}>Nuevo test</button>
+          </div>
+        </header>
+
+        <main className="dashboard-main">
+          <section className="dashboard-hero">
+            <div><span className="eyebrow">Panel de estudio</span><h1 className="focus-heading" ref={pageHeading} tabIndex={-1}>Tu progreso, de un vistazo.</h1><p>El historial identifica las preguntas que conviene volver a practicar.</p></div>
+          </section>
+
+          <section className="metrics-grid" aria-label="Resumen de progreso">
+            <article className="metric-card"><span>Tests completados</span><strong>{progressData.summary.totalTests}</strong></article>
+            <article className="metric-card"><span>Preguntas practicadas</span><strong>{progressData.summary.totalQuestions}</strong></article>
+            <article className="metric-card"><span>Precisi√≥n</span><strong>{formatPercent(accuracy)}%</strong><small>sobre preguntas contestadas</small></article>
+            <article className="metric-card attention"><span>Por reforzar</span><strong>{weakQuestions.length}</strong><small>fallos a√∫n no corregidos</small></article>
+          </section>
+
+          <div className="dashboard-grid">
+            <section className="panel-card review-panel" aria-labelledby="weak-title">
+              <div className="panel-heading"><div><span className="eyebrow">Repaso inteligente</span><h2 id="weak-title">Preguntas falladas</h2></div><span className="review-count">{weakQuestions.length}</span></div>
+              {weakQuestions.length === 0 ? (
+                <div className="empty-dashboard"><span aria-hidden="true">‚úì</span><p>{progressData.summary.totalTests ? "No tienes fallos pendientes de corregir." : "Completa un test para crear tu lista de repaso."}</p></div>
+              ) : (
+                <>
+                  <div className="review-launch">
+                    <label htmlFor="review-count">N√∫mero de preguntas</label>
+                    <input id="review-count" type="number" min="1" max={weakQuestions.length} value={reviewSize} onChange={(event) => setReviewCount(Math.max(1, Math.min(weakQuestions.length, Number(event.target.value) || 1)))} />
+                    <button className="button button-primary" type="button" onClick={startReviewTest}>Practicar {reviewSize} falladas</button>
+                  </div>
+                  <div className="weak-list">
+                    {weakQuestions.slice(0, 8).map(({ stat, question }) => (
+                      <article className="weak-item" key={question.id}>
+                        <div><span>{question.year} ¬∑ pregunta {question.sourceQuestionNumber}</span><p>{question.prompt}</p></div>
+                        <strong>{stat.incorrectCount} {stat.incorrectCount === 1 ? "fallo" : "fallos"}</strong>
+                      </article>
+                    ))}
+                  </div>
+                </>
+              )}
+            </section>
+
+            <section className="panel-card history-panel" aria-labelledby="history-title">
+              <div className="panel-heading"><div><span className="eyebrow">Evoluci√≥n</span><h2 id="history-title">√öltimos tests</h2></div></div>
+              {progressData.attempts.length === 0 ? (
+                <div className="empty-dashboard"><p>Aqu√≠ aparecer√°n tus resultados cuando termines el primer test.</p></div>
+              ) : (
+                <div className="history-list">
+                  {progressData.attempts.slice(0, 8).map((attempt) => (
+                    <article className="history-item" key={attempt.id}>
+                      <div><strong>{attempt.mode === "review" ? "Repaso" : "Test aleatorio"}</strong><span>{formatDate(attempt.completedAt)} ¬∑ {attempt.total} preguntas</span></div>
+                      <div className="history-score"><strong>{formatScore(attempt.directScore)} / {attempt.total}</strong><span>puntuaci√≥n directa</span></div>
+                    </article>
+                  ))}
+                </div>
+              )}
+            </section>
+          </div>
+
+          <section className="panel-card profile-panel" aria-labelledby="profile-title">
+            <div><span className="eyebrow">Recuperaci√≥n</span><h2 id="profile-title">Conserva tu c√≥digo de progreso</h2><p>El historial se sincroniza con Sites y tambi√©n se conserva completo en este navegador. El c√≥digo permite recuperarlo en otro dispositivo.</p></div>
+            <div className="profile-controls">
+              <div className="profile-code"><code>{profileKey || "Preparando‚Ä¶"}</code><button className="button button-quiet" type="button" disabled={!profileKey} onClick={copyProfileKey}>Copiar</button></div>
+              <div className="profile-import"><label htmlFor="profile-input">Recuperar otro c√≥digo</label><div><input id="profile-input" value={profileInput} onChange={(event) => setProfileInput(event.target.value)} placeholder="xxxxxxxx-xxxx-4xxx-xxxx-xxxxxxxxxxxx" /><button className="button button-quiet" type="button" onClick={() => void importProfileKey()}>Recuperar</button></div></div>
+              <fieldset className="profile-backup" aria-describedby="profile-backup-help">
+                <legend>Copia de seguridad</legend>
+                <div className="profile-backup-actions">
+                  <button className="button button-quiet" type="button" disabled={!profileKey} onClick={exportProgressBackup}>Exportar historial</button>
+                  <button className="button button-quiet" type="button" onClick={() => backupFileInput.current?.click()}>Importar copia</button>
+                </div>
+                <input ref={backupFileInput} id="backup-file-input" className="sr-only" type="file" accept=".json,application/json" tabIndex={-1} onChange={(event) => void importProgressBackupFile(event)} />
+                <p id="profile-backup-help">El archivo JSON incluye el c√≥digo an√≥nimo y el historial de este perfil. Gu√°rdalo como conservar√≠as tu c√≥digo de progreso.</p>
+              </fieldset>
+              {profileMessage && <p className="profile-message" role="status" aria-live="polite" aria-atomic="true">{profileMessage}</p>}
+            </div>
+          </section>
+        </main>
+      </div>
+    );
+  }
+
+  return (
+    <div className="app-shell landing-shell">
+      <header className="landing-header">
+        <Brand />
+        <div className="header-actions"><span className="header-source">Banco hist√≥rico 2022‚Äì2025</span><button className="button button-quiet" type="button" onClick={showDashboard}>Mi progreso</button></div>
+      </header>
+
+      <main>
+        <section className="hero-section">
+          <div className="hero-copy">
+            <span className="eyebrow">Simulador de Agentes de Hacienda</span>
+            <h1 className="focus-heading" ref={pageHeading} tabIndex={-1}>Entrena como el d√≠a del examen.</h1>
+            <p className="hero-lead">Tests aleatorios construidos √∫nicamente con preguntas y respuestas de convocatorias anteriores. Las preguntas anuladas est√°n excluidas.</p>
+            <div className="trust-row" aria-label="Caracter√≠sticas del banco">
+              <span><b>{bankMetadata.totalQuestions}</b> preguntas v√°lidas</span><span><b>4</b> convocatorias</span><span><b>0</b> anuladas incluidas</span>
+            </div>
+          </div>
+
+          <section className="setup-card" aria-labelledby="setup-title">
+            <div className="setup-card-heading"><span className="step-label">Configura tu test</span><h2 id="setup-title">¬øCu√°ntas preguntas quieres responder?</h2></div>
+            <div className="preset-grid" aria-label="Cantidades r√°pidas">
+              {PRESETS.map((preset) => <button className={`preset-button ${questionCount === preset ? "is-active" : ""}`} type="button" key={preset} onClick={() => setQuestionCount(preset)}>{preset}</button>)}
+            </div>
+            <label className="count-control" htmlFor="question-count"><span>N√∫mero personalizado</span><input id="question-count" type="number" min="1" max={QUESTIONS.length} value={questionCount} onChange={(event) => setQuestionCount(Math.max(1, Math.min(QUESTIONS.length, Number(event.target.value) || 1)))} /></label>
+            <input className="count-range" type="range" min="1" max={QUESTIONS.length} value={questionCount} aria-label="N√∫mero de preguntas" onChange={(event) => setQuestionCount(Number(event.target.value))} />
+            <div className="range-labels" aria-hidden="true"><span>1</span><span>{QUESTIONS.length}</span></div>
+            <button className="button button-primary button-large start-button" type="button" onClick={startTest}>Comenzar test de {questionCount} preguntas</button>
+            <p className="setup-note">Selecci√≥n aleatoria, sin repetir preguntas dentro del mismo test.</p>
+          </section>
+        </section>
+
+        <section className="details-section">
+          <article className="detail-card scoring-card"><span className="detail-index">01</span><div><span className="eyebrow">Correcci√≥n oficial</span><h2>Una f√≥rmula clara, sin notas inventadas.</h2><div className="formula-visual" aria-label="Acierto m√°s uno, error menos cero coma veinticinco, blanco cero"><span className="formula-good">+1 <small>acierto</small></span><span className="formula-bad">‚àí0,25 <small>error</small></span><span className="formula-neutral">0 <small>en blanco</small></span></div><p>La aplicaci√≥n muestra la puntuaci√≥n directa. No declara aprobados ni convierte el resultado a una calificaci√≥n oficial sobre 10.</p></div></article>
+          <article className="detail-card source-card"><span className="detail-index">02</span><div><span className="eyebrow">Trazabilidad</span><h2>Sabes de d√≥nde sale cada pregunta.</h2><div className="year-grid">{yearSummary.map(([year, count]) => <div key={year}><strong>{year}</strong><span>{count} v√°lidas</span></div>)}</div><p>La revisi√≥n muestra convocatoria, n√∫mero original y una explicaci√≥n razonada. Todas las plantillas utilizadas tienen car√°cter definitivo, incluida la de 2022. Auditor√≠a normativa a {legalVerificationData.verifiedAt.split("-").reverse().join("/")}: fuente trazable en {TRACEABLE_EXPLANATIONS} de {legalVerificationData.questionsReviewed} explicaciones; la excepci√≥n pendiente y las reglas hist√≥ricas se advierten expresamente.</p></div></article>
+        </section>
+      </main>
+
+      <footer className="landing-footer"><Brand /><p>Herramienta de pr√°ctica no oficial. Banco limitado a convocatorias de acceso libre.</p></footer>
+    </div>
+  );
+}
