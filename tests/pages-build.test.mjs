@@ -19,4 +19,5 @@ test("el manifiesto y el service worker funcionan desde una ruta base", async ()
   assert.equal(manifest.start_url, "./");
   assert.equal(manifest.scope, "./");
   assert.match(serviceWorker, /self\.registration\.scope/);
+  assert.match(serviceWorker, /pathname\.startsWith\(new URL\("api\/"/);
 });

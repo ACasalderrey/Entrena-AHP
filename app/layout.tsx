@@ -17,7 +17,7 @@ export async function generateMetadata(): Promise<Metadata> {
   return {
     metadataBase: base,
     title: "Entrena AHP | Tests históricos de Agentes de Hacienda",
-    description: "Practica con 372 preguntas de convocatorias anteriores, sin anuladas y con puntuación directa oficial.",
+    description: "Practica con 372 preguntas de convocatorias anteriores, explicaciones razonadas, historial y repaso de fallos.",
     applicationName: "Entrena AHP",
     manifest: "/manifest.webmanifest",
     icons: {
@@ -28,14 +28,14 @@ export async function generateMetadata(): Promise<Metadata> {
       type: "website",
       url: base,
       title: "Entrena AHP",
-      description: "Preguntas de convocatorias anteriores · 2022–2025",
+      description: "Preguntas de convocatorias anteriores, explicaciones y panel de progreso · 2022–2025",
       locale: "es_ES",
       images: [{ url: socialImage, width: 1728, height: 909, alt: "Entrena AHP, preguntas oficiales 2022–2025" }],
     },
     twitter: {
       card: "summary_large_image",
       title: "Entrena AHP",
-      description: "Tests históricos con puntuación directa oficial.",
+      description: "Tests históricos con puntuación directa oficial, explicaciones y repaso de fallos.",
       images: [socialImage],
     },
   };

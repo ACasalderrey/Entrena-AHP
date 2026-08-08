@@ -1,6 +1,6 @@
 {
   "title": "Banco histórico AHP",
-  "scope": "Acceso libre, tipo A, convocatorias 2022-2025",
+  "scope": "Acceso libre, convocatorias 2022-2025",
   "totalQuestions": 372,
   "countsByYear": {
     "2022": 98,
@@ -32,5 +32,5 @@
     "formula": "aciertos - errores / 4"
   },
   "sourcePolicy": "Preguntas y claves proceden exclusivamente de los ocho PDF de la carpeta App.",
-  "answerKeyNote": "El PDF de respuestas de 2022 está rotulado como plantilla provisional; los demás, como definitivos."
+  "answerKeyNote": "Las plantillas de respuestas utilizadas tienen carácter definitivo, incluida la correspondiente a 2022."
 }

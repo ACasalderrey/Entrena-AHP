@@ -1,4 +1,4 @@
-const CACHE_NAME = "entrena-ahp-v2";
+const CACHE_NAME = "entrena-ahp-v3";
 const BASE_URL = new URL("./", self.registration.scope);
 const APP_SHELL = ["", "manifest.webmanifest", "icon-192.png", "icon-512.png"].map((path) =>
   new URL(path, BASE_URL).toString(),
@@ -17,7 +17,12 @@ self.addEventListener("activate", (event) => {
 });
 
 self.addEventListener("fetch", (event) => {
-  if (event.request.method !== "GET" || new URL(event.request.url).origin !== self.location.origin) return;
+  const requestUrl = new URL(event.request.url);
+  if (
+    event.request.method !== "GET" ||
+    requestUrl.origin !== self.location.origin ||
+    requestUrl.pathname.startsWith(new URL("api/", BASE_URL).pathname)
+  ) return;
   event.respondWith(
     caches.match(event.request).then((cached) => {
       const network = fetch(event.request)

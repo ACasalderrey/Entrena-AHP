@@ -7,6 +7,12 @@ import { evaluateTest } from "../app/lib/scoring.js";
 const questions = JSON.parse(
   await readFile(new URL("../app/data/questions.json", import.meta.url), "utf8"),
 );
+const metadata = JSON.parse(
+  await readFile(new URL("../app/data/bank-metadata.json", import.meta.url), "utf8"),
+);
+const explanations = JSON.parse(
+  await readFile(new URL("../app/data/explanations.json", import.meta.url), "utf8"),
+);
 
 const excluded = {
   2022: [43, 82],
@@ -46,6 +52,27 @@ test("keeps one valid A-D key and four complete options per question", () => {
     assert.equal(question.correctOptions.length, 1);
     assert.ok(["A", "B", "C", "D"].includes(question.correctOptions[0]));
     assert.equal(question.isReserve, false);
+    assert.equal(question.answerKeyLabel, "definitiva");
+  }
+});
+
+
+test("treats every answer key as definitive without exposing booklet type", () => {
+  assert.match(metadata.answerKeyNote, /definitiv/i);
+  assert.match(metadata.answerKeyNote, /2022/);
+  assert.doesNotMatch(JSON.stringify(metadata), /tipo\s+A/i);
+});
+
+
+test("provides a substantive explanation for every valid question", () => {
+  const questionIds = questions.map((question) => question.id).sort();
+  const explanationIds = Object.keys(explanations).sort();
+  assert.deepEqual(explanationIds, questionIds);
+
+  for (const [id, item] of Object.entries(explanations)) {
+    assert.ok(typeof item.explanation === "string" && item.explanation.trim().length >= 35, `${id} necesita explicación`);
+    assert.ok(typeof item.reference === "string" && item.reference.trim().length >= 3, `${id} necesita fundamento`);
+    assert.doesNotMatch(item.explanation, /no coincide con (?:la )?(?:clave|plantilla)|la plantilla .*señala/i);
   }
 });
 

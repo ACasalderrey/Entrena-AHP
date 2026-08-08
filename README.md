@@ -1,6 +1,6 @@
 # Entrena AHP
 
-Aplicación web ligera para practicar el primer ejercicio de Agentes de la Hacienda Pública con preguntas históricas de acceso libre, tipo A.
+Aplicación web ligera para practicar el primer ejercicio de Agentes de la Hacienda Pública con preguntas históricas de acceso libre.
 
 ## Banco de preguntas
 
@@ -8,7 +8,7 @@ Aplicación web ligera para practicar el primer ejercicio de Agentes de la Hacie
 - Fuente exclusiva para enunciados y claves: los ocho PDF de la carpeta `App`.
 - Anuladas excluidas: 2022 (43, 82), 2023 (20, 24, 25, 30, 42) y 2024 (73).
 - No se han inferido preguntas de reserva ni respuestas múltiples.
-- El PDF de respuestas de 2022 está rotulado como plantilla provisional; la aplicación conserva exactamente esa clave local.
+- Las plantillas de respuestas utilizadas son las definitivas, incluida la de 2022.
 
 La auditoría y las extracciones reproducibles están en `data/source`. `scripts/build-question-bank.py` normaliza y valida el banco antes de escribir los datos consumidos por la aplicación.
 
@@ -19,6 +19,15 @@ La aplicación calcula la puntuación directa oficial:
 `aciertos - errores / 4`
 
 Las respuestas en blanco valen cero. No se presenta una calificación oficial sobre 10, porque esa transformación depende del baremo de cada tribunal.
+
+## Explicaciones y progreso
+
+- Cada una de las 372 preguntas incluye una explicación breve y un fundamento normativo para revisar los errores.
+- El panel guarda los resultados, resume aciertos, errores y preguntas en blanco, y muestra la evolución de los últimos tests.
+- Las preguntas falladas que todavía no se han corregido forman automáticamente un test de repaso.
+- El progreso se guarda bajo un identificador anónimo. El código de recuperación permite abrir el mismo historial en otro navegador o dispositivo; no se solicitan nombre, correo ni cuenta de usuario.
+
+La persistencia de la versión publicada utiliza una base D1. Si falta temporalmente la conexión, los intentos pendientes se conservan en el navegador y se sincronizan al recuperarla.
 
 ## Uso local
 

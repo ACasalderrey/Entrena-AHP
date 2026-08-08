@@ -11,9 +11,11 @@
     "build:pages": "vite build --config vite.pages.config.ts",
     "preview:pages": "vite preview --config vite.pages.config.ts",
     "start": "vinext start",
-    "test": "vinext build && vite build --config vite.pages.config.ts && node --test tests/*.test.mjs",
-    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
-    "db:generate": "drizzle-kit generate"
+    "test": "tsc --noEmit --incremental false && vinext build && vite build --config vite.pages.config.ts && node --test tests/*.test.mjs",
+    "typecheck": "tsc --noEmit --incremental false",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern dist-pages --ignore-pattern .next",
+    "db:generate": "drizzle-kit generate",
+    "types:worker": "wrangler types worker-configuration.d.ts --env-interface CloudflareEnv --config wrangler.types.jsonc"
   },
   "dependencies": {
     "drizzle-orm": "0.45.2",

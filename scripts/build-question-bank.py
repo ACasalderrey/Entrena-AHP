@@ -13,7 +13,7 @@ METADATA_OUTPUT = ROOT / "app" / "data" / "bank-metadata.json"
 
 EXPECTED_COUNTS = {2022: 98, 2023: 95, 2024: 99, 2025: 80}
 ANNULLED = {2022: [43, 82], 2023: [20, 24, 25, 30, 42], 2024: [73], 2025: []}
-ANSWER_KEY_LABELS = {2022: "provisional", 2023: "definitiva", 2024: "definitiva", 2025: "definitiva"}
+ANSWER_KEY_LABELS = {2022: "definitiva", 2023: "definitiva", 2024: "definitiva", 2025: "definitiva"}
 
 
 def read_sources() -> list[dict]:
@@ -97,7 +97,7 @@ def main() -> None:
 
     metadata = {
         "title": "Banco histórico AHP",
-        "scope": "Acceso libre, tipo A, convocatorias 2022-2025",
+        "scope": "Acceso libre, convocatorias 2022-2025",
         "totalQuestions": len(questions),
         "countsByYear": {str(year): count for year, count in EXPECTED_COUNTS.items()},
         "annulledExcluded": {str(year): values for year, values in ANNULLED.items()},
@@ -108,7 +108,7 @@ def main() -> None:
             "formula": "aciertos - errores / 4",
         },
         "sourcePolicy": "Preguntas y claves proceden exclusivamente de los ocho PDF de la carpeta App.",
-        "answerKeyNote": "El PDF de respuestas de 2022 está rotulado como plantilla provisional; los demás, como definitivos.",
+        "answerKeyNote": "Las plantillas de respuestas utilizadas tienen carácter definitivo, incluida la correspondiente a 2022.",
     }
 
     OUTPUT.write_text(json.dumps(questions, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")

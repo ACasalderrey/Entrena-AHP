@@ -1,5 +1,13 @@
 {
   "version": "7",
   "dialect": "sqlite",
-  "entries": []
+  "entries": [
+    {
+      "idx": 0,
+      "version": "6",
+      "when": 1786145836855,
+      "tag": "0000_early_venom",
+      "breakpoints": true
+    }
+  ]
 }
