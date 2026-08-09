@@ -5,8 +5,9 @@ import taxonomyData from "../../data/taxonomy.json";
 import { corsHeaders, corsPreflightResponse } from "../../lib/cors";
 import { D1_ANSWER_CHUNK_SIZE } from "../../lib/progress";
 import {
+  canonicalContentScope,
+  questionMatchesContentScope,
   settingsPatchFrom,
-  validatedContentScope,
   validatedStudyDate,
 } from "../../lib/progress-api";
 
@@ -72,12 +73,12 @@ const QUESTION_ANSWERS = new Map(
 const QUESTION_TAXONOMY = new Map(
   Object.entries(questionTaxonomyData as Record<string, { topicId: string; normIds: string[] }>),
 );
-const TOPIC_LABELS = new Map(
-  (taxonomyData.topics as Array<{ id: string; label: string }>).map((topic) => [topic.id, topic.label]),
-);
-const NORM_LABELS = new Map(
-  (taxonomyData.norms as Array<{ id: string; label: string }>).map((norm) => [norm.id, norm.label]),
-);
+const TAXONOMY = taxonomyData as {
+  topics: Array<{ id: string; label: string }>;
+  norms: Array<{ id: string; label: string }>;
+  normGroups?: Array<{ id: string; label: string; shortLabel?: string; normIds: string[] }>;
+};
+const NORM_GROUPS = TAXONOMY.normGroups ?? [];
 
 function databaseBoolean(value: unknown): boolean {
   return value === true || Number(value) === 1;
@@ -132,15 +133,8 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
   }
 
   const studyDate = validatedStudyDate(attempt.studyDate, attempt.completedAt);
-  const contentScope = validatedContentScope(attempt);
+  const contentScope = canonicalContentScope(attempt, TAXONOMY);
   if (!studyDate || !contentScope) return null;
-  if (contentScope.contentType !== "all") {
-    const canonicalLabel = contentScope.contentType === "topic"
-      ? TOPIC_LABELS.get(contentScope.contentId ?? "")
-      : NORM_LABELS.get(contentScope.contentId ?? "");
-    if (!canonicalLabel) return null;
-    contentScope.contentLabel = canonicalLabel;
-  }
 
   const durationMissing = attempt.durationMs === undefined || attempt.durationMs === null;
   const limitMissing = attempt.timeLimitMs === undefined || attempt.timeLimitMs === null;
@@ -179,11 +173,7 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
     const correctOption = QUESTION_ANSWERS.get(item.questionId);
     if (!correctOption) return null;
     const taxonomy = QUESTION_TAXONOMY.get(item.questionId);
-    if (
-      !taxonomy ||
-      (contentScope.contentType === "topic" && taxonomy.topicId !== contentScope.contentId) ||
-      (contentScope.contentType === "norm" && !taxonomy.normIds.includes(contentScope.contentId ?? ""))
-    ) {
+    if (!taxonomy || !questionMatchesContentScope(contentScope, taxonomy, NORM_GROUPS)) {
       return null;
     }
     const expectedStatus = item.selectedOption === null

@@ -1,5 +1,32 @@
 export const DAILY_QUESTION_TARGET = 20;
 
+const QUESTION_MILESTONES = [
+  { target: 500, horizon: "initial" },
+  { target: 1_000, horizon: "medium" },
+  { target: 2_500, horizon: "medium" },
+  { target: 5_000, horizon: "long" },
+  { target: 10_000, horizon: "long" },
+  { target: 20_000, horizon: "long" },
+];
+const STUDY_DAY_MILESTONES = [
+  { target: 7, horizon: "initial" },
+  { target: 30, horizon: "medium" },
+  { target: 90, horizon: "medium" },
+  { target: 180, horizon: "long" },
+  { target: 365, horizon: "long" },
+];
+const STREAK_MILESTONES = [
+  { target: 3, horizon: "initial" },
+  { target: 7, horizon: "initial" },
+  { target: 30, horizon: "medium" },
+];
+const CORRECTED_MISTAKE_MILESTONES = [
+  { target: 10, horizon: "initial" },
+  { target: 50, horizon: "medium" },
+  { target: 100, horizon: "medium" },
+  { target: 200, horizon: "long" },
+];
+
 const DATE_KEY_PATTERN = /^(\d{4})-(\d{2})-(\d{2})$/;
 
 function isRecord(value) {
@@ -110,6 +137,43 @@ export function aggregateDailyAttempts(attempts = []) {
     }));
 }
 
+function normalizedStoredActivity(dailyActivity) {
+  if (!Array.isArray(dailyActivity)) return [];
+  return dailyActivity.flatMap((day) => {
+    if (
+      !isRecord(day)
+      || !dateKeyParts(day.studyDate)
+      || !Number.isSafeInteger(day.totalQuestions)
+      || day.totalQuestions < 0
+    ) {
+      return [];
+    }
+    return [{ studyDate: day.studyDate, totalQuestions: day.totalQuestions }];
+  });
+}
+
+/**
+ * Returns every calendar date that qualifies as a study day. Stored long-term
+ * activity and the recent attempt window are merged without counting the same
+ * questions twice; only dates with at least 20 completed questions qualify.
+ */
+export function completedStudyDays(attempts = [], dailyActivity = [], now = Date.now()) {
+  const today = localDateKey(now);
+  const byDate = new Map();
+
+  for (const day of normalizedStoredActivity(dailyActivity)) {
+    byDate.set(day.studyDate, Math.max(byDate.get(day.studyDate) ?? 0, day.totalQuestions));
+  }
+  for (const day of aggregateDailyAttempts(attempts)) {
+    byDate.set(day.studyDate, Math.max(byDate.get(day.studyDate) ?? 0, day.totalQuestions));
+  }
+
+  return [...byDate.entries()]
+    .filter(([studyDate, totalQuestions]) => studyDate <= today && totalQuestions >= DAILY_QUESTION_TARGET)
+    .map(([studyDate]) => studyDate)
+    .sort((left, right) => left.localeCompare(right));
+}
+
 function activityMap(attempts) {
   return new Map(aggregateDailyAttempts(attempts).map((day) => [day.studyDate, day]));
 }
@@ -134,11 +198,9 @@ export function todayStudyProgress(attempts = [], now = Date.now()) {
  * streak ending yesterday remains current. Once a missed day is behind us, it
  * breaks the streak normally.
  */
-export function studyStreaks(attempts = [], now = Date.now()) {
+export function studyStreaks(attempts = [], now = Date.now(), dailyActivity = []) {
   const today = localDateKey(now);
-  const completedDates = aggregateDailyAttempts(attempts)
-    .filter((day) => day.goalMet && day.studyDate <= today)
-    .map((day) => day.studyDate);
+  const completedDates = completedStudyDays(attempts, dailyActivity, now);
   const completed = new Set(completedDates);
 
   let bestStreak = 0;
@@ -193,11 +255,12 @@ function nonNegativeSafeInteger(value, fallback) {
   return Number.isSafeInteger(value) && value >= 0 ? value : fallback;
 }
 
-function achievement(id, title, description, value, target) {
+function achievement(id, title, description, value, target, horizon) {
   return {
     id,
     title,
     description,
+    horizon,
     unlocked: value >= target,
     progress: Math.min(value, target),
     target,
@@ -241,6 +304,7 @@ function normalizedTopicCoverage(topicCoverage) {
  */
 export function deriveEducationalAchievements({
   attempts = [],
+  dailyActivity = [],
   totalTestsCompleted,
   totalQuestionsCompleted,
   questionStats,
@@ -253,35 +317,47 @@ export function deriveEducationalAchievements({
     totalQuestionsCompleted,
     validAttempts.reduce((sum, attempt) => sum + attempt.total, 0),
   );
-  const { bestStreak } = studyStreaks(attempts, now);
+  const { bestStreak } = studyStreaks(attempts, now, dailyActivity);
+  const studyDays = completedStudyDays(attempts, dailyActivity, now).length;
 
   const achievements = [
-    achievement("first-test", "Primer test", "Completa tu primer test.", tests, 1),
-    ...[100, 500, 1_000].map((target) => achievement(
+    achievement("first-test", "Primer test", "Completa tu primer test.", tests, 1, "initial"),
+    ...QUESTION_MILESTONES.map(({ target, horizon }) => achievement(
       `questions-${target}`,
       `${target.toLocaleString("es-ES")} preguntas`,
       `Completa ${target.toLocaleString("es-ES")} preguntas.`,
       questions,
       target,
+      horizon,
     )),
-    ...[3, 7, 30].map((target) => achievement(
+    ...STUDY_DAY_MILESTONES.map(({ target, horizon }) => achievement(
+      `study-days-${target}`,
+      `${target.toLocaleString("es-ES")} días de estudio`,
+      `Completa al menos ${DAILY_QUESTION_TARGET} preguntas en ${target.toLocaleString("es-ES")} días distintos.`,
+      studyDays,
+      target,
+      horizon,
+    )),
+    ...STREAK_MILESTONES.map(({ target, horizon }) => achievement(
       `streak-${target}`,
       `${target} días de constancia`,
       `Alcanza una racha de ${target} días de estudio.`,
       bestStreak,
       target,
+      horizon,
     )),
   ];
 
   const corrected = correctedMistakeCount(questionStats);
   if (corrected !== null) {
-    achievements.push(achievement(
-      "corrected-mistakes-10",
-      "Errores superados",
-      "Corrige 10 preguntas que habías fallado anteriormente.",
+    achievements.push(...CORRECTED_MISTAKE_MILESTONES.map(({ target, horizon }) => achievement(
+      `corrected-mistakes-${target}`,
+      target === 10 ? "Errores superados" : `${target} errores superados`,
+      `Corrige ${target} preguntas que habías fallado anteriormente.`,
       corrected,
-      10,
-    ));
+      target,
+      horizon,
+    )));
   }
 
   const coverage = normalizedTopicCoverage(topicCoverage);
@@ -292,6 +368,7 @@ export function deriveEducationalAchievements({
       "Practica al menos una pregunta de cada tema disponible.",
       coverage.coveredTopics,
       coverage.totalTopics,
+      "medium",
     ));
   }
 
@@ -301,6 +378,7 @@ export function deriveEducationalAchievements({
 /**
  * @param {{
  *   attempts?: Array<Record<string, any>>,
+ *   dailyActivity?: Array<{studyDate: string, totalQuestions: number}>,
  *   totalTestsCompleted?: number,
  *   totalQuestionsCompleted?: number,
  *   questionStats?: Array<Record<string, any>>,
@@ -310,20 +388,24 @@ export function deriveEducationalAchievements({
  */
 export function buildGamificationSummary({
   attempts = [],
+  dailyActivity = [],
   totalTestsCompleted,
   totalQuestionsCompleted,
   questionStats,
   topicCoverage,
   now = Date.now(),
 } = {}) {
+  const completedDays = completedStudyDays(attempts, dailyActivity, now);
   return {
     dailyTarget: DAILY_QUESTION_TARGET,
     dailyActivity: aggregateDailyAttempts(attempts),
+    completedStudyDays: completedDays.length,
     today: todayStudyProgress(attempts, now),
-    streaks: studyStreaks(attempts, now),
+    streaks: studyStreaks(attempts, now, dailyActivity),
     currentWeek: currentWeekProgress(attempts, now),
     achievements: deriveEducationalAchievements({
       attempts,
+      dailyActivity,
       totalTestsCompleted,
       totalQuestionsCompleted,
       questionStats,

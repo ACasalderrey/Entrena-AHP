@@ -59,6 +59,49 @@ export function validatedContentScope(value) {
 }
 
 /**
+ * Resolves a user-provided scope against the bundled taxonomy and replaces its
+ * display text with the canonical label. Individual norms remain valid when
+ * norm families are introduced.
+ *
+ * @param {{contentType?: unknown, contentId?: unknown, contentLabel?: unknown}} value
+ * @param {{
+ *   topics?: Array<{id: string, label: string}>,
+ *   norms?: Array<{id: string, label: string}>,
+ *   normGroups?: Array<{id: string, label: string, normIds: string[]}>
+ * }} taxonomy
+ * @returns {{contentType: "all" | "topic" | "norm", contentId: string | null, contentLabel: string | null} | null}
+ */
+export function canonicalContentScope(value, taxonomy) {
+  const scope = validatedContentScope(value);
+  if (!scope || scope.contentType === "all") return scope;
+
+  const entries = scope.contentType === "topic"
+    ? (taxonomy.topics ?? [])
+    : [...(taxonomy.normGroups ?? []), ...(taxonomy.norms ?? [])];
+  const canonical = entries.find((entry) => entry.id === scope.contentId);
+  if (!canonical || typeof canonical.label !== "string" || canonical.label.length < 1) return null;
+
+  return { ...scope, contentLabel: canonical.label };
+}
+
+/**
+ * @param {{contentType: "all" | "topic" | "norm", contentId: string | null}} scope
+ * @param {{topicId?: string, normIds?: string[]} | undefined} classification
+ * @param {Array<{id: string, normIds: string[]}>} normGroups
+ * @returns {boolean}
+ */
+export function questionMatchesContentScope(scope, classification, normGroups = []) {
+  if (scope.contentType === "all") return true;
+  if (!classification || !scope.contentId) return false;
+  if (scope.contentType === "topic") return classification.topicId === scope.contentId;
+  if (!Array.isArray(classification.normIds)) return false;
+
+  const group = normGroups.find((entry) => entry.id === scope.contentId);
+  const allowedNormIds = new Set(group?.normIds ?? [scope.contentId]);
+  return classification.normIds.some((normId) => allowedNormIds.has(normId));
+}
+
+/**
  * @param {unknown} value
  * @returns {{weeklyGoal?: number, gamificationEnabled?: boolean} | null}
  */

@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import test from "node:test";
 import {
+  canonicalContentScope,
+  questionMatchesContentScope,
   settingsPatchFrom,
   validatedContentScope,
   validatedStudyDate,
@@ -41,6 +43,72 @@ test("el ámbito general conserva nulos y tema o norma exigen identificador y et
     validatedContentScope({ contentType: "topic", contentId: "tema con espacios", contentLabel: "Tema" }),
     null,
   );
+});
+
+test("el ámbito normativo admite grupos y normas históricas con la etiqueta canónica", () => {
+  const taxonomy = {
+    topics: [{ id: "tema-1", label: "Tema canónico" }],
+    norms: [{ id: "ley-58-2003", label: "Ley 58/2003, General Tributaria" }],
+    normGroups: [{
+      id: "normativa-tributaria-general-y-procedimientos",
+      label: "Normativa tributaria general y procedimientos",
+      normIds: ["ley-58-2003", "real-decreto-1065-2007"],
+    }],
+  };
+
+  assert.deepEqual(canonicalContentScope({
+    contentType: "norm",
+    contentId: "normativa-tributaria-general-y-procedimientos",
+    contentLabel: "Etiqueta enviada por el cliente",
+  }, taxonomy), {
+    contentType: "norm",
+    contentId: "normativa-tributaria-general-y-procedimientos",
+    contentLabel: "Normativa tributaria general y procedimientos",
+  });
+  assert.deepEqual(canonicalContentScope({
+    contentType: "norm",
+    contentId: "ley-58-2003",
+    contentLabel: "LGT",
+  }, taxonomy), {
+    contentType: "norm",
+    contentId: "ley-58-2003",
+    contentLabel: "Ley 58/2003, General Tributaria",
+  });
+  assert.equal(canonicalContentScope({
+    contentType: "norm",
+    contentId: "norma-desconocida",
+    contentLabel: "Desconocida",
+  }, taxonomy), null);
+});
+
+test("una pregunta pertenece a un grupo normativo si coincide cualquiera de sus normas", () => {
+  const normGroups = [{
+    id: "normativa-tributaria-general-y-procedimientos",
+    normIds: ["ley-58-2003", "real-decreto-1065-2007"],
+  }];
+  const groupScope = {
+    contentType: "norm",
+    contentId: "normativa-tributaria-general-y-procedimientos",
+    contentLabel: "Normativa tributaria general y procedimientos",
+  };
+  const legacyNormScope = {
+    contentType: "norm",
+    contentId: "ley-58-2003",
+    contentLabel: "Ley 58/2003, General Tributaria",
+  };
+
+  assert.equal(questionMatchesContentScope(groupScope, {
+    topicId: "tema-1",
+    normIds: ["otra-norma", "real-decreto-1065-2007"],
+  }, normGroups), true);
+  assert.equal(questionMatchesContentScope(groupScope, {
+    topicId: "tema-1",
+    normIds: ["otra-norma"],
+  }, normGroups), false);
+  assert.equal(questionMatchesContentScope(legacyNormScope, {
+    topicId: "tema-1",
+    normIds: ["ley-58-2003"],
+  }, normGroups), true);
 });
 
 test("los ajustes aceptan parches parciales válidos y rechazan valores fuera de contrato", () => {

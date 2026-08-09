@@ -40,7 +40,18 @@ type ContentSelection = {
 type TaxonomyArea = { id: string; label: string };
 type TaxonomyTopic = { id: string; areaId: string; label: string };
 type TaxonomyNorm = { id: string; label: string; shortLabel?: string };
+type TaxonomyNormGroup = { id: string; label: string; shortLabel?: string; normIds: string[] };
 type QuestionTaxonomy = { topicId: string; normIds: string[] };
+type AchievementHorizon = "initial" | "medium" | "long";
+type Achievement = {
+  id: string;
+  title: string;
+  description: string;
+  horizon: AchievementHorizon;
+  unlocked: boolean;
+  progress: number;
+  target: number;
+};
 
 type Question = {
   id: string;
@@ -175,18 +186,27 @@ const TAXONOMY = taxonomyData as {
   areas: TaxonomyArea[];
   topics: TaxonomyTopic[];
   norms: TaxonomyNorm[];
+  normGroups: TaxonomyNormGroup[];
 };
 const QUESTION_TAXONOMY = questionTaxonomyData as Record<string, QuestionTaxonomy>;
 const TOPIC_QUESTIONS = new Map(TAXONOMY.topics.map((topic) => [
   topic.id,
   QUESTIONS.filter((question) => QUESTION_TAXONOMY[question.id]?.topicId === topic.id),
 ]));
-const NORM_QUESTIONS = new Map(TAXONOMY.norms.map((norm) => [
-  norm.id,
-  QUESTIONS.filter((question) => QUESTION_TAXONOMY[question.id]?.normIds.includes(norm.id)),
+const NORM_GROUP_QUESTIONS = new Map(TAXONOMY.normGroups.map((group) => [
+  group.id,
+  QUESTIONS.filter((question) => QUESTION_TAXONOMY[question.id]?.normIds.some((normId) => group.normIds.includes(normId))),
 ]));
 const AVAILABLE_TOPICS = TAXONOMY.topics.filter((topic) => (TOPIC_QUESTIONS.get(topic.id)?.length ?? 0) > 0);
-const AVAILABLE_NORMS = TAXONOMY.norms.filter((norm) => (NORM_QUESTIONS.get(norm.id)?.length ?? 0) > 0);
+const MIN_NORM_GROUP_QUESTIONS = 5;
+const AVAILABLE_NORM_GROUPS = TAXONOMY.normGroups.filter(
+  (group) => (NORM_GROUP_QUESTIONS.get(group.id)?.length ?? 0) >= MIN_NORM_GROUP_QUESTIONS,
+);
+const ACHIEVEMENT_HORIZONS: Array<{ id: AchievementHorizon; label: string; description: string }> = [
+  { id: "initial", label: "Primeros pasos", description: "Hitos para poner en marcha un hábito sólido." },
+  { id: "medium", label: "Medio plazo", description: "Objetivos para sostener el estudio durante varios meses." },
+  { id: "long", label: "Largo plazo", description: "Metas pensadas para una preparación de 9 a 24 meses." },
+];
 const OPTION_KEYS: OptionKey[] = ["A", "B", "C", "D"];
 const PRESETS = [10, 20, 40, 80];
 const PROFILE_STORAGE_KEY = "entrena-ahp-progress-key";
@@ -671,7 +691,7 @@ export default function Home() {
   );
   const selectedContent = useMemo<ContentSelection>(() => {
     if (contentType === "all") return ALL_CONTENT;
-    const catalog = contentType === "topic" ? AVAILABLE_TOPICS : AVAILABLE_NORMS;
+    const catalog = contentType === "topic" ? AVAILABLE_TOPICS : AVAILABLE_NORM_GROUPS;
     const selected = catalog.find((item) => item.id === contentId) ?? catalog[0];
     return selected
       ? { type: contentType, id: selected.id, label: selected.label }
@@ -682,7 +702,7 @@ export default function Home() {
       return TOPIC_QUESTIONS.get(selectedContent.id) ?? [];
     }
     if (selectedContent.type === "norm" && selectedContent.id) {
-      return NORM_QUESTIONS.get(selectedContent.id) ?? [];
+      return NORM_GROUP_QUESTIONS.get(selectedContent.id) ?? [];
     }
     return QUESTIONS;
   }, [selectedContent]);
@@ -730,6 +750,7 @@ export default function Home() {
       studyDate: day.studyDate,
       total: day.totalQuestions,
     })),
+    dailyActivity: progressData.dailyActivity,
     totalTestsCompleted: progressData.summary.totalTests,
     totalQuestionsCompleted: progressData.summary.totalQuestions,
     questionStats: progressData.questionStats,
@@ -827,7 +848,7 @@ export default function Home() {
   function chooseContentType(nextType: ContentType) {
     setContentType(nextType);
     if (nextType === "topic") setContentId(AVAILABLE_TOPICS[0]?.id ?? "");
-    if (nextType === "norm") setContentId(AVAILABLE_NORMS[0]?.id ?? "");
+    if (nextType === "norm") setContentId(AVAILABLE_NORM_GROUPS[0]?.id ?? "");
     if (nextType === "all") setContentId("");
   }
 
@@ -1358,7 +1379,16 @@ export default function Home() {
       .filter((topic) => topic.practicedQuestions > 0)
       .sort((left, right) => right.practicedQuestions - left.practicedQuestions || left.label.localeCompare(right.label))
       .slice(0, 6);
-    const unlockedAchievements = gamification.achievements.filter((achievement: { unlocked: boolean }) => achievement.unlocked).length;
+    const achievements = gamification.achievements as Achievement[];
+    const unlockedAchievements = achievements.filter((achievement) => achievement.unlocked).length;
+    const achievementGroups = ACHIEVEMENT_HORIZONS.map((horizon) => {
+      const items = achievements.filter((achievement) => achievement.horizon === horizon.id);
+      return {
+        ...horizon,
+        items,
+        unlocked: items.filter((achievement) => achievement.unlocked).length,
+      };
+    });
 
     return (
       <div className="app-shell dashboard-shell">
@@ -1515,13 +1545,32 @@ export default function Home() {
 
             {progressData.settings.gamificationEnabled && (
               <section className="panel-card achievements-panel" aria-labelledby="achievements-title">
-                <div className="panel-heading"><div><span className="eyebrow">Hitos de estudio</span><h2 id="achievements-title">Logros</h2></div><span className="coverage-count">{unlockedAchievements}/{gamification.achievements.length}</span></div>
-                <div className="achievements-grid">
-                  {gamification.achievements.map((achievement: { id: string; title: string; description: string; unlocked: boolean; progress: number; target: number }) => (
-                    <article className={`achievement-card ${achievement.unlocked ? "is-unlocked" : ""}`} key={achievement.id}>
-                      <span className="achievement-mark" aria-hidden="true">{achievement.unlocked ? "✓" : "·"}</span>
-                      <div><strong>{achievement.title}</strong><p>{achievement.description}</p><small>{achievement.unlocked ? "Conseguido" : `${achievement.progress} de ${achievement.target}`}</small></div>
-                    </article>
+                <div className="panel-heading"><div><span className="eyebrow">Hitos de estudio</span><h2 id="achievements-title">Logros para todo el camino</h2></div><span className="coverage-count">{unlockedAchievements}/{achievements.length}</span></div>
+                <p className="achievements-intro">Los objetivos combinan avances cercanos con metas de varios meses. Los días de estudio solo cuentan al completar al menos 20 preguntas.</p>
+                <div className="achievement-groups">
+                  {achievementGroups.map((group) => (
+                    <section className={`achievement-group achievement-group-${group.id}`} aria-labelledby={`achievement-group-${group.id}`} key={group.id}>
+                      <div className="achievement-group-heading">
+                        <div><h3 id={`achievement-group-${group.id}`}>{group.label}</h3><p>{group.description}</p></div>
+                        <span>{group.unlocked}/{group.items.length}</span>
+                      </div>
+                      <div className="achievements-grid">
+                        {group.items.map((achievement) => {
+                          const percentage = achievement.target ? Math.min(100, (achievement.progress / achievement.target) * 100) : 0;
+                          return (
+                            <article className={`achievement-card ${achievement.unlocked ? "is-unlocked" : ""}`} key={achievement.id}>
+                              <span className="achievement-mark" aria-hidden="true">{achievement.unlocked ? "✓" : "·"}</span>
+                              <div>
+                                <strong>{achievement.title}</strong>
+                                <p>{achievement.description}</p>
+                                <div className="achievement-progress" role="progressbar" aria-label={`Progreso de ${achievement.title}`} aria-valuemin={0} aria-valuemax={achievement.target} aria-valuenow={achievement.progress}><span style={{ width: `${percentage}%` }} /></div>
+                                <small>{achievement.unlocked ? "Conseguido" : `${achievement.progress.toLocaleString("es-ES")} de ${achievement.target.toLocaleString("es-ES")}`}</small>
+                              </div>
+                            </article>
+                          );
+                        })}
+                      </div>
+                    </section>
                   ))}
                 </div>
               </section>
@@ -1593,12 +1642,13 @@ export default function Home() {
               )}
               {contentType === "norm" && (
                 <label className="content-select" htmlFor="norm-select">
-                  <span>Normativa</span>
+                  <span>Familia normativa</span>
                   <select id="norm-select" value={selectedContent.id ?? ""} onChange={(event) => setContentId(event.target.value)}>
-                    {AVAILABLE_NORMS.map((norm) => (
-                      <option value={norm.id} key={norm.id}>{norm.label} · {NORM_QUESTIONS.get(norm.id)?.length ?? 0}</option>
+                    {AVAILABLE_NORM_GROUPS.map((group) => (
+                      <option value={group.id} key={group.id}>{group.label} · {NORM_GROUP_QUESTIONS.get(group.id)?.length ?? 0}</option>
                     ))}
                   </select>
+                  <small>Las leyes, reglamentos y órdenes relacionados se agrupan; solo se muestran familias con al menos {MIN_NORM_GROUP_QUESTIONS} preguntas.</small>
                 </label>
               )}
               <p className="content-availability">
@@ -1613,7 +1663,7 @@ export default function Home() {
             <label className="count-control" htmlFor="question-count"><span>Número personalizado</span><input id="question-count" type="number" min="1" max={availableQuestions.length} value={questionCount} onChange={(event) => setQuestionCount(Math.max(1, Math.min(availableQuestions.length, Number(event.target.value) || 1)))} /></label>
             <input className="count-range" type="range" min="1" max={availableQuestions.length} value={questionCount} aria-label="Número de preguntas" onChange={(event) => setQuestionCount(Number(event.target.value))} />
             <div className="range-labels" aria-hidden="true"><span>1</span><span>{availableQuestions.length}</span></div>
-            <button className="button button-primary button-large start-button" type="button" onClick={startTest}>Comenzar test de {questionCount} preguntas{selectedContent.type === "topic" ? " del tema" : selectedContent.type === "norm" ? " de la norma" : ""}</button>
+            <button className="button button-primary button-large start-button" type="button" onClick={startTest}>Comenzar test de {questionCount} preguntas{selectedContent.type === "topic" ? " del tema" : selectedContent.type === "norm" ? " de esta normativa" : ""}</button>
             <p className="setup-note">Tiempo máximo proporcional: {formatDuration(timeLimitMillisecondsFor(questionCount) / 1_000)}. Podrás consultarlo durante el test; no habrá avisos ni cierre automático.</p>
           </section>
         </section>
@@ -1621,7 +1671,7 @@ export default function Home() {
         <section className="details-section">
           <article className="detail-card scoring-card"><span className="detail-index">01</span><div><span className="eyebrow">Corrección oficial</span><h2>Penalización oficial y nota proporcional.</h2><div className="formula-visual" aria-label="Acierto más uno, error menos cero coma veinticinco, blanco cero"><span className="formula-good">+1 <small>acierto</small></span><span className="formula-bad">−0,25 <small>error</small></span><span className="formula-neutral">0 <small>en blanco</small></span></div><p>La puntuación directa se convierte linealmente a una nota sobre 10 según el tamaño del test. Es una referencia de práctica; el Tribunal fija su transformación y la nota de corte.</p></div></article>
           <article className="detail-card source-card"><span className="detail-index">02</span><div><span className="eyebrow">Trazabilidad</span><h2>Sabes de dónde sale cada pregunta.</h2><div className="year-grid">{yearSummary.map(([year, count]) => <div key={year}><strong>{year}</strong><span>{count} válidas</span></div>)}</div><p>La revisión muestra convocatoria, número original y una explicación razonada. Todas las plantillas utilizadas tienen carácter definitivo, incluida la de 2022. Auditoría normativa a {legalVerificationData.verifiedAt.split("-").reverse().join("/")}: fuente trazable en {TRACEABLE_EXPLANATIONS} de {legalVerificationData.questionsReviewed} explicaciones; la excepción pendiente y las reglas históricas se advierten expresamente.</p></div></article>
-          <article className="detail-card motivation-detail"><span className="detail-index">03</span><div><span className="eyebrow">Constancia sin presión</span><h2>Práctica de hoy, racha y logros.</h2><p>La Racha actual solo avanza al completar la unidad mínima de estudio: 20 preguntas para completar el día. El panel muestra la semana, permite fijar una meta y reconoce Logros de constancia, cobertura y errores corregidos, sin premiar la rapidez.</p></div></article>
+          <article className="detail-card motivation-detail"><span className="detail-index">03</span><div><span className="eyebrow">Constancia sin presión</span><h2>Práctica de hoy, racha y logros.</h2><p>La racha solo avanza al completar la unidad mínima de estudio: 20 preguntas. Los logros incluyen objetivos iniciales, de medio plazo y metas pensadas para acompañar una preparación de 9 a 24 meses, sin premiar la rapidez.</p></div></article>
         </section>
       </main>
 

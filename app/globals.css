@@ -347,6 +347,13 @@ label:has(input:focus-visible) {
   font: inherit;
 }
 
+.content-select small {
+  color: var(--muted);
+  font-size: 0.67rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
 .content-availability {
   margin: 0.7rem 0 0;
   color: var(--muted);
@@ -1112,6 +1119,59 @@ label:has(input:focus-visible) {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.achievements-intro {
+  margin: -0.15rem 0 0;
+  color: var(--muted);
+  font-size: 0.7rem;
+  line-height: 1.45;
+}
+
+.achievement-groups {
+  display: grid;
+  gap: 1rem;
+  margin-top: 0.9rem;
+}
+
+.achievement-group + .achievement-group {
+  border-top: 1px solid var(--line);
+  padding-top: 0.9rem;
+}
+
+.achievement-group-heading {
+  display: flex;
+  align-items: start;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 0.6rem;
+}
+
+.achievement-group-heading h3,
+.achievement-group-heading p {
+  margin: 0;
+}
+
+.achievement-group-heading h3 {
+  color: var(--ink);
+  font-size: 0.78rem;
+}
+
+.achievement-group-heading p {
+  margin-top: 0.18rem;
+  color: var(--muted);
+  font-size: 0.64rem;
+  line-height: 1.35;
+}
+
+.achievement-group-heading > span {
+  flex: 0 0 auto;
+  border-radius: 999px;
+  background: #eef1f1;
+  color: var(--muted);
+  padding: 0.25rem 0.45rem;
+  font-size: 0.62rem;
+  font-weight: 850;
+}
+
 .achievement-card {
   display: flex;
   min-width: 0;
@@ -1160,7 +1220,26 @@ label:has(input:focus-visible) {
   line-height: 1.3;
 }
 
+.achievement-progress {
+  height: 0.3rem;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(97, 113, 125, 0.15);
+}
+
+.achievement-progress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--teal);
+}
+
+.achievement-card.is-unlocked .achievement-progress span {
+  background: var(--green);
+}
+
 .achievement-card small {
+  margin-top: 0.3rem;
   font-size: 0.62rem;
   font-weight: 800;
 }

@@ -34,9 +34,9 @@ test("renders the finished simulator setup", async () => {
   assert.match(html, /Por tema/);
   assert.match(html, /Por normativa/);
   assert.match(html, /Práctica de hoy/);
-  assert.match(html, /20 preguntas para completar el día/);
-  assert.match(html, /Racha actual/);
-  assert.match(html, /Logros/);
+  assert.match(html, /unidad mínima de estudio: 20 preguntas/);
+  assert.match(html, /Práctica de hoy, racha y logros/i);
+  assert.match(html, /preparación de 9 a 24 meses/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/i);
 });
 

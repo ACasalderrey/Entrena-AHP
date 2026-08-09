@@ -100,6 +100,128 @@ const normDefinitions = [
 
 const norms = normDefinitions.map(({ pattern: _pattern, ...norm }) => norm);
 
+// Familias de selección orientadas al estudio. Constituyen una partición de
+// las normas: una norma aparece en una sola familia para que los filtros no
+// produzcan resultados duplicados o rótulos de alcance ambiguo.
+const normGroups = [
+  {
+    id: "orden-constitucional-y-organizacion-del-estado",
+    label: "Orden constitucional y organización del Estado",
+    normIds: [
+      "constitucion-espanola",
+      "reglamento-congreso",
+      "ley-organica-2-1979",
+      "ley-organica-6-1985",
+      "ley-50-1997",
+      "ley-7-1985",
+    ],
+  },
+  {
+    id: "instituciones-de-la-union-europea",
+    label: "Instituciones y ordenamiento de la Unión Europea",
+    normIds: [
+      "tratado-union-europea",
+      "tratado-funcionamiento-ue",
+      "protocolo-6-sedes-ue",
+    ],
+  },
+  {
+    id: "derecho-administrativo-y-administracion-electronica",
+    label: "Derecho administrativo y Administración electrónica",
+    normIds: [
+      "ley-39-2015",
+      "ley-40-2015",
+      "real-decreto-203-2021",
+      "ley-19-2013",
+      "ley-29-1998",
+    ],
+  },
+  {
+    id: "igualdad-discapacidad-y-dependencia",
+    label: "Igualdad, discapacidad y dependencia",
+    normIds: [
+      "ley-organica-1-2004",
+      "ley-organica-3-2007",
+      "ley-39-2006",
+      "real-decreto-legislativo-1-2013",
+    ],
+  },
+  {
+    id: "empleo-publico",
+    label: "Empleo público e incompatibilidades",
+    normIds: [
+      "real-decreto-legislativo-5-2015",
+      "ley-53-1984",
+    ],
+  },
+  {
+    id: "organizacion-de-la-aeat",
+    label: "Organización de la AEAT y defensa del contribuyente",
+    normIds: [
+      "ley-31-1990",
+      "resolucion-aeat-13-01-2021",
+      "orden-aeat-02-06-1994",
+      "orden-pre-3581-2007",
+      "real-decreto-1676-2009",
+    ],
+  },
+  {
+    id: "normativa-tributaria-general-y-procedimientos",
+    label: "Normativa tributaria general y procedimientos",
+    normIds: [
+      "ley-58-2003",
+      "real-decreto-1065-2007",
+      "real-decreto-939-2005",
+      "real-decreto-1619-2012",
+      "ley-1-2000",
+      "ley-hipotecaria",
+    ],
+  },
+  {
+    id: "normativa-irpf",
+    label: "Normativa del IRPF",
+    normIds: [
+      "ley-35-2006",
+      "real-decreto-439-2007",
+      "orden-eha-586-2011",
+    ],
+  },
+  {
+    id: "normativa-impuesto-sociedades",
+    label: "Normativa del Impuesto sobre Sociedades",
+    normIds: ["ley-27-2014"],
+  },
+  {
+    id: "normativa-iva",
+    label: "Normativa del IVA",
+    normIds: [
+      "ley-37-1992",
+      "real-decreto-1624-1992",
+      "real-decreto-ley-20-2022",
+    ],
+  },
+  {
+    id: "sistema-fiscal-y-otros-tributos",
+    label: "Sistema fiscal, Haciendas territoriales y otros tributos",
+    normIds: [
+      "ley-organica-2-2012",
+      "ley-5-2020",
+      "real-decreto-legislativo-5-2004",
+      "ley-38-1992",
+      "real-decreto-1165-1995",
+      "ley-7-2022",
+      "ley-38-2022",
+      "ley-22-2009",
+      "real-decreto-legislativo-2-2004",
+    ],
+  },
+  {
+    id: "normativa-aduanera",
+    label: "Normativa aduanera",
+    normIds: ["reglamento-ue-952-2013"],
+  },
+];
+
 const plain = (value) => value.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
 const hasAny = (set, ...ids) => ids.some((id) => set.has(id));
 const contains = (text, expression) => expression.test(plain(text));
@@ -261,7 +383,7 @@ function classifyQuestion(question, explanation, normIds) {
 
 const questions = JSON.parse(await readFile(path.join(dataDir, "questions.json"), "utf8"));
 const explanations = JSON.parse(await readFile(path.join(dataDir, "explanations.json"), "utf8"));
-const taxonomy = { areas, topics, norms };
+const taxonomy = { areas, topics, norms, normGroups };
 const questionTaxonomy = {};
 
 for (const question of questions) {
