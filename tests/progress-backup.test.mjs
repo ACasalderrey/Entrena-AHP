@@ -77,6 +77,33 @@ function fixture() {
   };
 }
 
+function enrichedFixture() {
+  const source = fixture();
+  const context = {
+    mode: "daily",
+    studyDate: "2026-08-08",
+    contentType: "topic",
+    contentId: "tema-17",
+    contentLabel: "Tema 17 · Procedimientos tributarios",
+  };
+
+  Object.assign(source.progress.attempts[0], context);
+  Object.assign(source.pendingAttempts[0], context);
+  source.progress.dailyActivity = [
+    {
+      studyDate: "2026-08-08",
+      totalTests: 1,
+      totalQuestions: 2,
+    },
+  ];
+  source.progress.settings = {
+    weeklyGoal: 4,
+    gamificationEnabled: true,
+    updatedAt: COMPLETED_AT,
+  };
+  return source;
+}
+
 test("la copia JSON conserva perfil, historial e intentos pendientes", () => {
   const source = fixture();
   const serialized = createProgressBackup({
@@ -91,6 +118,30 @@ test("la copia JSON conserva perfil, historial e intentos pendientes", () => {
   assert.deepEqual(parsed.progress, source.progress);
   assert.deepEqual(parsed.appliedAttemptIds, source.appliedAttemptIds);
   assert.deepEqual(parsed.pendingAttempts, source.pendingAttempts);
+});
+
+test("la copia y la caché conservan el modo diario, el ámbito y la motivación", () => {
+  const source = enrichedFixture();
+  const backup = parseProgressBackup(createProgressBackup({
+    ...source,
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+  const cache = parseProgressCache(createProgressCache({
+    ...source,
+    savedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+
+  assert.deepEqual(backup.progress, source.progress);
+  assert.deepEqual(backup.pendingAttempts, source.pendingAttempts);
+  assert.deepEqual(cache.progress, source.progress);
+  assert.deepEqual(backup.progress.attempts[0], {
+    ...fixture().progress.attempts[0],
+    mode: "daily",
+    studyDate: "2026-08-08",
+    contentType: "topic",
+    contentId: "tema-17",
+    contentLabel: "Tema 17 · Procedimientos tributarios",
+  });
 });
 
 test("la caché local es versionada y un valor corrupto no provoca errores", () => {
@@ -147,6 +198,141 @@ test("acepta copias históricas creadas antes de registrar el tiempo", () => {
   assert.equal(parsed.progress.attempts[0].timeLimitMs ?? null, null);
   assert.equal(parsed.pendingAttempts[0].durationMs ?? null, null);
   assert.equal(parsed.pendingAttempts[0].timeLimitMs ?? null, null);
+});
+
+test("acepta copias históricas sin fecha de estudio, ámbito ni datos de motivación", () => {
+  const source = fixture();
+  const parsed = parseProgressBackup(createProgressBackup({
+    ...source,
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+
+  assert.equal(parsed.progress.attempts[0].studyDate, undefined);
+  assert.equal(parsed.progress.attempts[0].contentType, undefined);
+  assert.equal(parsed.progress.dailyActivity, undefined);
+  assert.equal(parsed.progress.settings, undefined);
+  assert.equal(parsed.pendingAttempts[0].studyDate, undefined);
+});
+
+test("acepta daily y rechaza modos de test desconocidos", () => {
+  const source = enrichedFixture();
+  const valid = parseProgressBackup(createProgressBackup({
+    ...source,
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  }), ANSWERS, NOW);
+  assert.equal(valid.progress.attempts[0].mode, "daily");
+  assert.equal(valid.pendingAttempts[0].mode, "daily");
+
+  const invalid = JSON.parse(createProgressBackup({
+    ...source,
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  }));
+  invalid.progress.attempts[0].mode = "speed";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(invalid), ANSWERS, NOW),
+    /mode/i,
+  );
+});
+
+test("rechaza fechas de estudio inválidas o alejadas del intento", () => {
+  const serialized = createProgressBackup({
+    ...enrichedFixture(),
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  });
+  const malformed = JSON.parse(serialized);
+  malformed.progress.attempts[0].studyDate = "08-08-2026";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(malformed), ANSWERS, NOW),
+    /studyDate/i,
+  );
+
+  const mismatched = JSON.parse(serialized);
+  mismatched.pendingAttempts[0].studyDate = "2026-07-01";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(mismatched), ANSWERS, NOW),
+    /studyDate|fecha del intento/i,
+  );
+});
+
+test("rechaza tipos, identificadores y etiquetas de ámbito incoherentes", () => {
+  const serialized = createProgressBackup({
+    ...enrichedFixture(),
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  });
+  const unknownType = JSON.parse(serialized);
+  unknownType.progress.attempts[0].contentType = "chapter";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(unknownType), ANSWERS, NOW),
+    /contentType/i,
+  );
+
+  const invalidId = JSON.parse(serialized);
+  invalidId.pendingAttempts[0].contentId = "Tema 17";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(invalidId), ANSWERS, NOW),
+    /ámbito|contentId/i,
+  );
+
+  const emptyLabel = JSON.parse(serialized);
+  emptyLabel.progress.attempts[0].contentLabel = " ";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(emptyLabel), ANSWERS, NOW),
+    /ámbito|contentLabel/i,
+  );
+
+  const inconsistentAll = JSON.parse(serialized);
+  inconsistentAll.progress.attempts[0].contentType = "all";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(inconsistentAll), ANSWERS, NOW),
+    /ámbito general|contentId|contentLabel/i,
+  );
+});
+
+test("rechaza actividad diaria duplicada o con contadores inválidos", () => {
+  const serialized = createProgressBackup({
+    ...enrichedFixture(),
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  });
+  const duplicate = JSON.parse(serialized);
+  duplicate.progress.dailyActivity.push({ ...duplicate.progress.dailyActivity[0] });
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(duplicate), ANSWERS, NOW),
+    /actividad duplicados|días de actividad duplicados/i,
+  );
+
+  const invalidCount = JSON.parse(serialized);
+  invalidCount.progress.dailyActivity[0].totalQuestions = -1;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(invalidCount), ANSWERS, NOW),
+    /contadores/i,
+  );
+});
+
+test("rechaza preferencias de motivación fuera de rango o incompletas", () => {
+  const serialized = createProgressBackup({
+    ...enrichedFixture(),
+    exportedAt: "2026-08-08T10:00:30.000Z",
+  });
+  const invalidGoal = JSON.parse(serialized);
+  invalidGoal.progress.settings.weeklyGoal = 8;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(invalidGoal), ANSWERS, NOW),
+    /preferencias|motivación/i,
+  );
+
+  const invalidToggle = JSON.parse(serialized);
+  invalidToggle.progress.settings.gamificationEnabled = "yes";
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(invalidToggle), ANSWERS, NOW),
+    /preferencias|motivación/i,
+  );
+
+  const invalidUpdate = JSON.parse(serialized);
+  invalidUpdate.progress.settings.updatedAt = -1;
+  assert.throws(
+    () => parseProgressBackup(JSON.stringify(invalidUpdate), ANSWERS, NOW),
+    /preferencias|motivación/i,
+  );
 });
 
 test("rechaza tiempos incompletos, negativos, fraccionarios o no proporcionales", () => {

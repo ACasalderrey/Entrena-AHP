@@ -6,7 +6,10 @@ const PROFILE_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}
 const ATTEMPT_PATTERN = PROFILE_PATTERN;
 const OPTION_KEYS = new Set(["A", "B", "C", "D"]);
 const STATUSES = new Set(["correct", "incorrect", "blank"]);
-const MODES = new Set(["standard", "review"]);
+const MODES = new Set(["standard", "review", "daily"]);
+const CONTENT_TYPES = new Set(["all", "topic", "norm"]);
+const STUDY_DATE_PATTERN = /^\d{4}-\d{2}-\d{2}$/;
+const CONTENT_ID_PATTERN = /^[a-z0-9](?:[a-z0-9-]{0,78}[a-z0-9])?$/;
 const MAX_DATE_OFFSET = 300_000;
 const MIN_ATTEMPT_DATE = 1_600_000_000_000;
 const MAX_APPLIED_IDS = 100_000;
@@ -50,6 +53,44 @@ function validateTiming(value, total, path) {
   return { durationMs: value.durationMs, timeLimitMs: value.timeLimitMs };
 }
 
+function validateAttemptContext(value, completedAt, path) {
+  const hasContext = ["studyDate", "contentType", "contentId", "contentLabel"]
+    .some((field) => value[field] !== undefined);
+  if (!hasContext) return {};
+
+  if (typeof value.studyDate !== "string" || !STUDY_DATE_PATTERN.test(value.studyDate)) {
+    fail(`${path}.studyDate no es válida.`);
+  }
+  const parsedStudyDate = Date.parse(`${value.studyDate}T12:00:00Z`);
+  if (!Number.isFinite(parsedStudyDate) || Math.abs(parsedStudyDate - completedAt) > 2 * 86_400_000) {
+    fail(`${path}.studyDate no coincide con la fecha del intento.`);
+  }
+  if (!CONTENT_TYPES.has(value.contentType)) fail(`${path}.contentType no es válido.`);
+
+  if (value.contentType === "all") {
+    if (value.contentId !== null || value.contentLabel !== null) {
+      fail(`${path} contiene un ámbito general incoherente.`);
+    }
+    return { studyDate: value.studyDate, contentType: "all", contentId: null, contentLabel: null };
+  }
+
+  if (
+    typeof value.contentId !== "string" ||
+    !CONTENT_ID_PATTERN.test(value.contentId) ||
+    typeof value.contentLabel !== "string" ||
+    value.contentLabel.trim().length < 2 ||
+    value.contentLabel.length > 160
+  ) {
+    fail(`${path} contiene un ámbito temático no válido.`);
+  }
+  return {
+    studyDate: value.studyDate,
+    contentType: value.contentType,
+    contentId: value.contentId,
+    contentLabel: value.contentLabel.trim(),
+  };
+}
+
 function knownAnswer(answerByQuestion, questionId) {
   if (answerByQuestion instanceof Map) return answerByQuestion.get(questionId);
   if (isRecord(answerByQuestion)) return answerByQuestion[questionId];
@@ -73,6 +114,7 @@ function validateAttemptSummary(value, now, path) {
   }
 
   const timing = validateTiming(value, value.total, path);
+  const context = validateAttemptContext(value, value.completedAt, path);
 
   return {
     id: value.id.toLowerCase(),
@@ -84,6 +126,7 @@ function validateAttemptSummary(value, now, path) {
     blank: value.blank,
     directScore: value.directScore,
     ...timing,
+    ...context,
   };
 }
 
@@ -208,7 +251,50 @@ function validateProgress(value, answerByQuestion, now) {
     fail("Las estadísticas por pregunta no coinciden con el resumen.");
   }
 
-  return { attempts, questionStats, summary };
+  const result = { attempts, questionStats, summary };
+
+  if (value.dailyActivity !== undefined) {
+    if (!Array.isArray(value.dailyActivity) || value.dailyActivity.length > 4_000) {
+      fail("La copia contiene una actividad diaria no válida.");
+    }
+    const dates = new Set();
+    result.dailyActivity = value.dailyActivity.map((entry, index) => {
+      const path = `progress.dailyActivity[${index}]`;
+      if (!isRecord(entry) || typeof entry.studyDate !== "string" || !STUDY_DATE_PATTERN.test(entry.studyDate)) {
+        fail(`${path} no es válido.`);
+      }
+      if (dates.has(entry.studyDate)) fail("La copia contiene días de actividad duplicados.");
+      if (!isSafeCount(entry.totalTests) || !isSafeCount(entry.totalQuestions)) {
+        fail(`${path} contiene contadores no válidos.`);
+      }
+      dates.add(entry.studyDate);
+      return {
+        studyDate: entry.studyDate,
+        totalTests: entry.totalTests,
+        totalQuestions: entry.totalQuestions,
+      };
+    });
+  }
+
+  if (value.settings !== undefined) {
+    if (
+      !isRecord(value.settings) ||
+      !Number.isInteger(value.settings.weeklyGoal) ||
+      value.settings.weeklyGoal < 1 ||
+      value.settings.weeklyGoal > 7 ||
+      typeof value.settings.gamificationEnabled !== "boolean" ||
+      (value.settings.updatedAt !== null && !isTimestamp(value.settings.updatedAt, now))
+    ) {
+      fail("La copia contiene preferencias de motivación no válidas.");
+    }
+    result.settings = {
+      weeklyGoal: value.settings.weeklyGoal,
+      gamificationEnabled: value.settings.gamificationEnabled,
+      updatedAt: value.settings.updatedAt,
+    };
+  }
+
+  return result;
 }
 
 function validateAppliedIds(value) {

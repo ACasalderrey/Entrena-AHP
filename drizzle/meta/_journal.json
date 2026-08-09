@@ -15,6 +15,13 @@
       "when": 1786184785113,
       "tag": "0001_calm_stopwatch",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "6",
+      "when": 1786302519384,
+      "tag": "0002_tough_mindworm",
+      "breakpoints": true
     }
   ]
 }

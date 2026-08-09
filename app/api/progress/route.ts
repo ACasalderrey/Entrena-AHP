@@ -1,7 +1,14 @@
 import { getD1 } from "../../../db";
+import questionTaxonomyData from "../../data/question-taxonomy.json";
 import questionData from "../../data/questions.json";
+import taxonomyData from "../../data/taxonomy.json";
 import { corsHeaders, corsPreflightResponse } from "../../lib/cors";
 import { D1_ANSWER_CHUNK_SIZE } from "../../lib/progress";
+import {
+  settingsPatchFrom,
+  validatedContentScope,
+  validatedStudyDate,
+} from "../../lib/progress-api";
 
 type AttemptItem = {
   questionId?: unknown;
@@ -20,6 +27,10 @@ type AttemptPayload = {
   directScore?: unknown;
   durationMs?: unknown;
   timeLimitMs?: unknown;
+  studyDate?: unknown;
+  contentType?: unknown;
+  contentId?: unknown;
+  contentLabel?: unknown;
   items?: unknown;
 };
 
@@ -32,7 +43,7 @@ type ValidatedItem = {
 type ValidatedAttempt = {
   id: string;
   completedAt: number;
-  mode: "standard" | "review";
+  mode: "standard" | "review" | "daily";
   total: number;
   correct: number;
   incorrect: number;
@@ -40,6 +51,10 @@ type ValidatedAttempt = {
   directScore: number;
   durationMs: number | null;
   timeLimitMs: number | null;
+  studyDate: string;
+  contentType: "all" | "topic" | "norm";
+  contentId: string | null;
+  contentLabel: string | null;
 };
 
 const PROFILE_KEY = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
@@ -54,6 +69,19 @@ const QUESTION_ANSWERS = new Map(
     question.correctOptions[0],
   ]),
 );
+const QUESTION_TAXONOMY = new Map(
+  Object.entries(questionTaxonomyData as Record<string, { topicId: string; normIds: string[] }>),
+);
+const TOPIC_LABELS = new Map(
+  (taxonomyData.topics as Array<{ id: string; label: string }>).map((topic) => [topic.id, topic.label]),
+);
+const NORM_LABELS = new Map(
+  (taxonomyData.norms as Array<{ id: string; label: string }>).map((norm) => [norm.id, norm.label]),
+);
+
+function databaseBoolean(value: unknown): boolean {
+  return value === true || Number(value) === 1;
+}
 
 function profileKeyFrom(request: Request): string | null {
   const value = request.headers.get("x-progress-key")?.trim() ?? "";
@@ -88,7 +116,7 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
     !Number.isSafeInteger(attempt.completedAt) ||
     attempt.completedAt < 1_600_000_000_000 ||
     attempt.completedAt > Date.now() + 300_000 ||
-    (attempt.mode !== "standard" && attempt.mode !== "review") ||
+    (attempt.mode !== "standard" && attempt.mode !== "review" && attempt.mode !== "daily") ||
     !isCount(attempt.total) ||
     !isCount(attempt.correct) ||
     !isCount(attempt.incorrect) ||
@@ -101,6 +129,17 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
     attempt.items.length < 1
   ) {
     return null;
+  }
+
+  const studyDate = validatedStudyDate(attempt.studyDate, attempt.completedAt);
+  const contentScope = validatedContentScope(attempt);
+  if (!studyDate || !contentScope) return null;
+  if (contentScope.contentType !== "all") {
+    const canonicalLabel = contentScope.contentType === "topic"
+      ? TOPIC_LABELS.get(contentScope.contentId ?? "")
+      : NORM_LABELS.get(contentScope.contentId ?? "");
+    if (!canonicalLabel) return null;
+    contentScope.contentLabel = canonicalLabel;
   }
 
   const durationMissing = attempt.durationMs === undefined || attempt.durationMs === null;
@@ -139,6 +178,14 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
 
     const correctOption = QUESTION_ANSWERS.get(item.questionId);
     if (!correctOption) return null;
+    const taxonomy = QUESTION_TAXONOMY.get(item.questionId);
+    if (
+      !taxonomy ||
+      (contentScope.contentType === "topic" && taxonomy.topicId !== contentScope.contentId) ||
+      (contentScope.contentType === "norm" && !taxonomy.normIds.includes(contentScope.contentId ?? ""))
+    ) {
+      return null;
+    }
     const expectedStatus = item.selectedOption === null
       ? "blank"
       : item.selectedOption === correctOption
@@ -178,6 +225,8 @@ function validateAttempt(value: unknown): { attempt: ValidatedAttempt; items: Va
       directScore: attempt.directScore,
       durationMs: durationMissing ? null : Number(attempt.durationMs),
       timeLimitMs: limitMissing ? null : Number(attempt.timeLimitMs),
+      studyDate,
+      ...contentScope,
     },
     items,
   };
@@ -193,11 +242,14 @@ export async function GET(request: Request) {
 
   try {
     const database = await getD1();
-    const [attemptsResult, statsResult, summaryResult] = await Promise.all([
+    const [attemptsResult, statsResult, summaryResult, activityResult, settingsResult] = await Promise.all([
       database
         .prepare(
           `SELECT id, completed_at AS completedAt, mode, total, correct, incorrect, blank,
-                  direct_score AS directScore, duration_ms AS durationMs, time_limit_ms AS timeLimitMs
+                  direct_score AS directScore, duration_ms AS durationMs, time_limit_ms AS timeLimitMs,
+                  COALESCE(study_date, date(completed_at / 1000, 'unixepoch')) AS studyDate,
+                  COALESCE(content_type, 'all') AS contentType,
+                  content_id AS contentId, content_label AS contentLabel
              FROM attempts
             WHERE profile_key = ?
             ORDER BY completed_at DESC
@@ -239,7 +291,41 @@ export async function GET(request: Request) {
         )
         .bind(profileKey)
         .all(),
+      database
+        .prepare(
+          `SELECT COALESCE(study_date, date(completed_at / 1000, 'unixepoch')) AS studyDate,
+                  COUNT(*) AS totalTests,
+                  COALESCE(SUM(total), 0) AS totalQuestions
+             FROM attempts
+            WHERE profile_key = ?
+            GROUP BY COALESCE(study_date, date(completed_at / 1000, 'unixepoch'))
+            ORDER BY studyDate DESC`,
+        )
+        .bind(profileKey)
+        .all(),
+      database
+        .prepare(
+          `SELECT weekly_goal AS weeklyGoal,
+                  gamification_enabled AS gamificationEnabled,
+                  updated_at AS updatedAt
+             FROM profile_settings
+            WHERE profile_key = ?
+            LIMIT 1`,
+        )
+        .bind(profileKey)
+        .all(),
     ]);
+
+    const rawSettings = settingsResult.results[0] as
+      | { weeklyGoal?: unknown; gamificationEnabled?: unknown; updatedAt?: unknown }
+      | undefined;
+    const settings = rawSettings
+      ? {
+          weeklyGoal: Number(rawSettings.weeklyGoal),
+          gamificationEnabled: databaseBoolean(rawSettings.gamificationEnabled),
+          updatedAt: Number(rawSettings.updatedAt),
+        }
+      : { weeklyGoal: 4, gamificationEnabled: true, updatedAt: null };
 
     return jsonResponse(
       request,
@@ -247,6 +333,8 @@ export async function GET(request: Request) {
         attempts: attemptsResult.results,
         questionStats: statsResult.results,
         summary: summaryResult.results[0],
+        dailyActivity: activityResult.results,
+        settings,
       },
     );
   } catch (error) {
@@ -255,6 +343,79 @@ export async function GET(request: Request) {
       return errorResponse(request, "El historial se está preparando. Inténtalo de nuevo en unos instantes.", 503);
     }
     return errorResponse(request, "No se pudo recuperar el historial.", 500);
+  }
+}
+
+export async function PATCH(request: Request) {
+  const profileKey = profileKeyFrom(request);
+  if (!profileKey) return errorResponse(request, "Código de progreso no válido.", 400);
+
+  let body: unknown;
+  try {
+    body = await request.json();
+  } catch {
+    return errorResponse(request, "Los ajustes no contienen JSON válido.", 400);
+  }
+
+  const patch = settingsPatchFrom(body);
+  if (!patch) return errorResponse(request, "Los ajustes no son válidos.", 400);
+
+  const hasWeeklyGoal = patch.weeklyGoal !== undefined;
+  const hasGamification = patch.gamificationEnabled !== undefined;
+  const weeklyGoal = patch.weeklyGoal ?? 4;
+  const gamificationEnabled = patch.gamificationEnabled ?? true;
+  const updatedAt = Date.now();
+
+  try {
+    const database = await getD1();
+    await database
+      .prepare(
+        `INSERT INTO profile_settings
+           (profile_key, weekly_goal, gamification_enabled, updated_at)
+         VALUES (?, ?, ?, ?)
+         ON CONFLICT(profile_key) DO UPDATE SET
+           weekly_goal = CASE WHEN ? = 1 THEN excluded.weekly_goal ELSE profile_settings.weekly_goal END,
+           gamification_enabled = CASE
+             WHEN ? = 1 THEN excluded.gamification_enabled
+             ELSE profile_settings.gamification_enabled
+           END,
+           updated_at = excluded.updated_at`,
+      )
+      .bind(
+        profileKey,
+        weeklyGoal,
+        gamificationEnabled ? 1 : 0,
+        updatedAt,
+        hasWeeklyGoal ? 1 : 0,
+        hasGamification ? 1 : 0,
+      )
+      .run();
+
+    const saved = await database
+      .prepare(
+        `SELECT weekly_goal AS weeklyGoal,
+                gamification_enabled AS gamificationEnabled,
+                updated_at AS updatedAt
+           FROM profile_settings
+          WHERE profile_key = ?
+          LIMIT 1`,
+      )
+      .bind(profileKey)
+      .first<{ weeklyGoal: number; gamificationEnabled: number | boolean; updatedAt: number }>();
+
+    return jsonResponse(request, {
+      settings: {
+        weeklyGoal: Number(saved?.weeklyGoal ?? weeklyGoal),
+        gamificationEnabled: databaseBoolean(saved?.gamificationEnabled ?? gamificationEnabled),
+        updatedAt: Number(saved?.updatedAt ?? updatedAt),
+      },
+    });
+  } catch (error) {
+    const message = error instanceof Error ? error.message : "Error inesperado";
+    if (message.includes("no such table")) {
+      return errorResponse(request, "Los ajustes se están preparando. Inténtalo de nuevo en unos instantes.", 503);
+    }
+    return errorResponse(request, "No se pudieron guardar los ajustes.", 500);
   }
 }
 
@@ -284,8 +445,8 @@ export async function POST(request: Request) {
         .prepare(
           `INSERT INTO attempts
              (id, profile_key, completed_at, mode, total, correct, incorrect, blank, direct_score,
-              duration_ms, time_limit_ms)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+              duration_ms, time_limit_ms, study_date, content_type, content_id, content_label)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
         )
         .bind(
           attempt.id,
@@ -299,6 +460,10 @@ export async function POST(request: Request) {
           attempt.directScore,
           attempt.durationMs,
           attempt.timeLimitMs,
+          attempt.studyDate,
+          attempt.contentType,
+          attempt.contentId,
+          attempt.contentLabel,
         ),
     ];
 

@@ -1,6 +1,6 @@
 export const GITHUB_PAGES_ORIGIN = "https://acasalderrey.github.io";
 
-const ALLOWED_METHODS = new Set(["GET", "POST"]);
+const ALLOWED_METHODS = new Set(["GET", "POST", "PATCH"]);
 const ALLOWED_HEADERS = new Set(["content-type", "x-progress-key"]);
 
 /**

@@ -1,0 +1,2247 @@
+{
+  "aeat-2022-a-001": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2022-a-002": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "reglamento-congreso"
+    ]
+  },
+  "aeat-2022-a-003": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2022-a-004": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "constitucion-espanola",
+      "ley-50-1997"
+    ]
+  },
+  "aeat-2022-a-005": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2022-a-006": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-50-1997"
+    ]
+  },
+  "aeat-2022-a-007": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "ley-7-1985"
+    ]
+  },
+  "aeat-2022-a-008": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "tratado-union-europea"
+    ]
+  },
+  "aeat-2022-a-009": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-010": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-19-2013"
+    ]
+  },
+  "aeat-2022-a-011": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "real-decreto-203-2021"
+    ]
+  },
+  "aeat-2022-a-012": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "ley-organica-1-2004"
+    ]
+  },
+  "aeat-2022-a-013": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "ley-organica-3-2007"
+    ]
+  },
+  "aeat-2022-a-014": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "ley-39-2006"
+    ]
+  },
+  "aeat-2022-a-015": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "real-decreto-legislativo-5-2015"
+    ]
+  },
+  "aeat-2022-a-016": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "real-decreto-legislativo-5-2015"
+    ]
+  },
+  "aeat-2022-a-017": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-50-1997"
+    ]
+  },
+  "aeat-2022-a-018": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-019": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-020": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-021": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-022": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-023": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-024": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-025": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-026": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-027": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-028": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-029": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-030": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2022-a-031": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-organica-2-2012"
+    ]
+  },
+  "aeat-2022-a-032": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-5-2020"
+    ]
+  },
+  "aeat-2022-a-033": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "resolucion-aeat-13-01-2021"
+    ]
+  },
+  "aeat-2022-a-034": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "ley-31-1990"
+    ]
+  },
+  "aeat-2022-a-035": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-036": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-037": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-038": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-039": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-040": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2022-a-041": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-042": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1619-2012"
+    ]
+  },
+  "aeat-2022-a-044": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "real-decreto-1624-1992"
+    ]
+  },
+  "aeat-2022-a-045": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2022-a-046": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-047": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2022-a-048": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2022-a-049": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003",
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2022-a-050": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-051": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "constitucion-espanola",
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-052": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-053": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-054": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-055": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003",
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2022-a-056": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-057": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2022-a-058": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2022-a-059": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-060": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2022-a-061": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-062": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-063": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-064": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-065": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-066": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2022-a-067": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2022-a-068": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2022-a-069": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2022-a-070": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-071": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-072": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-073": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-074": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-075": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-076": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-077": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-078": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2022-a-079": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-080": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-081": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-083": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-084": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-085": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-086": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-087": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-088": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2022-a-089": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006",
+      "real-decreto-439-2007"
+    ]
+  },
+  "aeat-2022-a-090": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-091": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-092": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-093": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-094": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992",
+      "real-decreto-ley-20-2022"
+    ]
+  },
+  "aeat-2022-a-095": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-096": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-097": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2022-a-098": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2022-a-099": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2022-a-100": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2023-a-001": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-002": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-003": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-004": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-005": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-006": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-007": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "constitucion-espanola",
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-008": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2023-a-009": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2023-a-010": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-011": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "real-decreto-439-2007"
+    ]
+  },
+  "aeat-2023-a-012": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-013": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2023-a-014": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2023-a-015": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2023-a-016": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1619-2012"
+    ]
+  },
+  "aeat-2023-a-017": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2023-a-018": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-019": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2023-a-021": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2023-a-022": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-50-1997"
+    ]
+  },
+  "aeat-2023-a-023": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-026": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-027": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "ley-organica-6-1985"
+    ]
+  },
+  "aeat-2023-a-028": {
+    "topicId": "materias-especificas-06",
+    "normIds": [
+      "real-decreto-1165-1995"
+    ]
+  },
+  "aeat-2023-a-029": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2023-a-031": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-032": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "ley-39-2006"
+    ]
+  },
+  "aeat-2023-a-033": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "ley-organica-3-2007"
+    ]
+  },
+  "aeat-2023-a-034": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2023-a-035": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2023-a-036": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2023-a-037": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-19-2013"
+    ]
+  },
+  "aeat-2023-a-038": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-039": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "ley-53-1984"
+    ]
+  },
+  "aeat-2023-a-040": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-041": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-043": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-29-1998"
+    ]
+  },
+  "aeat-2023-a-044": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-045": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-046": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-047": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-048": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "orden-aeat-02-06-1994"
+    ]
+  },
+  "aeat-2023-a-049": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-050": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2023-a-051": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2023-a-052": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-053": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-054": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-055": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-056": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "ley-31-1990"
+    ]
+  },
+  "aeat-2023-a-057": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-058": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-059": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-060": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2023-a-061": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-062": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-063": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2023-a-064": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "orden-eha-586-2011"
+    ]
+  },
+  "aeat-2023-a-065": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "ley-7-1985"
+    ]
+  },
+  "aeat-2023-a-066": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-067": {
+    "topicId": "materias-especificas-06",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-068": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2023-a-069": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-070": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-071": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-072": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-073": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2023-a-074": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-075": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2023-a-076": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2023-a-077": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-078": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-079": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-080": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2023-a-081": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2023-a-082": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-083": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-084": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-50-1997",
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2023-a-085": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003",
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2023-a-086": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "tratado-funcionamiento-ue"
+    ]
+  },
+  "aeat-2023-a-087": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-38-2022"
+    ]
+  },
+  "aeat-2023-a-088": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-089": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-090": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-091": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "real-decreto-439-2007"
+    ]
+  },
+  "aeat-2023-a-092": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "real-decreto-legislativo-2-2004"
+    ]
+  },
+  "aeat-2023-a-093": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2023-a-094": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-095": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-096": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1676-2009"
+    ]
+  },
+  "aeat-2023-a-097": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2023-a-098": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2023-a-099": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2023-a-100": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-29-1998"
+    ]
+  },
+  "aeat-2024-a-001": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2024-a-002": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-38-1992"
+    ]
+  },
+  "aeat-2024-a-003": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-004": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-005": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "real-decreto-439-2007"
+    ]
+  },
+  "aeat-2024-a-006": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2024-a-007": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-008": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-009": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-010": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-011": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-012": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "tratado-funcionamiento-ue"
+    ]
+  },
+  "aeat-2024-a-013": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-014": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-015": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "orden-pre-3581-2007"
+    ]
+  },
+  "aeat-2024-a-016": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-017": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-018": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-019": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "ley-organica-1-2004"
+    ]
+  },
+  "aeat-2024-a-020": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2024-a-021": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2024-a-022": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-023": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-024": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2024-a-025": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2024-a-026": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "real-decreto-939-2005",
+      "ley-1-2000",
+      "ley-hipotecaria"
+    ]
+  },
+  "aeat-2024-a-027": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "resolucion-aeat-13-01-2021"
+    ]
+  },
+  "aeat-2024-a-028": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-029": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "real-decreto-legislativo-5-2004"
+    ]
+  },
+  "aeat-2024-a-030": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-031": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2024-a-032": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-033": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2024-a-034": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-035": {
+    "topicId": "materias-especificas-11",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-036": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-037": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-19-2013"
+    ]
+  },
+  "aeat-2024-a-038": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2024-a-039": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "real-decreto-1624-1992"
+    ]
+  },
+  "aeat-2024-a-040": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2024-a-041": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-042": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2024-a-043": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-044": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-045": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2024-a-046": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-047": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-048": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-049": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2024-a-050": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-051": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-052": {
+    "topicId": "materias-especificas-06",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-053": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "real-decreto-legislativo-2-2004"
+    ]
+  },
+  "aeat-2024-a-054": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "real-decreto-legislativo-5-2015"
+    ]
+  },
+  "aeat-2024-a-055": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2024-a-056": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2024-a-057": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-058": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-059": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-060": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-061": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-062": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "protocolo-6-sedes-ue"
+    ]
+  },
+  "aeat-2024-a-063": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-29-1998"
+    ]
+  },
+  "aeat-2024-a-064": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-065": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-066": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "real-decreto-legislativo-2-2004"
+    ]
+  },
+  "aeat-2024-a-067": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-068": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "real-decreto-legislativo-5-2015"
+    ]
+  },
+  "aeat-2024-a-069": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-070": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-071": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-7-2022"
+    ]
+  },
+  "aeat-2024-a-072": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-074": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-075": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-076": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-077": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2024-a-078": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "real-decreto-439-2007"
+    ]
+  },
+  "aeat-2024-a-079": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2024-a-080": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-081": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2024-a-082": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2024-a-083": {
+    "topicId": "materias-comunes-06",
+    "normIds": [
+      "real-decreto-legislativo-1-2013"
+    ]
+  },
+  "aeat-2024-a-084": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2024-a-085": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2024-a-086": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2024-a-087": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-088": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1619-2012"
+    ]
+  },
+  "aeat-2024-a-089": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-090": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "real-decreto-legislativo-5-2015"
+    ]
+  },
+  "aeat-2024-a-091": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2024-a-092": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "constitucion-espanola",
+      "ley-organica-2-1979"
+    ]
+  },
+  "aeat-2024-a-093": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2024-a-094": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2024-a-095": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2024-a-096": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2024-a-097": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2024-a-098": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "ley-22-2009"
+    ]
+  },
+  "aeat-2024-a-099": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2024-a-100": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-001": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "tratado-funcionamiento-ue"
+    ]
+  },
+  "aeat-2025-a-002": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2025-a-003": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  },
+  "aeat-2025-a-004": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-005": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-006": {
+    "topicId": "materias-comunes-07",
+    "normIds": [
+      "real-decreto-legislativo-5-2015"
+    ]
+  },
+  "aeat-2025-a-007": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-008": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-009": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2025-a-010": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-011": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2025-a-012": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2025-a-013": {
+    "topicId": "materias-especificas-06",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-014": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-015": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-016": {
+    "topicId": "materias-comunes-03",
+    "normIds": [
+      "ley-40-2015"
+    ]
+  },
+  "aeat-2025-a-017": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-018": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2025-a-019": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "ley-organica-2-1979"
+    ]
+  },
+  "aeat-2025-a-020": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-021": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-022": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-023": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-024": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-025": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-026": {
+    "topicId": "materias-especificas-03",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-027": {
+    "topicId": "materias-comunes-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2025-a-028": {
+    "topicId": "derecho-administrativo-general-03",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-029": {
+    "topicId": "materias-especificas-07",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-030": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-031": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-032": {
+    "topicId": "materias-comunes-02",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2025-a-033": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2025-a-034": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-035": {
+    "topicId": "materias-especificas-01",
+    "normIds": [
+      "constitucion-espanola"
+    ]
+  },
+  "aeat-2025-a-036": {
+    "topicId": "materias-especificas-12",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-037": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "orden-aeat-02-06-1994"
+    ]
+  },
+  "aeat-2025-a-038": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-039": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-040": {
+    "topicId": "materias-especificas-02",
+    "normIds": [
+      "ley-31-1990"
+    ]
+  },
+  "aeat-2025-a-041": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-042": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-043": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-58-2003",
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-044": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-045": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-046": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "ley-7-1985"
+    ]
+  },
+  "aeat-2025-a-047": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-048": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-049": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-050": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "tratado-union-europea"
+    ]
+  },
+  "aeat-2025-a-051": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-052": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-053": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-054": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-055": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-056": {
+    "topicId": "derecho-administrativo-general-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-057": {
+    "topicId": "materias-especificas-09",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-058": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2025-a-059": {
+    "topicId": "materias-especificas-08",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-060": {
+    "topicId": "materias-especificas-19",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-061": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-062": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "real-decreto-1065-2007"
+    ]
+  },
+  "aeat-2025-a-063": {
+    "topicId": "materias-especificas-04",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-064": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2025-a-065": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-066": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-067": {
+    "topicId": "materias-comunes-05",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-068": {
+    "topicId": "materias-especificas-05",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-069": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-070": {
+    "topicId": "materias-especificas-14",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-071": {
+    "topicId": "materias-especificas-15",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-072": {
+    "topicId": "materias-especificas-13",
+    "normIds": [
+      "ley-58-2003"
+    ]
+  },
+  "aeat-2025-a-073": {
+    "topicId": "derecho-administrativo-general-04",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-074": {
+    "topicId": "materias-especificas-18",
+    "normIds": [
+      "ley-37-1992"
+    ]
+  },
+  "aeat-2025-a-075": {
+    "topicId": "materias-especificas-17",
+    "normIds": [
+      "ley-27-2014"
+    ]
+  },
+  "aeat-2025-a-076": {
+    "topicId": "materias-especificas-20",
+    "normIds": [
+      "reglamento-ue-952-2013"
+    ]
+  },
+  "aeat-2025-a-077": {
+    "topicId": "derecho-administrativo-general-02",
+    "normIds": [
+      "ley-39-2015"
+    ]
+  },
+  "aeat-2025-a-078": {
+    "topicId": "materias-especificas-16",
+    "normIds": [
+      "ley-35-2006"
+    ]
+  },
+  "aeat-2025-a-079": {
+    "topicId": "materias-comunes-04",
+    "normIds": [
+      "tratado-union-europea"
+    ]
+  },
+  "aeat-2025-a-080": {
+    "topicId": "materias-especificas-10",
+    "normIds": [
+      "real-decreto-939-2005"
+    ]
+  }
+}

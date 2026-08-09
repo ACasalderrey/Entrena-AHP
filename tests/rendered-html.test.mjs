@@ -30,6 +30,13 @@ test("renders the finished simulator setup", async () => {
   assert.match(html, />20(?:<!-- -->)? preguntas<\/button>/);
   assert.match(html, /Penalización oficial y nota proporcional/i);
   assert.match(html, /Tiempo máximo proporcional/i);
+  assert.match(html, /Todo el temario/);
+  assert.match(html, /Por tema/);
+  assert.match(html, /Por normativa/);
+  assert.match(html, /Práctica de hoy/);
+  assert.match(html, /20 preguntas para completar el día/);
+  assert.match(html, /Racha actual/);
+  assert.match(html, /Logros/);
   assert.doesNotMatch(html, /codex-preview|SkeletonPreview|Your site is taking shape/i);
 });
 

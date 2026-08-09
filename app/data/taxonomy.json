@@ -1,0 +1,396 @@
+{
+  "areas": [
+    {
+      "id": "materias-comunes",
+      "label": "Materias comunes"
+    },
+    {
+      "id": "derecho-administrativo-general",
+      "label": "Derecho Administrativo General"
+    },
+    {
+      "id": "materias-especificas",
+      "label": "Materias específicas"
+    }
+  ],
+  "topics": [
+    {
+      "id": "materias-comunes-01",
+      "areaId": "materias-comunes",
+      "label": "Tema 1 · Constitución Española, derechos, Corona y Tribunal Constitucional"
+    },
+    {
+      "id": "materias-comunes-02",
+      "areaId": "materias-comunes",
+      "label": "Tema 2 · Cortes Generales, Poder Judicial y organización judicial"
+    },
+    {
+      "id": "materias-comunes-03",
+      "areaId": "materias-comunes",
+      "label": "Tema 3 · Gobierno y organización de la Administración Pública"
+    },
+    {
+      "id": "materias-comunes-04",
+      "areaId": "materias-comunes",
+      "label": "Tema 4 · Organización territorial e instituciones de la Unión Europea"
+    },
+    {
+      "id": "materias-comunes-05",
+      "areaId": "materias-comunes",
+      "label": "Tema 5 · Administración electrónica, transparencia y protección de datos"
+    },
+    {
+      "id": "materias-comunes-06",
+      "areaId": "materias-comunes",
+      "label": "Tema 6 · Igualdad, violencia de género, discapacidad y dependencia"
+    },
+    {
+      "id": "materias-comunes-07",
+      "areaId": "materias-comunes",
+      "label": "Tema 7 · Empleo público, incompatibilidades y Seguridad Social de funcionarios"
+    },
+    {
+      "id": "derecho-administrativo-general-01",
+      "areaId": "derecho-administrativo-general",
+      "label": "Tema 1 · Fuentes del Derecho Administrativo"
+    },
+    {
+      "id": "derecho-administrativo-general-02",
+      "areaId": "derecho-administrativo-general",
+      "label": "Tema 2 · Actos administrativos y revisión de oficio"
+    },
+    {
+      "id": "derecho-administrativo-general-03",
+      "areaId": "derecho-administrativo-general",
+      "label": "Tema 3 · Procedimiento común, interesados, resolución y plazos"
+    },
+    {
+      "id": "derecho-administrativo-general-04",
+      "areaId": "derecho-administrativo-general",
+      "label": "Tema 4 · Fases y ejecución del procedimiento administrativo"
+    },
+    {
+      "id": "derecho-administrativo-general-05",
+      "areaId": "derecho-administrativo-general",
+      "label": "Tema 5 · Recursos administrativos y jurisdicción contencioso-administrativa"
+    },
+    {
+      "id": "materias-especificas-01",
+      "areaId": "materias-especificas",
+      "label": "Tema 1 · Sistema fiscal y Hacienda estatal, autonómica y local"
+    },
+    {
+      "id": "materias-especificas-02",
+      "areaId": "materias-especificas",
+      "label": "Tema 2 · Agencia Estatal de Administración Tributaria"
+    },
+    {
+      "id": "materias-especificas-03",
+      "areaId": "materias-especificas",
+      "label": "Tema 3 · Derecho Tributario, tributos y obligación tributaria"
+    },
+    {
+      "id": "materias-especificas-04",
+      "areaId": "materias-especificas",
+      "label": "Tema 4 · Obligados tributarios, representación, domicilio y prescripción"
+    },
+    {
+      "id": "materias-especificas-05",
+      "areaId": "materias-especificas",
+      "label": "Tema 5 · Información, procedimientos comunes, prueba y notificaciones"
+    },
+    {
+      "id": "materias-especificas-06",
+      "areaId": "materias-especificas",
+      "label": "Tema 6 · Declaraciones, autoliquidaciones y pagos a cuenta"
+    },
+    {
+      "id": "materias-especificas-07",
+      "areaId": "materias-especificas",
+      "label": "Tema 7 · Gestión tributaria"
+    },
+    {
+      "id": "materias-especificas-08",
+      "areaId": "materias-especificas",
+      "label": "Tema 8 · Inspección tributaria"
+    },
+    {
+      "id": "materias-especificas-09",
+      "areaId": "materias-especificas",
+      "label": "Tema 9 · Pago, aplazamiento y fraccionamiento"
+    },
+    {
+      "id": "materias-especificas-10",
+      "areaId": "materias-especificas",
+      "label": "Tema 10 · Compensación, condonación e insolvencia"
+    },
+    {
+      "id": "materias-especificas-11",
+      "areaId": "materias-especificas",
+      "label": "Tema 11 · Recaudación, período ejecutivo y apremio"
+    },
+    {
+      "id": "materias-especificas-12",
+      "areaId": "materias-especificas",
+      "label": "Tema 12 · Embargo, enajenación, responsables y sucesores"
+    },
+    {
+      "id": "materias-especificas-13",
+      "areaId": "materias-especificas",
+      "label": "Tema 13 · Potestad sancionadora tributaria"
+    },
+    {
+      "id": "materias-especificas-14",
+      "areaId": "materias-especificas",
+      "label": "Tema 14 · Revisión tributaria y reclamaciones económico-administrativas"
+    },
+    {
+      "id": "materias-especificas-15",
+      "areaId": "materias-especificas",
+      "label": "Tema 15 · IRPF: sujeción y clases de rendimientos y ganancias"
+    },
+    {
+      "id": "materias-especificas-16",
+      "areaId": "materias-especificas",
+      "label": "Tema 16 · IRPF: bases, cálculo, tributación familiar y gestión"
+    },
+    {
+      "id": "materias-especificas-17",
+      "areaId": "materias-especificas",
+      "label": "Tema 17 · Impuesto sobre Sociedades"
+    },
+    {
+      "id": "materias-especificas-18",
+      "areaId": "materias-especificas",
+      "label": "Tema 18 · IVA: hecho imponible, exenciones y lugar de realización"
+    },
+    {
+      "id": "materias-especificas-19",
+      "areaId": "materias-especificas",
+      "label": "Tema 19 · IVA: sujetos pasivos, devengo, base, deducciones y devoluciones"
+    },
+    {
+      "id": "materias-especificas-20",
+      "areaId": "materias-especificas",
+      "label": "Tema 20 · Aduanas y Código Aduanero de la Unión"
+    }
+  ],
+  "norms": [
+    {
+      "id": "constitucion-espanola",
+      "label": "Constitución Española",
+      "shortLabel": "CE"
+    },
+    {
+      "id": "reglamento-congreso",
+      "label": "Reglamento del Congreso de los Diputados"
+    },
+    {
+      "id": "ley-organica-2-1979",
+      "label": "Ley Orgánica 2/1979, del Tribunal Constitucional",
+      "shortLabel": "LOTC"
+    },
+    {
+      "id": "ley-organica-6-1985",
+      "label": "Ley Orgánica 6/1985, del Poder Judicial",
+      "shortLabel": "LOPJ"
+    },
+    {
+      "id": "ley-50-1997",
+      "label": "Ley 50/1997, del Gobierno"
+    },
+    {
+      "id": "ley-40-2015",
+      "label": "Ley 40/2015, de Régimen Jurídico del Sector Público",
+      "shortLabel": "LRJSP"
+    },
+    {
+      "id": "ley-7-1985",
+      "label": "Ley 7/1985, Reguladora de las Bases del Régimen Local",
+      "shortLabel": "LRBRL"
+    },
+    {
+      "id": "tratado-union-europea",
+      "label": "Tratado de la Unión Europea",
+      "shortLabel": "TUE"
+    },
+    {
+      "id": "tratado-funcionamiento-ue",
+      "label": "Tratado de Funcionamiento de la Unión Europea",
+      "shortLabel": "TFUE"
+    },
+    {
+      "id": "protocolo-6-sedes-ue",
+      "label": "Protocolo n.º 6 sobre las sedes de las instituciones de la UE"
+    },
+    {
+      "id": "ley-39-2015",
+      "label": "Ley 39/2015, del Procedimiento Administrativo Común",
+      "shortLabel": "LPAC"
+    },
+    {
+      "id": "real-decreto-203-2021",
+      "label": "Real Decreto 203/2021, de actuación y funcionamiento electrónico"
+    },
+    {
+      "id": "ley-19-2013",
+      "label": "Ley 19/2013, de transparencia, acceso a la información y buen gobierno"
+    },
+    {
+      "id": "ley-29-1998",
+      "label": "Ley 29/1998, reguladora de la Jurisdicción Contencioso-Administrativa",
+      "shortLabel": "LJCA"
+    },
+    {
+      "id": "ley-organica-1-2004",
+      "label": "Ley Orgánica 1/2004, de protección integral contra la violencia de género"
+    },
+    {
+      "id": "ley-organica-3-2007",
+      "label": "Ley Orgánica 3/2007, para la igualdad efectiva de mujeres y hombres"
+    },
+    {
+      "id": "ley-39-2006",
+      "label": "Ley 39/2006, de promoción de la autonomía personal y atención a la dependencia"
+    },
+    {
+      "id": "real-decreto-legislativo-1-2013",
+      "label": "Real Decreto Legislativo 1/2013, Ley General de derechos de las personas con discapacidad"
+    },
+    {
+      "id": "real-decreto-legislativo-5-2015",
+      "label": "Real Decreto Legislativo 5/2015, Estatuto Básico del Empleado Público",
+      "shortLabel": "TREBEP"
+    },
+    {
+      "id": "ley-53-1984",
+      "label": "Ley 53/1984, de incompatibilidades del personal al servicio de las Administraciones Públicas"
+    },
+    {
+      "id": "ley-organica-2-2012",
+      "label": "Ley Orgánica 2/2012, de Estabilidad Presupuestaria y Sostenibilidad Financiera"
+    },
+    {
+      "id": "ley-5-2020",
+      "label": "Ley 5/2020, del Impuesto sobre las Transacciones Financieras"
+    },
+    {
+      "id": "ley-31-1990",
+      "label": "Ley 31/1990, de Presupuestos Generales del Estado para 1991"
+    },
+    {
+      "id": "resolucion-aeat-13-01-2021",
+      "label": "Resolución de 13 de enero de 2021 de la Presidencia de la AEAT"
+    },
+    {
+      "id": "orden-aeat-02-06-1994",
+      "label": "Orden de 2 de junio de 1994 sobre la estructura de la AEAT"
+    },
+    {
+      "id": "orden-pre-3581-2007",
+      "label": "Orden PRE/3581/2007, sobre departamentos de la AEAT"
+    },
+    {
+      "id": "real-decreto-1676-2009",
+      "label": "Real Decreto 1676/2009, por el que se regula el Consejo para la Defensa del Contribuyente"
+    },
+    {
+      "id": "ley-58-2003",
+      "label": "Ley 58/2003, General Tributaria",
+      "shortLabel": "LGT"
+    },
+    {
+      "id": "real-decreto-1065-2007",
+      "label": "Real Decreto 1065/2007, Reglamento General de gestión e inspección tributaria",
+      "shortLabel": "RGAT"
+    },
+    {
+      "id": "real-decreto-939-2005",
+      "label": "Real Decreto 939/2005, Reglamento General de Recaudación",
+      "shortLabel": "RGR"
+    },
+    {
+      "id": "real-decreto-1619-2012",
+      "label": "Real Decreto 1619/2012, Reglamento de facturación"
+    },
+    {
+      "id": "orden-eha-586-2011",
+      "label": "Orden EHA/586/2011, modelo 111"
+    },
+    {
+      "id": "ley-1-2000",
+      "label": "Ley 1/2000, de Enjuiciamiento Civil",
+      "shortLabel": "LEC"
+    },
+    {
+      "id": "ley-hipotecaria",
+      "label": "Ley Hipotecaria"
+    },
+    {
+      "id": "ley-35-2006",
+      "label": "Ley 35/2006, del Impuesto sobre la Renta de las Personas Físicas",
+      "shortLabel": "LIRPF"
+    },
+    {
+      "id": "real-decreto-439-2007",
+      "label": "Real Decreto 439/2007, Reglamento del IRPF",
+      "shortLabel": "RIRPF"
+    },
+    {
+      "id": "ley-27-2014",
+      "label": "Ley 27/2014, del Impuesto sobre Sociedades",
+      "shortLabel": "LIS"
+    },
+    {
+      "id": "ley-37-1992",
+      "label": "Ley 37/1992, del Impuesto sobre el Valor Añadido",
+      "shortLabel": "LIVA"
+    },
+    {
+      "id": "real-decreto-1624-1992",
+      "label": "Real Decreto 1624/1992, Reglamento del IVA",
+      "shortLabel": "RIVA"
+    },
+    {
+      "id": "real-decreto-legislativo-5-2004",
+      "label": "Real Decreto Legislativo 5/2004, Ley del Impuesto sobre la Renta de no Residentes",
+      "shortLabel": "LIRNR"
+    },
+    {
+      "id": "ley-38-1992",
+      "label": "Ley 38/1992, de Impuestos Especiales",
+      "shortLabel": "LIIEE"
+    },
+    {
+      "id": "real-decreto-1165-1995",
+      "label": "Real Decreto 1165/1995, Reglamento de los Impuestos Especiales",
+      "shortLabel": "RIIEE"
+    },
+    {
+      "id": "ley-7-2022",
+      "label": "Ley 7/2022, de residuos y suelos contaminados para una economía circular"
+    },
+    {
+      "id": "ley-38-2022",
+      "label": "Ley 38/2022, de gravámenes temporales y solidaridad de las grandes fortunas"
+    },
+    {
+      "id": "ley-22-2009",
+      "label": "Ley 22/2009, de financiación de las Comunidades Autónomas"
+    },
+    {
+      "id": "real-decreto-legislativo-2-2004",
+      "label": "Real Decreto Legislativo 2/2004, Ley Reguladora de las Haciendas Locales",
+      "shortLabel": "TRLRHL"
+    },
+    {
+      "id": "real-decreto-ley-20-2022",
+      "label": "Real Decreto-ley 20/2022"
+    },
+    {
+      "id": "reglamento-ue-952-2013",
+      "label": "Reglamento (UE) 952/2013, Código Aduanero de la Unión",
+      "shortLabel": "CAU"
+    }
+  ]
+}

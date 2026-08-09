@@ -4,7 +4,9 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import bankMetadata from "./data/bank-metadata.json";
 import explanationData from "./data/explanations.json";
 import legalVerificationData from "./data/legal-verification.json";
+import questionTaxonomyData from "./data/question-taxonomy.json";
 import questionData from "./data/questions.json";
+import taxonomyData from "./data/taxonomy.json";
 import {
   createProgressBackup,
   createProgressCache,
@@ -17,11 +19,28 @@ import {
   proportionalScoreOutOfTen,
   timeLimitMillisecondsFor,
 } from "./lib/scoring";
+import {
+  DAILY_QUESTION_TARGET,
+  buildGamificationSummary,
+  localDateKey,
+} from "./lib/gamification";
 
 type OptionKey = "A" | "B" | "C" | "D";
 type AnswerStatus = "correct" | "incorrect" | "blank";
-type TestMode = "standard" | "review";
+type TestMode = "standard" | "review" | "daily";
+type ContentType = "all" | "topic" | "norm";
 type Stage = "setup" | "dashboard" | "quiz" | "results";
+
+type ContentSelection = {
+  type: ContentType;
+  id: string | null;
+  label: string | null;
+};
+
+type TaxonomyArea = { id: string; label: string };
+type TaxonomyTopic = { id: string; areaId: string; label: string };
+type TaxonomyNorm = { id: string; label: string; shortLabel?: string };
+type QuestionTaxonomy = { topicId: string; normIds: string[] };
 
 type Question = {
   id: string;
@@ -58,6 +77,8 @@ type TestResult = {
   scoreOutOfTen: number;
   durationMs: number;
   timeLimitMs: number;
+  mode: TestMode;
+  content: ContentSelection;
   items: ReviewItem[];
 };
 
@@ -78,6 +99,10 @@ type Attempt = {
   directScore: number;
   durationMs: number | null;
   timeLimitMs: number | null;
+  studyDate: string;
+  contentType: ContentType;
+  contentId: string | null;
+  contentLabel: string | null;
 };
 
 type AttemptSubmission = Attempt & { items: AttemptItem[] };
@@ -92,9 +117,23 @@ type QuestionStat = {
   latestStatus: AnswerStatus;
 };
 
+type DailyActivity = {
+  studyDate: string;
+  totalTests: number;
+  totalQuestions: number;
+};
+
+type ProgressSettings = {
+  weeklyGoal: number;
+  gamificationEnabled: boolean;
+  updatedAt: number | null;
+};
+
 type ProgressData = {
   attempts: Attempt[];
   questionStats: QuestionStat[];
+  dailyActivity: DailyActivity[];
+  settings: ProgressSettings;
   summary: {
     totalTests: number;
     totalQuestions: number;
@@ -132,6 +171,22 @@ const EXPLANATIONS = explanationData as Record<string, QuestionExplanation>;
 const HISTORICAL_ONLY = legalVerificationData.historicalOnly as Record<string, string>;
 const SOURCE_PENDING = legalVerificationData.sourcePending as Record<string, string>;
 const TRACEABLE_EXPLANATIONS = legalVerificationData.coveredByLibrary + legalVerificationData.checkedWithExternalOfficialSources;
+const TAXONOMY = taxonomyData as {
+  areas: TaxonomyArea[];
+  topics: TaxonomyTopic[];
+  norms: TaxonomyNorm[];
+};
+const QUESTION_TAXONOMY = questionTaxonomyData as Record<string, QuestionTaxonomy>;
+const TOPIC_QUESTIONS = new Map(TAXONOMY.topics.map((topic) => [
+  topic.id,
+  QUESTIONS.filter((question) => QUESTION_TAXONOMY[question.id]?.topicId === topic.id),
+]));
+const NORM_QUESTIONS = new Map(TAXONOMY.norms.map((norm) => [
+  norm.id,
+  QUESTIONS.filter((question) => QUESTION_TAXONOMY[question.id]?.normIds.includes(norm.id)),
+]));
+const AVAILABLE_TOPICS = TAXONOMY.topics.filter((topic) => (TOPIC_QUESTIONS.get(topic.id)?.length ?? 0) > 0);
+const AVAILABLE_NORMS = TAXONOMY.norms.filter((norm) => (NORM_QUESTIONS.get(norm.id)?.length ?? 0) > 0);
 const OPTION_KEYS: OptionKey[] = ["A", "B", "C", "D"];
 const PRESETS = [10, 20, 40, 80];
 const PROFILE_STORAGE_KEY = "entrena-ahp-progress-key";
@@ -141,10 +196,13 @@ const MAX_BACKUP_FILE_BYTES = 5 * 1024 * 1024;
 const PROGRESS_API_META_NAME = "entrena-ahp-progress-api";
 const DEFAULT_PROGRESS_API_ENDPOINT = "/api/progress";
 const PROFILE_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
+const ALL_CONTENT: ContentSelection = { type: "all", id: null, label: null };
 
 const EMPTY_PROGRESS: ProgressData = {
   attempts: [],
   questionStats: [],
+  dailyActivity: [],
+  settings: { weeklyGoal: 4, gamificationEnabled: true, updatedAt: null },
   summary: { totalTests: 0, totalQuestions: 0, correct: 0, incorrect: 0, blank: 0, directScore: 0 },
 };
 
@@ -171,29 +229,60 @@ function nullableMillisecondsFrom(value: unknown): number | null {
 function normalizeProgress(value: unknown): ProgressData {
   const raw = (value && typeof value === "object" ? value : {}) as Record<string, unknown>;
   const rawSummary = (raw.summary && typeof raw.summary === "object" ? raw.summary : {}) as Record<string, unknown>;
+  const rawSettings = (raw.settings && typeof raw.settings === "object" ? raw.settings : {}) as Record<string, unknown>;
   const rawAttempts = Array.isArray(raw.attempts) ? raw.attempts : [];
   const rawStats = Array.isArray(raw.questionStats) ? raw.questionStats : [];
+  const rawDailyActivity = Array.isArray(raw.dailyActivity) ? raw.dailyActivity : [];
+
+  const attempts = rawAttempts.map((entry): Attempt => {
+    const item = entry as Record<string, unknown>;
+    const total = numberFrom(item.total);
+    const completedAt = numberFrom(item.completedAt);
+    const durationMs = nullableMillisecondsFrom(item.durationMs);
+    const timeLimitMs = nullableMillisecondsFrom(item.timeLimitMs);
+    const hasValidTiming = durationMs !== null && timeLimitMs === timeLimitMillisecondsFor(total);
+    const isScoped = (item.contentType === "topic" || item.contentType === "norm")
+      && typeof item.contentId === "string"
+      && typeof item.contentLabel === "string";
+    return {
+      id: String(item.id ?? ""),
+      completedAt,
+      mode: item.mode === "review" || item.mode === "daily" ? item.mode : "standard",
+      total,
+      correct: numberFrom(item.correct),
+      incorrect: numberFrom(item.incorrect),
+      blank: numberFrom(item.blank),
+      directScore: numberFrom(item.directScore),
+      durationMs: hasValidTiming ? durationMs : null,
+      timeLimitMs: hasValidTiming ? timeLimitMs : null,
+      studyDate: typeof item.studyDate === "string" && /^\d{4}-\d{2}-\d{2}$/.test(item.studyDate)
+        ? item.studyDate
+        : localDateKey(completedAt),
+      contentType: isScoped ? item.contentType as "topic" | "norm" : "all",
+      contentId: isScoped ? String(item.contentId) : null,
+      contentLabel: isScoped ? String(item.contentLabel) : null,
+    };
+  });
+
+  const dailyActivity = rawDailyActivity.length
+    ? rawDailyActivity.map((entry): DailyActivity => {
+        const item = entry as Record<string, unknown>;
+        return {
+          studyDate: String(item.studyDate ?? ""),
+          totalTests: numberFrom(item.totalTests),
+          totalQuestions: numberFrom(item.totalQuestions),
+        };
+      }).filter((item) => /^\d{4}-\d{2}-\d{2}$/.test(item.studyDate))
+    : [...attempts.reduce((days, attempt) => {
+        const current = days.get(attempt.studyDate) ?? { studyDate: attempt.studyDate, totalTests: 0, totalQuestions: 0 };
+        current.totalTests += 1;
+        current.totalQuestions += attempt.total;
+        days.set(attempt.studyDate, current);
+        return days;
+      }, new Map<string, DailyActivity>()).values()];
 
   return {
-    attempts: rawAttempts.map((entry) => {
-      const item = entry as Record<string, unknown>;
-      const total = numberFrom(item.total);
-      const durationMs = nullableMillisecondsFrom(item.durationMs);
-      const timeLimitMs = nullableMillisecondsFrom(item.timeLimitMs);
-      const hasValidTiming = durationMs !== null && timeLimitMs === timeLimitMillisecondsFor(total);
-      return {
-        id: String(item.id ?? ""),
-        completedAt: numberFrom(item.completedAt),
-        mode: item.mode === "review" ? "review" : "standard",
-        total,
-        correct: numberFrom(item.correct),
-        incorrect: numberFrom(item.incorrect),
-        blank: numberFrom(item.blank),
-        directScore: numberFrom(item.directScore),
-        durationMs: hasValidTiming ? durationMs : null,
-        timeLimitMs: hasValidTiming ? timeLimitMs : null,
-      };
-    }),
+    attempts,
     questionStats: rawStats.map((entry) => {
       const item = entry as Record<string, unknown>;
       const latestStatus = item.latestStatus === "correct" || item.latestStatus === "incorrect" ? item.latestStatus : "blank";
@@ -207,6 +296,14 @@ function normalizeProgress(value: unknown): ProgressData {
         latestStatus,
       };
     }),
+    dailyActivity,
+    settings: {
+      weeklyGoal: Number.isInteger(rawSettings.weeklyGoal) && Number(rawSettings.weeklyGoal) >= 1 && Number(rawSettings.weeklyGoal) <= 7
+        ? Number(rawSettings.weeklyGoal)
+        : 4,
+      gamificationEnabled: rawSettings.gamificationEnabled !== false,
+      updatedAt: nullableMillisecondsFrom(rawSettings.updatedAt),
+    },
     summary: {
       totalTests: numberFrom(rawSummary.totalTests),
       totalQuestions: numberFrom(rawSummary.totalQuestions),
@@ -227,7 +324,8 @@ function readCachedProgress(profileKey: string): CachedProgressData | null {
   try {
     const serialized = localStorage.getItem(progressCacheKey(profileKey));
     if (!serialized) return null;
-    return parseProgressCache(serialized, ANSWERS_BY_QUESTION) as CachedProgressData | null;
+    const parsed = parseProgressCache(serialized, ANSWERS_BY_QUESTION) as CachedProgressData | null;
+    return parsed ? { ...parsed, progress: normalizeProgress(parsed.progress) } : null;
   } catch {
     return null;
   }
@@ -280,9 +378,21 @@ function applyAttempt(
     stats.set(item.questionId, current);
   }
 
+  const activity = new Map(previous.dailyActivity.map((day) => [day.studyDate, { ...day }]));
+  const activeDay = activity.get(attempt.studyDate) ?? {
+    studyDate: attempt.studyDate,
+    totalTests: 0,
+    totalQuestions: 0,
+  };
+  activeDay.totalTests += 1;
+  activeDay.totalQuestions += attempt.total;
+  activity.set(attempt.studyDate, activeDay);
+
   return {
     attempts: [attempt, ...previous.attempts].slice(0, 100),
     questionStats: [...stats.values()].sort((a, b) => b.incorrectCount - a.incorrectCount || b.lastSeen - a.lastSeen),
+    dailyActivity: [...activity.values()].sort((a, b) => a.studyDate.localeCompare(b.studyDate)),
+    settings: previous.settings,
     summary: {
       totalTests: previous.summary.totalTests + 1,
       totalQuestions: previous.summary.totalQuestions + attempt.total,
@@ -326,7 +436,7 @@ function readPendingAttempts(): PendingAttempt[] {
         typeof attempt === "object" &&
         typeof attempt.id === "string" &&
         typeof attempt.completedAt === "number" &&
-        (attempt.mode === "standard" || attempt.mode === "review") &&
+        (attempt.mode === "standard" || attempt.mode === "review" || attempt.mode === "daily") &&
         typeof attempt.total === "number" &&
         typeof attempt.correct === "number" &&
         typeof attempt.incorrect === "number" &&
@@ -406,6 +516,16 @@ async function postAttempt(profileKey: string, attempt: AttemptSubmission) {
   if (!response.ok) throw new Error("No se pudo guardar el intento");
 }
 
+async function patchProgressSettings(profileKey: string, settings: Pick<ProgressSettings, "weeklyGoal" | "gamificationEnabled">) {
+  const response = await fetch(progressApiEndpoint(), {
+    method: "PATCH",
+    headers: { "content-type": "application/json", "x-progress-key": profileKey },
+    body: JSON.stringify({ settings }),
+  });
+  if (!response.ok) throw new Error("No se pudieron guardar las preferencias");
+  return response.json() as Promise<{ settings?: ProgressSettings }>;
+}
+
 async function flushPendingAttempts(): Promise<boolean> {
   const pending = readPendingAttempts();
   let failed = 0;
@@ -438,6 +558,22 @@ function formatDate(value: number) {
   }).format(new Date(value));
 }
 
+function formatStudyDay(value: string) {
+  const date = new Date(`${value}T12:00:00`);
+  return {
+    weekday: new Intl.DateTimeFormat("es-ES", { weekday: "short" }).format(date).replace(".", ""),
+    day: new Intl.DateTimeFormat("es-ES", { day: "numeric" }).format(date),
+  };
+}
+
+function attemptTitle(attempt: Attempt) {
+  if (attempt.mode === "daily") return "Práctica de hoy";
+  if (attempt.mode === "review") return "Repaso de preguntas falladas";
+  if (attempt.contentType === "topic") return `Test temático · ${attempt.contentLabel}`;
+  if (attempt.contentType === "norm") return `Práctica normativa · ${attempt.contentLabel}`;
+  return "Test aleatorio";
+}
+
 function scrollToTop() {
   window.requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: "smooth" }));
 }
@@ -454,8 +590,11 @@ function Brand() {
 export default function Home() {
   const [stage, setStage] = useState<Stage>("setup");
   const [questionCount, setQuestionCount] = useState(20);
+  const [contentType, setContentType] = useState<ContentType>("all");
+  const [contentId, setContentId] = useState("");
   const [reviewCount, setReviewCount] = useState(10);
   const [quizMode, setQuizMode] = useState<TestMode>("standard");
+  const [quizContent, setQuizContent] = useState<ContentSelection>(ALL_CONTENT);
   const [quizQuestions, setQuizQuestions] = useState<Question[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [answers, setAnswers] = useState<Record<string, OptionKey>>({});
@@ -466,6 +605,7 @@ export default function Home() {
   const [profileKey, setProfileKey] = useState(getOrCreateProfileKey);
   const [profileInput, setProfileInput] = useState("");
   const [profileMessage, setProfileMessage] = useState("");
+  const [settingsMessage, setSettingsMessage] = useState("");
   const [initialCache] = useState<CachedProgressData | null>(() => profileKey ? readCachedProgress(profileKey) : null);
   const [progressData, setProgressData] = useState<ProgressData>(initialCache?.progress ?? EMPTY_PROGRESS);
   const [syncState, setSyncState] = useState<"loading" | "ready" | "offline" | "local">(
@@ -529,6 +669,34 @@ export default function Home() {
     () => Object.entries(bankMetadata.countsByYear) as [string, number][],
     [],
   );
+  const selectedContent = useMemo<ContentSelection>(() => {
+    if (contentType === "all") return ALL_CONTENT;
+    const catalog = contentType === "topic" ? AVAILABLE_TOPICS : AVAILABLE_NORMS;
+    const selected = catalog.find((item) => item.id === contentId) ?? catalog[0];
+    return selected
+      ? { type: contentType, id: selected.id, label: selected.label }
+      : ALL_CONTENT;
+  }, [contentId, contentType]);
+  const availableQuestions = useMemo(() => {
+    if (selectedContent.type === "topic" && selectedContent.id) {
+      return TOPIC_QUESTIONS.get(selectedContent.id) ?? [];
+    }
+    if (selectedContent.type === "norm" && selectedContent.id) {
+      return NORM_QUESTIONS.get(selectedContent.id) ?? [];
+    }
+    return QUESTIONS;
+  }, [selectedContent]);
+  const availablePresets = useMemo(() => {
+    const maximum = availableQuestions.length;
+    const presets = PRESETS.filter((preset) => preset <= maximum);
+    if (maximum > 0 && !presets.includes(maximum) && (maximum < 80 || presets.length === 0)) presets.push(maximum);
+    return [...new Set(presets)].sort((left, right) => left - right);
+  }, [availableQuestions.length]);
+
+  useEffect(() => {
+    setQuestionCount((current) => Math.max(1, Math.min(availableQuestions.length || 1, current)));
+  }, [availableQuestions.length]);
+
   const weakQuestions = useMemo(
     () => progressData.questionStats
       .filter((stat) => stat.incorrectCount > 0 && stat.latestStatus !== "correct")
@@ -536,6 +704,37 @@ export default function Home() {
       .filter((item): item is { stat: QuestionStat; question: Question } => Boolean(item.question)),
     [progressData.questionStats],
   );
+  const topicProgress = useMemo(() => {
+    const statsByQuestion = new Map(progressData.questionStats.map((stat) => [stat.questionId, stat]));
+    return TAXONOMY.topics.map((topic) => {
+      const questions = TOPIC_QUESTIONS.get(topic.id) ?? [];
+      const practiced = questions.filter((question) => (statsByQuestion.get(question.id)?.attempts ?? 0) > 0);
+      const totals = practiced.reduce((summary, question) => {
+        const stat = statsByQuestion.get(question.id);
+        if (!stat) return summary;
+        summary.correct += stat.correctCount;
+        summary.answered += stat.correctCount + stat.incorrectCount;
+        return summary;
+      }, { correct: 0, answered: 0 });
+      return {
+        ...topic,
+        totalQuestions: questions.length,
+        practicedQuestions: practiced.length,
+        accuracy: totals.answered ? (totals.correct / totals.answered) * 100 : null,
+      };
+    });
+  }, [progressData.questionStats]);
+  const coveredTopics = topicProgress.filter((topic) => topic.practicedQuestions > 0).length;
+  const gamification = useMemo(() => buildGamificationSummary({
+    attempts: progressData.dailyActivity.map((day) => ({
+      studyDate: day.studyDate,
+      total: day.totalQuestions,
+    })),
+    totalTestsCompleted: progressData.summary.totalTests,
+    totalQuestionsCompleted: progressData.summary.totalQuestions,
+    questionStats: progressData.questionStats,
+    topicCoverage: { coveredTopics, totalTopics: AVAILABLE_TOPICS.length },
+  }), [coveredTopics, progressData.dailyActivity, progressData.questionStats, progressData.summary.totalQuestions, progressData.summary.totalTests]);
 
   async function requestProgress(key: string): Promise<ProgressData> {
     const response = await fetch(progressApiEndpoint(), { headers: { "x-progress-key": key } });
@@ -579,7 +778,23 @@ export default function Home() {
     volatilePending.current.unshift(...volatileRemaining);
 
     try {
-      const remote = preserveLocalTimings(await requestProgress(key), cached?.progress);
+      const fetched = await requestProgress(key);
+      const localSettings = cached?.progress.settings;
+      if (
+        localSettings?.updatedAt &&
+        (!fetched.settings.updatedAt || localSettings.updatedAt > fetched.settings.updatedAt)
+      ) {
+        try {
+          const response = await patchProgressSettings(key, {
+            weeklyGoal: localSettings.weeklyGoal,
+            gamificationEnabled: localSettings.gamificationEnabled,
+          });
+          if (response.settings) fetched.settings = response.settings;
+        } catch {
+          fetched.settings = localSettings;
+        }
+      }
+      const remote = preserveLocalTimings(fetched, cached?.progress);
       if (syncRequest.current !== requestId) return;
       const remoteIds = new Set(cached?.appliedAttemptIds ?? []);
       remote.attempts.forEach((attempt) => remoteIds.add(attempt.id));
@@ -609,9 +824,17 @@ export default function Home() {
     }
   }
 
-  function startQuiz(pool: Question[], count: number, mode: TestMode) {
+  function chooseContentType(nextType: ContentType) {
+    setContentType(nextType);
+    if (nextType === "topic") setContentId(AVAILABLE_TOPICS[0]?.id ?? "");
+    if (nextType === "norm") setContentId(AVAILABLE_NORMS[0]?.id ?? "");
+    if (nextType === "all") setContentId("");
+  }
+
+  function startQuiz(pool: Question[], count: number, mode: TestMode, content: ContentSelection = ALL_CONTENT) {
     const selectedCount = Math.max(1, Math.min(pool.length, Math.floor(count)));
     setQuizMode(mode);
+    setQuizContent(content);
     setQuizQuestions(shuffled(pool).slice(0, selectedCount));
     setAnswers({});
     setCurrentIndex(0);
@@ -626,14 +849,47 @@ export default function Home() {
   }
 
   function startTest() {
-    const selectedCount = Math.max(1, Math.min(QUESTIONS.length, Math.floor(questionCount)));
+    const selectedCount = Math.max(1, Math.min(availableQuestions.length, Math.floor(questionCount)));
     setQuestionCount(selectedCount);
-    startQuiz(QUESTIONS, selectedCount, "standard");
+    startQuiz(availableQuestions, selectedCount, "standard", selectedContent);
   }
 
   function startReviewTest() {
     if (weakQuestions.length === 0) return;
     startQuiz(weakQuestions.map((item) => item.question), Math.min(reviewCount, weakQuestions.length), "review");
+  }
+
+  function startDailyPractice() {
+    const statsByQuestion = new Map(progressData.questionStats.map((stat) => [stat.questionId, stat]));
+    const pendingMistakes = shuffled(weakQuestions.map((item) => item.question));
+    const unseen = shuffled(QUESTIONS.filter((question) => !statsByQuestion.has(question.id)));
+    const seen = shuffled(QUESTIONS.filter((question) => statsByQuestion.has(question.id)));
+    const unique = new Map<string, Question>();
+    [...pendingMistakes, ...unseen, ...seen].forEach((question) => unique.set(question.id, question));
+    startQuiz([...unique.values()].slice(0, DAILY_QUESTION_TARGET), DAILY_QUESTION_TARGET, "daily");
+  }
+
+  function prepareTopicTest(topicId: string) {
+    setContentType("topic");
+    setContentId(topicId);
+    setQuestionCount(Math.min(20, TOPIC_QUESTIONS.get(topicId)?.length ?? 20));
+    resetTest();
+  }
+
+  async function updateProgressSettings(next: Pick<ProgressSettings, "weeklyGoal" | "gamificationEnabled">) {
+    const previous = progressData.settings;
+    const optimistic = { ...previous, ...next, updatedAt: Date.now() };
+    setSettingsMessage("Guardando…");
+    setProgressData((current) => ({ ...current, settings: optimistic }));
+    try {
+      const response = await patchProgressSettings(profileKey, next);
+      const saved = response.settings ? normalizeProgress({ settings: response.settings }).settings : optimistic;
+      setProgressData((current) => ({ ...current, settings: saved }));
+      setSettingsMessage("Preferencias guardadas.");
+    } catch {
+      setProgressData((current) => ({ ...current, settings: previous }));
+      setSettingsMessage("No se pudieron guardar. Inténtalo de nuevo cuando tengas conexión.");
+    }
   }
 
   function chooseAnswer(questionId: string, option: OptionKey) {
@@ -662,7 +918,7 @@ export default function Home() {
     const durationMs = Math.max(0, completedAt - (quizStartedAt.current ?? completedAt));
     const timeLimitMs = timeLimitMillisecondsFor(quizQuestions.length);
     const evaluated = evaluateTest(quizQuestions, answers) as Omit<TestResult, "durationMs" | "timeLimitMs">;
-    const timedResult: TestResult = { ...evaluated, durationMs, timeLimitMs };
+    const timedResult: TestResult = { ...evaluated, durationMs, timeLimitMs, mode: quizMode, content: quizContent };
     const key = profileKey || crypto.randomUUID();
     if (!profileKey) {
       try {
@@ -683,6 +939,10 @@ export default function Home() {
       directScore: evaluated.directScore,
       durationMs,
       timeLimitMs,
+      studyDate: localDateKey(completedAt),
+      contentType: quizContent.type,
+      contentId: quizContent.id,
+      contentLabel: quizContent.label,
       items: evaluated.items.map((item) => ({
         questionId: item.question.id,
         selectedOption: item.selectedOption,
@@ -831,6 +1091,7 @@ export default function Home() {
         await file.text(),
         ANSWERS_BY_QUESTION,
       ) as unknown as ProgressBackupData;
+      parsed.progress = normalizeProgress(parsed.progress);
       const key = parsed.profileKey;
       const existing = readCachedProgress(key);
       const keepExisting = Boolean(
@@ -914,6 +1175,10 @@ export default function Home() {
 
         <main className="quiz-main">
           {quizMode === "review" && <div className="mode-chip">Repaso de preguntas falladas</div>}
+          {quizMode === "daily" && <div className="mode-chip daily-chip">Práctica de hoy · 20 preguntas</div>}
+          {quizMode === "standard" && quizContent.label && (
+            <div className="mode-chip">{quizContent.type === "topic" ? "Test temático" : "Práctica normativa"} · {quizContent.label}</div>
+          )}
           <section className="question-card" aria-labelledby="question-title">
             <div className="question-meta">
               <span className="source-chip">Convocatoria {currentQuestion.year}</span>
@@ -983,7 +1248,8 @@ export default function Home() {
 
         <main className="results-main">
           <section className="results-hero">
-            <div className="results-kicker">Resultado del test</div>
+            <div className="results-kicker">{result.mode === "daily" ? "Resultado de la práctica de hoy" : result.mode === "review" ? "Resultado del repaso" : "Resultado del test"}</div>
+            {result.content.label && <div className="result-scope">{result.content.type === "topic" ? "Tema" : "Normativa"}: {result.content.label}</div>}
             <div className="result-heading-row">
               <div>
                 <h1 className="focus-heading" ref={pageHeading} tabIndex={-1}>{result.correct} de {result.total} correctas</h1>
@@ -1012,6 +1278,20 @@ export default function Home() {
               <div><span>Tiempo empleado</span><strong>{formatDuration(result.durationMs / 1_000)}</strong></div>
               <div><span>Tiempo máximo proporcional</span><strong>{formatDuration(result.timeLimitMs / 1_000)}</strong></div>
             </div>
+
+            {progressData.settings.gamificationEnabled && (
+              <div className={`result-day-progress ${gamification.today.goalMet ? "is-complete" : ""}`}>
+                <div>
+                  <span>Constancia de hoy</span>
+                  <strong>{gamification.today.goalMet
+                    ? "Sesión diaria completada"
+                    : `${Math.min(gamification.today.questionsCompleted, DAILY_QUESTION_TARGET)} de ${DAILY_QUESTION_TARGET} preguntas`}</strong>
+                </div>
+                <div className="daily-progress-track" role="progressbar" aria-label="Preguntas completadas hoy" aria-valuemin={0} aria-valuemax={DAILY_QUESTION_TARGET} aria-valuenow={Math.min(gamification.today.questionsCompleted, DAILY_QUESTION_TARGET)}>
+                  <span style={{ width: `${Math.min(100, (gamification.today.questionsCompleted / DAILY_QUESTION_TARGET) * 100)}%` }} />
+                </div>
+              </div>
+            )}
           </section>
 
           <section className="review-section" aria-labelledby="review-title">
@@ -1074,6 +1354,11 @@ export default function Home() {
     const answeredForAccuracy = progressData.summary.correct + progressData.summary.incorrect;
     const accuracy = answeredForAccuracy ? (progressData.summary.correct / answeredForAccuracy) * 100 : 0;
     const reviewSize = weakQuestions.length ? Math.min(reviewCount, weakQuestions.length) : 0;
+    const practicedTopics = [...topicProgress]
+      .filter((topic) => topic.practicedQuestions > 0)
+      .sort((left, right) => right.practicedQuestions - left.practicedQuestions || left.label.localeCompare(right.label))
+      .slice(0, 6);
+    const unlockedAchievements = gamification.achievements.filter((achievement: { unlocked: boolean }) => achievement.unlocked).length;
 
     return (
       <div className="app-shell dashboard-shell">
@@ -1088,6 +1373,66 @@ export default function Home() {
         <main className="dashboard-main">
           <section className="dashboard-hero">
             <div><span className="eyebrow">Panel de estudio</span><h1 className="focus-heading" ref={pageHeading} tabIndex={-1}>Tu progreso, de un vistazo.</h1><p>El historial identifica las preguntas que conviene volver a practicar.</p></div>
+          </section>
+
+          <section className={`panel-card motivation-panel ${progressData.settings.gamificationEnabled ? "" : "is-disabled"}`} aria-labelledby="motivation-title">
+            {progressData.settings.gamificationEnabled ? (
+              <>
+                <div className="motivation-heading">
+                  <div><span className="eyebrow">Tu constancia</span><h2 id="motivation-title">Un hábito serio, sin presión.</h2></div>
+                  <button className="button button-quiet" type="button" onClick={() => void updateProgressSettings({ gamificationEnabled: false, weeklyGoal: progressData.settings.weeklyGoal })}>Ocultar motivación</button>
+                </div>
+                <div className="motivation-grid">
+                  <div className="today-practice">
+                    <div className="today-practice-copy">
+                      <span>Práctica de hoy</span>
+                      <strong>{Math.min(gamification.today.questionsCompleted, DAILY_QUESTION_TARGET)} de {DAILY_QUESTION_TARGET}</strong>
+                      <p>{gamification.today.goalMet
+                        ? "Has completado la sesión diaria. Puedes seguir practicando si te apetece."
+                        : `${gamification.today.remainingQuestions} preguntas para completar el día.`}</p>
+                    </div>
+                    <div className="daily-progress-track" role="progressbar" aria-label="Progreso de la práctica de hoy" aria-valuemin={0} aria-valuemax={DAILY_QUESTION_TARGET} aria-valuenow={Math.min(gamification.today.questionsCompleted, DAILY_QUESTION_TARGET)}>
+                      <span style={{ width: `${Math.min(100, (gamification.today.questionsCompleted / DAILY_QUESTION_TARGET) * 100)}%` }} />
+                    </div>
+                    <button className="button button-primary" type="button" onClick={startDailyPractice}>{gamification.today.goalMet ? "Otra práctica de 20 preguntas" : "Practicar 20 preguntas"}</button>
+                  </div>
+
+                  <div className="streak-summary" aria-label="Resumen de rachas">
+                    <div><span>Racha actual</span><strong>{gamification.streaks.currentStreak}</strong><small>{gamification.streaks.currentStreak === 1 ? "día" : "días"}</small></div>
+                    <div><span>Mejor racha</span><strong>{gamification.streaks.bestStreak}</strong><small>{gamification.streaks.bestStreak === 1 ? "día" : "días"}</small></div>
+                    <div><span>Objetivo semanal</span><strong>{Math.min(gamification.currentWeek.completedDays, progressData.settings.weeklyGoal)}/{progressData.settings.weeklyGoal}</strong><small>días completos</small></div>
+                  </div>
+
+                  <div className="study-week">
+                    <div className="study-week-heading"><span>Esta semana</span><strong>{gamification.currentWeek.completedDays >= progressData.settings.weeklyGoal ? "Objetivo completado" : `${gamification.currentWeek.completedDays} de ${progressData.settings.weeklyGoal} días`}</strong></div>
+                    <div className="week-days">
+                      {gamification.currentWeek.days.map((day: { studyDate: string; totalQuestions: number; goalMet: boolean }) => {
+                        const formatted = formatStudyDay(day.studyDate);
+                        const isToday = day.studyDate === gamification.today.studyDate;
+                        return (
+                          <div className={`${day.goalMet ? "is-complete" : ""} ${isToday ? "is-today" : ""}`} key={day.studyDate} aria-label={`${formatted.weekday} ${formatted.day}: ${day.totalQuestions} preguntas${day.goalMet ? ", día completado" : ""}`}>
+                            <span>{formatted.weekday}</span>
+                            <strong>{day.goalMet ? "✓" : formatted.day}</strong>
+                          </div>
+                        );
+                      })}
+                    </div>
+                    <label className="weekly-goal-control" htmlFor="weekly-goal">
+                      <span>Meta semanal</span>
+                      <select id="weekly-goal" value={progressData.settings.weeklyGoal} onChange={(event) => void updateProgressSettings({ weeklyGoal: Number(event.target.value), gamificationEnabled: true })}>
+                        {[1, 2, 3, 4, 5, 6, 7].map((days) => <option value={days} key={days}>{days} {days === 1 ? "día" : "días"}</option>)}
+                      </select>
+                    </label>
+                    {settingsMessage && <p className="settings-message" role="status" aria-live="polite">{settingsMessage}</p>}
+                  </div>
+                </div>
+              </>
+            ) : (
+              <div className="motivation-disabled-copy">
+                <div><span className="eyebrow">Motivación opcional</span><h2 id="motivation-title">La racha y los logros están ocultos.</h2><p>Tu actividad sigue formando parte del historial; puedes volver a mostrarla cuando quieras.</p>{settingsMessage && <p className="settings-message" role="status" aria-live="polite">{settingsMessage}</p>}</div>
+                <button className="button button-quiet" type="button" onClick={() => void updateProgressSettings({ gamificationEnabled: true, weeklyGoal: progressData.settings.weeklyGoal })}>Mostrar motivación</button>
+              </div>
+            )}
           </section>
 
           <section className="metrics-grid" aria-label="Resumen de progreso">
@@ -1130,7 +1475,7 @@ export default function Home() {
                   {progressData.attempts.slice(0, 8).map((attempt) => (
                     <article className="history-item" key={attempt.id}>
                       <div>
-                        <strong>{attempt.mode === "review" ? "Repaso" : "Test aleatorio"}</strong>
+                        <strong>{attemptTitle(attempt)}</strong>
                         <span>{formatDate(attempt.completedAt)} · {attempt.total} preguntas</span>
                         <span>{attempt.durationMs !== null && attempt.timeLimitMs !== null
                           ? `${formatDuration(attempt.durationMs / 1_000)} empleados · máximo ${formatDuration(attempt.timeLimitMs / 1_000)}`
@@ -1145,6 +1490,42 @@ export default function Home() {
                 </div>
               )}
             </section>
+          </div>
+
+          <div className={`learning-grid ${progressData.settings.gamificationEnabled ? "" : "single"}`}>
+            <section className="panel-card topic-progress-panel" aria-labelledby="topic-progress-title">
+              <div className="panel-heading"><div><span className="eyebrow">Cobertura del temario</span><h2 id="topic-progress-title">Progreso por temas</h2></div><span className="coverage-count">{coveredTopics}/{AVAILABLE_TOPICS.length}</span></div>
+              {practicedTopics.length === 0 ? (
+                <div className="empty-dashboard"><p>Cuando completes un test, aquí verás qué temas has practicado.</p></div>
+              ) : (
+                <div className="topic-progress-list">
+                  {practicedTopics.map((topic) => {
+                    const coverage = topic.totalQuestions ? (topic.practicedQuestions / topic.totalQuestions) * 100 : 0;
+                    return (
+                      <article className="topic-progress-item" key={topic.id}>
+                        <div className="topic-progress-copy"><strong>{topic.label}</strong><span>{topic.practicedQuestions} de {topic.totalQuestions} preguntas · {topic.accuracy === null ? "sin precisión disponible" : `${formatPercent(topic.accuracy)}% de aciertos`}</span></div>
+                        <div className="topic-progress-bar" aria-hidden="true"><span style={{ width: `${coverage}%` }} /></div>
+                        <button className="button button-quiet" type="button" onClick={() => prepareTopicTest(topic.id)}>Practicar</button>
+                      </article>
+                    );
+                  })}
+                </div>
+              )}
+            </section>
+
+            {progressData.settings.gamificationEnabled && (
+              <section className="panel-card achievements-panel" aria-labelledby="achievements-title">
+                <div className="panel-heading"><div><span className="eyebrow">Hitos de estudio</span><h2 id="achievements-title">Logros</h2></div><span className="coverage-count">{unlockedAchievements}/{gamification.achievements.length}</span></div>
+                <div className="achievements-grid">
+                  {gamification.achievements.map((achievement: { id: string; title: string; description: string; unlocked: boolean; progress: number; target: number }) => (
+                    <article className={`achievement-card ${achievement.unlocked ? "is-unlocked" : ""}`} key={achievement.id}>
+                      <span className="achievement-mark" aria-hidden="true">{achievement.unlocked ? "✓" : "·"}</span>
+                      <div><strong>{achievement.title}</strong><p>{achievement.description}</p><small>{achievement.unlocked ? "Conseguido" : `${achievement.progress} de ${achievement.target}`}</small></div>
+                    </article>
+                  ))}
+                </div>
+              </section>
+            )}
           </div>
 
           <section className="panel-card profile-panel" aria-labelledby="profile-title">
@@ -1188,14 +1569,51 @@ export default function Home() {
           </div>
 
           <section className="setup-card" aria-labelledby="setup-title">
-            <div className="setup-card-heading"><span className="step-label">Configura tu test</span><h2 id="setup-title">¿Cuántas preguntas quieres responder?</h2></div>
+            <div className="setup-card-heading"><span className="step-label">Configura tu test</span><h2 id="setup-title">Elige qué quieres practicar.</h2></div>
+            <fieldset className="content-filter">
+              <legend>Contenido</legend>
+              <div className="content-mode-buttons">
+                <button type="button" className={contentType === "all" ? "is-active" : ""} aria-pressed={contentType === "all"} onClick={() => chooseContentType("all")}>Todo el temario</button>
+                <button type="button" className={contentType === "topic" ? "is-active" : ""} aria-pressed={contentType === "topic"} onClick={() => chooseContentType("topic")}>Por tema</button>
+                <button type="button" className={contentType === "norm" ? "is-active" : ""} aria-pressed={contentType === "norm"} onClick={() => chooseContentType("norm")}>Por normativa</button>
+              </div>
+              {contentType === "topic" && (
+                <label className="content-select" htmlFor="topic-select">
+                  <span>Tema oficial</span>
+                  <select id="topic-select" value={selectedContent.id ?? ""} onChange={(event) => setContentId(event.target.value)}>
+                    {TAXONOMY.areas.map((area) => (
+                      <optgroup label={area.label} key={area.id}>
+                        {TAXONOMY.topics.filter((topic) => topic.areaId === area.id).map((topic) => (
+                          <option value={topic.id} key={topic.id} disabled={(TOPIC_QUESTIONS.get(topic.id)?.length ?? 0) === 0}>{topic.label} · {TOPIC_QUESTIONS.get(topic.id)?.length ?? 0}</option>
+                        ))}
+                      </optgroup>
+                    ))}
+                  </select>
+                </label>
+              )}
+              {contentType === "norm" && (
+                <label className="content-select" htmlFor="norm-select">
+                  <span>Normativa</span>
+                  <select id="norm-select" value={selectedContent.id ?? ""} onChange={(event) => setContentId(event.target.value)}>
+                    {AVAILABLE_NORMS.map((norm) => (
+                      <option value={norm.id} key={norm.id}>{norm.label} · {NORM_QUESTIONS.get(norm.id)?.length ?? 0}</option>
+                    ))}
+                  </select>
+                </label>
+              )}
+              <p className="content-availability">
+                <strong>{availableQuestions.length}</strong> preguntas disponibles
+                {selectedContent.label ? <> · {selectedContent.label}</> : " en todo el banco"}
+              </p>
+            </fieldset>
+            <div className="question-count-heading"><span>Número de preguntas</span></div>
             <div className="preset-grid" aria-label="Cantidades rápidas">
-              {PRESETS.map((preset) => <button className={`preset-button ${questionCount === preset ? "is-active" : ""}`} type="button" key={preset} onClick={() => setQuestionCount(preset)}>{preset}</button>)}
+              {availablePresets.map((preset) => <button className={`preset-button ${questionCount === preset ? "is-active" : ""}`} type="button" key={preset} onClick={() => setQuestionCount(preset)}>{preset}</button>)}
             </div>
-            <label className="count-control" htmlFor="question-count"><span>Número personalizado</span><input id="question-count" type="number" min="1" max={QUESTIONS.length} value={questionCount} onChange={(event) => setQuestionCount(Math.max(1, Math.min(QUESTIONS.length, Number(event.target.value) || 1)))} /></label>
-            <input className="count-range" type="range" min="1" max={QUESTIONS.length} value={questionCount} aria-label="Número de preguntas" onChange={(event) => setQuestionCount(Number(event.target.value))} />
-            <div className="range-labels" aria-hidden="true"><span>1</span><span>{QUESTIONS.length}</span></div>
-            <button className="button button-primary button-large start-button" type="button" onClick={startTest}>Comenzar test de {questionCount} preguntas</button>
+            <label className="count-control" htmlFor="question-count"><span>Número personalizado</span><input id="question-count" type="number" min="1" max={availableQuestions.length} value={questionCount} onChange={(event) => setQuestionCount(Math.max(1, Math.min(availableQuestions.length, Number(event.target.value) || 1)))} /></label>
+            <input className="count-range" type="range" min="1" max={availableQuestions.length} value={questionCount} aria-label="Número de preguntas" onChange={(event) => setQuestionCount(Number(event.target.value))} />
+            <div className="range-labels" aria-hidden="true"><span>1</span><span>{availableQuestions.length}</span></div>
+            <button className="button button-primary button-large start-button" type="button" onClick={startTest}>Comenzar test de {questionCount} preguntas{selectedContent.type === "topic" ? " del tema" : selectedContent.type === "norm" ? " de la norma" : ""}</button>
             <p className="setup-note">Tiempo máximo proporcional: {formatDuration(timeLimitMillisecondsFor(questionCount) / 1_000)}. Podrás consultarlo durante el test; no habrá avisos ni cierre automático.</p>
           </section>
         </section>
@@ -1203,6 +1621,7 @@ export default function Home() {
         <section className="details-section">
           <article className="detail-card scoring-card"><span className="detail-index">01</span><div><span className="eyebrow">Corrección oficial</span><h2>Penalización oficial y nota proporcional.</h2><div className="formula-visual" aria-label="Acierto más uno, error menos cero coma veinticinco, blanco cero"><span className="formula-good">+1 <small>acierto</small></span><span className="formula-bad">−0,25 <small>error</small></span><span className="formula-neutral">0 <small>en blanco</small></span></div><p>La puntuación directa se convierte linealmente a una nota sobre 10 según el tamaño del test. Es una referencia de práctica; el Tribunal fija su transformación y la nota de corte.</p></div></article>
           <article className="detail-card source-card"><span className="detail-index">02</span><div><span className="eyebrow">Trazabilidad</span><h2>Sabes de dónde sale cada pregunta.</h2><div className="year-grid">{yearSummary.map(([year, count]) => <div key={year}><strong>{year}</strong><span>{count} válidas</span></div>)}</div><p>La revisión muestra convocatoria, número original y una explicación razonada. Todas las plantillas utilizadas tienen carácter definitivo, incluida la de 2022. Auditoría normativa a {legalVerificationData.verifiedAt.split("-").reverse().join("/")}: fuente trazable en {TRACEABLE_EXPLANATIONS} de {legalVerificationData.questionsReviewed} explicaciones; la excepción pendiente y las reglas históricas se advierten expresamente.</p></div></article>
+          <article className="detail-card motivation-detail"><span className="detail-index">03</span><div><span className="eyebrow">Constancia sin presión</span><h2>Práctica de hoy, racha y logros.</h2><p>La Racha actual solo avanza al completar la unidad mínima de estudio: 20 preguntas para completar el día. El panel muestra la semana, permite fijar una meta y reconoce Logros de constancia, cobertura y errores corregidos, sin premiar la rapidez.</p></div></article>
         </section>
       </main>
 
