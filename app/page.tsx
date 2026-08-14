@@ -13,6 +13,7 @@ import {
   parseProgressBackup,
   parseProgressCache,
 } from "./lib/progress-backup";
+import { toggleAnswerSelection } from "./lib/quiz-answers";
 import {
   evaluateTest,
   formatDuration,
@@ -918,6 +919,13 @@ export default function Home() {
     setFinishPrompt(false);
   }
 
+  function clearRepeatedAnswer(questionId: string, option: OptionKey) {
+    setAnswers((previous) => previous[questionId] === option
+      ? toggleAnswerSelection(previous, questionId, option)
+      : previous);
+    setFinishPrompt(false);
+  }
+
   function moveTo(index: number) {
     setCurrentIndex(Math.max(0, Math.min(quizQuestions.length - 1, index)));
     setFinishPrompt(false);
@@ -1208,7 +1216,7 @@ export default function Home() {
             <h1 className="focus-heading" id="question-title" ref={pageHeading} tabIndex={-1}>{currentQuestion.prompt}</h1>
 
             <fieldset className="options-list">
-              <legend className="sr-only">Elige una respuesta</legend>
+              <legend className="sr-only">Elige una respuesta. Pulsa de nuevo la opción seleccionada para dejarla en blanco.</legend>
               {OPTION_KEYS.map((key) => (
                 <label className={`option-card ${selectedOption === key ? "is-selected" : ""}`} key={key}>
                   <input
@@ -1216,7 +1224,8 @@ export default function Home() {
                     name={`answer-${currentQuestion.id}`}
                     value={key}
                     checked={selectedOption === key}
-                    onChange={() => chooseAnswer(currentQuestion.id, key)}
+                    onClick={() => clearRepeatedAnswer(currentQuestion.id, key)}
+                    onChange={() => selectedOption !== key && chooseAnswer(currentQuestion.id, key)}
                   />
                   <span className="option-key" aria-hidden="true">{key}</span>
                   <span className="option-text">{currentQuestion.options[key]}</span>

@@ -1,4 +1,4 @@
-const CACHE_NAME = "entrena-ahp-v7";
+const CACHE_NAME = "entrena-ahp-v8";
 const BASE_URL = new URL("./", self.registration.scope);
 const APP_SHELL = ["", "manifest.webmanifest", "icon-192.png", "icon-512.png"].map((path) =>
   new URL(path, BASE_URL).toString(),
